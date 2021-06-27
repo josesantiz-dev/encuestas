@@ -5,7 +5,6 @@ var id = url.get('id');
 var plataforma = url.get('p');
 var usuario = url.get('u');
 data_datos.push({id:id,plataforma:plataforma,usuario:usuario});
-
 $(document).ready(function(){
     
     var current_fs, next_fs, previous_fs; //fieldsets
@@ -126,7 +125,7 @@ function optionSelected(answer){
 function guardarDatos(){
     const respuestas_preguntas = JSON.stringify(data_respuestas);
     const datos_usuario = JSON.stringify(data_datos);
-    let url = base_url+"/Home/recRespuestasPreguntas?res="+respuestas_preguntas+"&dat="+datos_usuario;
+    let url = base_url+"/Home/recRespuestasHeteroevaluacionAlumno?res="+respuestas_preguntas+"&dat="+datos_usuario;
     fetch(url)
             .then(res => res.json())
             .then((out) => {

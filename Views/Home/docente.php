@@ -62,7 +62,7 @@
                             <p class="card-text">El siguiente cuestionario tiene la finalidad de detectar las necesidades de capacitación que los
                             docentes de la Universidad IESSIC y es fundamental para que la oferta de cursos sea diseñado para cubrir las necesidades.</p>
                             <div class="text-center">
-                                <a href="autoevaluacion?u=<?php echo $data['username'] ?>&id=<?php echo $data['datos']['userid'] ?>&n=<?php echo($data['datos']['nombre'].' '.$data['datos']['apellidos'])?>$id=<?php echo $data['id_bd_docente'][0]['id'] ?>" class="btn btn-primary">Ir a la Encuesta</a>
+                                <a href="autoevaluacion?u=<?php echo $data['username'] ?>&id=<?php echo $data['datos']['userid'] ?>&n=<?php echo($data['datos']['nombre'].' '.$data['datos']['apellidos'])?>&idbd=<?php echo $data['id_bd_docente'][0]['id'] ?>" class="btn btn-primary">Ir a la Encuesta</a>
                             </div>    
                         </div>
                     </div>
@@ -70,11 +70,12 @@
                     <div class="card">
                         <h5 class="card-header bg-danger">HETEROEVALUACION</h5>
                         <div class="card-body">
+                            <h2>DIDACTICA DE LA LECTURA COMPRENSIVA</h2 >
                             <h5 class="card-title">DESEMPEÑO DEL CURSO DE CAPACITACION</h5>
                             <p class="card-text">El siguiente cuestionario tiene la finalidad de evaluar el desempeño del curl_setopt
                             de capacitacion y actualizacion impartido a los docentes de la Universidad IESSIC.</p>
                             <div class="text-center">
-                                <a href="heteroevaluacion?u=<?php echo $data['username'] ?>&id=<?php echo $data['datos']['userid'] ?>&n=<?php echo($data['datos']['nombre'].' '.$data['datos']['apellidos'])?>$id=<?php echo $data['id_bd_docente'][0]['id'] ?>" class="btn btn-primary">Ir a la Encuesta</a>
+                                <a href="heteroevaluacion?u=<?php echo $data['username'] ?>&id=<?php echo $data['datos']['userid'] ?>&n=<?php echo($data['datos']['nombre'].' '.$data['datos']['apellidos'])?>&idbd=<?php echo $data['id_bd_docente'][0]['id'] ?>" class="btn btn-primary">Ir a la Encuesta</a>
                             </div>    
                         </div>
                     </div>

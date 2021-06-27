@@ -52,8 +52,18 @@
             </div>
             <div class="content">
                 <div class="container" id="container">
-                    <div class="text-center">
-                        <h1>HETEROEVALUACION DOCENTE</h1>
+                    <div class="text-center col-md-12 row">
+                        <div class="col-md-2 d-none d-sm-block">
+                            <img src="<?php echo media();?>/images/jorge_eliezer.jpg" style="max-width:100%"></img>
+                        </div>
+                        <div class="col-md-8">
+                            <h2 class="text-center">HETEROEVALUACION DOCENTE</h2>
+                            <div class="text-center"><h2>Tema:<b>DIDACTICA DE LA LECTURA COMPRENSIVA</b></h2></div>
+                            <div class="text-center"><h4><strong>Docente: </strong>Jorge Eliezer Gomez Lopez</h4></div><br>
+                        </div>
+                        <div class="col-md-2 d-none d-sm-block">
+                            <img src="<?php echo media();?>/images/bandera-colombia-copia1.jpeg" style="max-width:100%"></img>
+                        </div>
                     </div>
                     <div class="card">
                         <h5 class="card-header">CALIDAD DEL DESEMPEÑO DOCENTE EN LAS AREAS</h5>
@@ -132,19 +142,15 @@
                                                             <div class="que_text "><span><?php echo($data['preguntas'][$i]['nom_pr']);?></span></div>
                                                             <div class="option_list col-md-5 col-sm-12">
                                                                 <div class="option" id = "<?php  echo($data['preguntas'][$i]['id_pr']); ?>+0" onclick="optionSelected(this)" >
-                                                                    <!--<input type="radio" name="a"> -->
                                                                     <span>Excelente</span>
                                                                 </div>
                                                                 <div class="option" id = "<?php  echo($data['preguntas'][$i]['id_pr']); ?>+1" onclick="optionSelected(this)">
-                                                                    <!--<input type="radio" name="a"> -->
                                                                     <span>Muy Bien</span>
                                                                 </div>
                                                                 <div class="option" id = "<?php  echo($data['preguntas'][$i]['id_pr']); ?>+2" onclick="optionSelected(this)">
-                                                                    <!--<input type="radio" name="a"> -->
                                                                     <span>Aceptable</span>
                                                                 </div>
                                                                 <div class="option" id = "<?php  echo($data['preguntas'][$i]['id_pr']); ?>+3" onclick="optionSelected(this)">
-                                                                    <!--<input type="radio" name="a"> -->
                                                                     <span>Necesita Mejorar</span>
                                                                 </div>
                                                             </div>

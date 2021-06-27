@@ -1,8 +1,4 @@
-document.addEventListener('DOMContentLoaded', function(){
-    console.log("Password");
-    verPassword();
-});
-
+/* Funcion para ver Password en el Login */
 function verPassword(){
     $(document).ready(function(){
         $('#customControlInline').click(function(){

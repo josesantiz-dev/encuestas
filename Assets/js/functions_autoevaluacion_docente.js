@@ -4,7 +4,7 @@ let url = new URLSearchParams(location.search);
 var u = url.get('u');
 var id_p = url.get('id');
 var nom = url.get('n');
-var idbd = url.get('id');
+var idbd = url.get('idbd');
 data_datos.push({u:u,id_p:id_p,name:nom,idbd:idbd});
 
 $(document).ready(function(){
@@ -127,7 +127,7 @@ function optionSelected(answer){
 function guardarDatos(){
     const respuestas_preguntas = JSON.stringify(data_respuestas);
     const datos_usuario = JSON.stringify(data_datos);
-    let url = base_url+"/Home/recRespuestasPreguntas?res="+respuestas_preguntas+"&dat="+datos_usuario;
+    let url = base_url+"/Home/recRespuestasAutoevaluacionDocente?res="+respuestas_preguntas+"&dat="+datos_usuario;
     fetch(url)
             .then(res => res.json())
             .then((out) => {

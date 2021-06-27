@@ -85,12 +85,12 @@
                                                                 <?php
                                                                     if($data['status'][$materia['id_course']] != 0){
                                                                         ?>
-                                                                            <td><a href="evaluacion?id=<?php echo($materia['id_course']);?>&p=<?php echo($data['plataforma']);?>&u=<?php echo(base64_encode($data['username'])); ?>" class="btn btn-default disabled">   Encuesta   </a></td>
+                                                                            <td><a href="heteroevaluacion_alumno?id=<?php echo($materia['id_course']);?>&p=<?php echo($data['plataforma']);?>&u=<?php echo(base64_encode($data['username'])); ?>" class="btn btn-default disabled">   Encuesta   </a></td>
                                                                         <?php
 
                                                                     }else{
                                                                         ?>
-                                                                        <td><a href="evaluacion?id=<?php echo($materia['id_course']);?>&p=<?php echo($data['plataforma']);?>&u=<?php echo(base64_encode($data['username'])); ?>" class="btn btn-success">   Encuesta   </a></td>
+                                                                        <td><a href="heteroevaluacion_alumno?id=<?php echo($materia['id_course']);?>&p=<?php echo($data['plataforma']);?>&u=<?php echo(base64_encode($data['username'])); ?>" class="btn btn-success">   Encuesta   </a></td>
 
                                                                         <?php
                                                                     }

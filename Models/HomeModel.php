@@ -71,6 +71,8 @@ class HomeModel extends Mysql
         }
         return $status;
     }
+
+    /* Guardar Datos de Materias en la BD */
     public function guardarMateriasBD($data){
         $plataforma = $data['plataforma'];
         foreach($data['materias'] as $materia){
@@ -82,7 +84,7 @@ class HomeModel extends Mysql
             $json = file_get_contents($URL);
             $request = json_decode($json, TRUE);
             $id_docente = $request[0]['id_user'];
-            
+          
             $sql_docente = "SELECT id FROM t_docente WHERE id_usuario_plataforma = '$id_docente' LIMIT 1";
             $request_docente = $this->select_all($sql_docente);
             $id_docente_bd = $request_docente[0]['id'];
@@ -90,23 +92,14 @@ class HomeModel extends Mysql
             $sql_exist = "SELECT id FROM t_materias WHERE id_curso_plataforma = '$id_course' AND id_docente = '$id_docente_bd' AND plataforma = '$plataforma' LIMIT 1";
             $req_exist = $this->select_all($sql_exist);
 
-          
-
             if(sizeof($req_exist) == 0){
                 $sql_materia = "INSERT INTO t_materias (id_curso_plataforma,id_docente,plataforma,nombre_materia,nombre_carrera) VALUES (?,?,?,?,?)";
                 $request_materia = $this->insert($sql_materia,array($id_course,$id_docente_bd,$plataforma,$course,$category));
-            }
-            
-            //var_dump($req_exist);
-            /*echo($id_course."<br>");
-            echo($id_docente_bd."<br>");
-            echo($plataforma."<br>");
-            echo($course."<br>");
-            echo($category."<br>");*/
-            
-            
+            }  
         }
     }
+
+    /* Guardar Docentes en BD */
     public function guardarDocenteBD($data){
         $plataforma = $data['plataforma'];
         $datos_materias;
@@ -130,33 +123,29 @@ class HomeModel extends Mysql
   
             $sql_docente= "INSERT INTO t_docente (id_usuario_plataforma,usuario_docente,nombre_docente,apellidos_docente) SELECT * FROM (SELECT $id_user,'$username','$nombre','$apellidos')
             AS doc WHERE NOT EXISTS (SELECT usuario_docente FROM t_docente WHERE usuario_docente = '$username') LIMIT 1";
-            $request_docente = $this->insert($sql_docente,array($id_user,$usernme,$nombre,$apellidos));
-                
-            }
-                       
+            $request_docente = $this->insert($sql_docente,array($id_user,$usernme,$nombre,$apellidos));  
+            }             
         }
        return $datos_materias;
-
     }
 
+    /* Guardar datos Docente en Evaluaciones (Heteroevaluacion y Autoevaluacion) */
     public function guardarDocenteEvBD($data){
         $id_username = $data['datos']['userid'];
         $username_docente = $data['username'];
         $nombre_docente = $data['datos']['nombre'];
         $apellidos_docente = $data['datos']['apellidos'];
-
-
         $sql_docente = "SELECT id FROM t_docente WHERE id_usuario_plataforma = '$id_username' LIMIT 1";
         $request_docente = $this->select_all($sql_docente);
-
         if(sizeof($request_docente) == 0){
             $sql = "INSERT INTO t_docente (id_usuario_plataforma,usuario_docente,nombre_docente,apellidos_docente) VALUES (?,?,?,?)";
             $request = $this->insert($sql,array($id_username,$username_docente,$nombre_docente,$apellidos_docente));
             return $request;
         }
         return $request_docente;
-
     }
+
+
     /*Consultar preguntas */
     public function consultarPreguntas(){
         $sql = "SELECT t_preguntas.id AS id_pr, t_preguntas.nombre_pregunta AS nom_pr, t_subcategoria_preguntas.id as id_sub,
@@ -185,7 +174,7 @@ class HomeModel extends Mysql
     }
     
     /*Guardar resultados Encuesta a la BD */
-    public function guardadResultadoEncuestaBD($data){
+    public function guardadResultadoHeteroevaluacionAlumnoBD($data){
         $resultado = "Enviado";
         $resultado_res = $data['res'];
         $id_materia = $data['dat'][0]['id'];
@@ -216,22 +205,47 @@ class HomeModel extends Mysql
         $resultado = "Enviado";
         $resultado_res = $data['res'];
         $resultado_dat = $data['dat'];
-        $usuario = $data['dat'][0]['u'];
-        $id_plataforma = $data['dat'][0]['id_p'];
-        $id_bd = $data['dat'][0]['id_bd'];
-        $resultados['0'] = '5';
-        $resultados['1'] = '6';
-        $resultados['2'] = '7';
-        $resultados['3'] = '8';
-        $resultados['4'] = '9';
+        $usuario = $resultado_dat[0]['u'];
+        $id_plataforma = $resultado_dat[0]['id_p'];
+        $id_bd = $resultado_dat[0]['idbd'];
+        $resultados;
+        $resultados['0'] = 5;
+        $resultados['1'] = 6;
+        $resultados['2'] = 7;
+        $resultados['3'] = 8;
+        $resultados['4'] = 9;
         foreach($data['res'] as $valores){
             $id_pregunta = $valores['id_pregunta'];
             $respuesta = $valores['respuesta'];
             $sql = "INSERT INTO t_respuestas_autoevaluacion_docente(id_encuesta,id_pregunta,id_docente,id_respuesta,estatus,duracion)
             VALUES (?,?,?,?,?,?)";
-            $this->insert($sql,array(1,10,$id_bd,2,1,100));
+            $this->insert($sql,array(1,$id_pregunta,$id_bd,$resultados[$respuesta],1,100));
         }
-        return $resultado_dat;
+        return $id_bd;
+
+    }
+
+     /*Guardar resultados HeteroevaluacionDocente a la BD */
+     public function guardadResultadoHeteroevaluacionDocenteBD($data){
+        $resultado = "Enviado";
+        $resultado_res = $data['res'];
+        $resultado_dat = $data['dat'];
+        $usuario = $resultado_dat[0]['u'];
+        $id_plataforma = $resultado_dat[0]['id_p'];
+        $id_bd = $resultado_dat[0]['idbd'];
+        $resultados;
+        $resultados['0'] = 10;
+        $resultados['1'] = 11;
+        $resultados['2'] = 12;
+        $resultados['3'] = 13;
+        foreach($data['res'] as $valores){
+            $id_pregunta = $valores['id_pregunta'];
+            $respuesta = $valores['respuesta'];
+            $sql = "INSERT INTO t_respuestas_heteroevaluacion_docente(id_curso,id_encuesta,id_pregunta,id_docente,id_respuesta,estatus,duracion)
+            VALUES (?,?,?,?,?,?,?)";
+            $this->insert($sql,array(1,5,$id_pregunta,$id_bd,$resultados[$respuesta],1,100));
+        }
+        return $resultado;
 
     }
 
@@ -244,7 +258,7 @@ class HomeModel extends Mysql
         t_preguntas.id_subcategoria  = t_subcategoria_preguntas.id
         INNER JOIN t_categorias_preguntas ON
         t_subcategoria_preguntas.id_categoria  = t_categorias_preguntas.id
-        WHERE t_preguntas.id_encuesta = 1 LIMIT 3";
+        WHERE t_preguntas.id_encuesta = 1";
 		$request = $this->select_all($sql);
 		return $request;
     }
@@ -258,112 +272,9 @@ class HomeModel extends Mysql
         t_preguntas.id_subcategoria  = t_subcategoria_preguntas.id
         INNER JOIN t_categorias_preguntas ON
         t_subcategoria_preguntas.id_categoria  = t_categorias_preguntas.id
-        WHERE t_preguntas.id_encuesta = 5";
+        WHERE t_preguntas.id_encuesta = 5 LIMIT 3";
 		$request = $this->select_all($sql);
 		return $request;
     }
-
-    /*Consultar subcategorias */
-  /*  public function consultarCategorias(){
-        $sql = "SELECT t_categorias_preguntas.id,t_categorias_preguntas.nombre_categoria FROM t_preguntas
-        INNER JOIN t_subcategoria_preguntas ON
-        t_preguntas.id_subcategoria = t_subcategoria_preguntas.id
-        INNER JOIN t_categorias_preguntas ON
-        t_subcategoria_preguntas.id_categoria = t_categorias_preguntas.id
-        GROUP BY t_categorias_preguntas.id,t_categorias_preguntas.nombre_categoria";
-		$request = $this->select_all($sql);
-		return $request;
-    }*/
-    /*Consultar subcategorias */
-   /* public function consultarSubcategorias(){
-        $sql = "SELECT  s.id,s.nombre_subcategoria FROM t_preguntas
-		INNER JOIN t_subcategoria_preguntas s
-		GROUP BY s.id,s.nombre_subcategoria";
-		$request = $this->select_all($sql);
-		return $request;
-    }*/
-     
-
-   /*public function setDatosUsuarioMaterias($data){
-        $username = $data['datosUsuario']['username'];
-        $plataforma = $data['datosUsuario']['plataforma'];
-        $student_firstname = "";
-        $student_lastname = "";
-        foreach($data['materias'] as $datos_materias){
-            $student_firstname = $datos_materias['student_firstname'];
-            $student_lastname = $datos_materias['student_lastname'];
-        }
-       // $sql_a = "INSERT INTO t_alumnos (nombre_usuario,nombre,apellidos) VALUES (?,?,?) WHERE NOT EXISTS (SELECT nombre_usuario FROM t_alumnos WHERE nombre_usuario = '$username')";
-        $sql_a = "INSERT IGNORE INTO t_alumnos (nombre_usuario,nombre,apellidos) VALUES (?,?,?)";
-        $request_alumno = $this->insert($sql_a,array($username,$student_firstname,$student_lastname));
-
-        foreach($data['materias'] as $datos_materias){
-            $id_course = $datos_materias['id_course'];
-            $fullname_course = $datos_materias['fullname_course'];
-            $category_course = $datos_materias['category_course'];
-            $sql = "INSERT INTO t_materias (id_curso_plataforma,plataforma,nombre_materia,nombre_carrera) VALUES (?,?,?,?)";
-            $request = $this->insert($sql,array($id_course,$plataforma,$fullname_course,$category_course));
-        }
-   }*/
-   /*
-   public function detDatosDocente($data){
-       $id_usuario = $data['datos_materia'][0]['id_user'];
-       $usuario_docente = $data['datos_materia'][0]['teacher_username'];
-       $nombre_docente = $data['datos_materia'][0]['teacher_firstname'];
-       $apellidos_docente = $data['datos_materia'][0]['teacher_lastname'];
-       $id_curso = $data['datos_materia'][0]['id_course'];
-       $sql = "INSERT INTO t_docente (id_usuario_plataforma,usuario_docente,nombre_docente,apellidos_docente) VALUES
-       (?,?,?,?)";
-       $this->insert($sql,array($id_usuario,$usuario_docente,$nombre_docente,$apellidos_docente));
-   }*/
-
-
-   /*public function detDatosEncuesta($data){
-       $id_materia = $data['id_materia'];
-       $id_docente = $data['datos_materia'][0]['teacher_username'];
-       $id_alumno = $data['usuario'];
-       $estatus = 0;
-       $sql_m = "SELECT id FROM t_materias WHERE id_curso_plataforma = $id_materia LIMIT 1";
-	   $request_m = $this->select_all($sql_m);
-       $sql_d = "SELECT id FROM t_docente WHERE usuario_docente = '$id_docente' LIMIT 1";
-	   $request_d = $this->select_all($sql_d);
-       $sql_a = "SELECT id FROM t_alumnos WHERE nombre_usuario = '$id_alumno' LIMIT 1";
-	   $request_a = $this->select_all($sql_a);
-
-        $materia = $request_m[0]['id'];
-        $docente = $request_d[0]['id'];
-        $alumno = $request_a[0]['id'];
-        $sql_e = "SELECT *FROM t_evaluacion WHERE id_materia = $materia AND id_docente = $docente
-        AND id_alumno = $alumno";
-        $request_e = $this->select_all($sql_e);
-        if(sizeof($request_e) == 0){
-            $sql = "INSERT INTO t_evaluacion (id_materia,id_docente,id_alumno,estatus)
-                VALUES (?,?,?,?)";
-             $this->insert($sql,array($materia,$docente,$alumno,$estatus));
-        }else{
-
-        }	
-   }*/
-
-   /*
-
-   public function consultarEstadoEvaluacion($data){
-       $username = $data['datosUsuario']['username'];
-       $datos;
-       foreach($data['materias'] as $materia){
-           $id_course = $materia['id_course'];
-           $sql_id_username = "SELECT id FROM t_alumnos WHERE nombre_usuario = '$username' ";
-           $request_id_username = $this->select_all($sql_id_username);
-           $sql_id_course = "SELECT id FROM t_materias WHERE id_curso_plataforma = $id_course";
-           $request_id_course = $this->select_all($sql_id_course);
-           $idUsername = $request_id_username[0]['id'];
-           $idCourse = $request_id_course[0]['id'];
-           
-           $sql_ev = "SELECT estatus FROM t_evaluacion WHERE id_materia = $idCourse AND id_alumno = $idUsername";
-           $request_env = $this->select_all($sql_ev);
-           $datos[$id_course] = $request_env[0]['estatus'];
-       }
-       return $datos;
-   }*/
 }
 ?>

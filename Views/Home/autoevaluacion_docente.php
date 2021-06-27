@@ -132,23 +132,18 @@
                                                             <div class="que_text "><span><?php echo($data['preguntas'][$i]['nom_pr']);?></span></div>
                                                             <div class="option_list col-md-5 col-sm-12">
                                                                 <div class="option" id = "<?php  echo($data['preguntas'][$i]['id_pr']); ?>+0" onclick="optionSelected(this)" >
-                                                                    <!--<input type="radio" name="a"> -->
                                                                     <span>Prioritario</span>
                                                                 </div>
                                                                 <div class="option" id = "<?php  echo($data['preguntas'][$i]['id_pr']); ?>+1" onclick="optionSelected(this)">
-                                                                    <!--<input type="radio" name="a"> -->
                                                                     <span>Alto</span>
                                                                 </div>
                                                                 <div class="option" id = "<?php  echo($data['preguntas'][$i]['id_pr']); ?>+2" onclick="optionSelected(this)">
-                                                                    <!--<input type="radio" name="a"> -->
                                                                     <span>Medio</span>
                                                                 </div>
                                                                 <div class="option" id = "<?php  echo($data['preguntas'][$i]['id_pr']); ?>+3" onclick="optionSelected(this)">
-                                                                    <!--<input type="radio" name="a"> -->
                                                                     <span>Bajo</span>
                                                                 </div>
                                                                 <div class="option" id = "<?php  echo($data['preguntas'][$i]['id_pr']); ?>+4" onclick="optionSelected(this)">
-                                                                    <!--<input type="radio" name="a"> -->
                                                                     <span>Necesita Mejorar</span>
                                                                 </div>
                                                             </div>
@@ -180,9 +175,6 @@
                             </form>
                         </div>                        
                     </div>
-                    
-                    <!--<a href="javascript:history.back()" class="btn btn-primary"> Volver Atrás</a>
-                    <a href="<?php echo BASE_URL; ?>" class="btn btn-primary">   Salir   </a>-->
                 </div>
             </div>
         </div>
