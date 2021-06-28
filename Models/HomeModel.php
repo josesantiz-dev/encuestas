@@ -154,7 +154,8 @@ class HomeModel extends Mysql
         INNER JOIN t_subcategoria_preguntas ON
         t_preguntas.id_subcategoria  = t_subcategoria_preguntas.id
         INNER JOIN t_categorias_preguntas ON
-        t_subcategoria_preguntas.id_categoria  = t_categorias_preguntas.id LIMIT 3";
+        t_subcategoria_preguntas.id_categoria  = t_categorias_preguntas.id
+        WHERE t_preguntas.id_encuesta = 2";
 		$request = $this->select_all($sql);
 		return $request;
     }
@@ -189,14 +190,19 @@ class HomeModel extends Mysql
         $id_usuario_bd = $req_user[0]['id'];
         $id_materia_bd = $req_mat[0]['id'];
         $id_docente_bd = $req_mat[0]['id_docente'];
+        $resultados;
+        $resultados['0'] = 1;
+        $resultados['1'] = 2;
+        $resultados['2'] = 3;
+        $resultados['3'] = 4;
         foreach($data['res'] as $valores){
             $id_pregunta = $valores['id_pregunta'];
             $respuesta = $valores['respuesta'];
             $sql = "INSERT INTO t_respuestas(id_encuesta,id_pregunta,id_materia,id_docente,id_alumno,id_opcion_respuesta,estatus,tiempo_dedicado)
             VALUES (?,?,?,?,?,?,?,?)";
-            $this->insert($sql,array(2,$id_pregunta,$id_materia_bd,$id_docente_bd,$id_usuario_bd,$respuesta,1,100));
+            $this->insert($sql,array(2,$id_pregunta,$id_materia_bd,$id_docente_bd,$id_usuario_bd,$resultados[$respuesta],1,100));
         }
-        return $resultado_res;
+        return $data;
 
 
     }
@@ -245,7 +251,7 @@ class HomeModel extends Mysql
             VALUES (?,?,?,?,?,?,?)";
             $this->insert($sql,array(1,5,$id_pregunta,$id_bd,$resultados[$respuesta],1,100));
         }
-        return $resultado;
+        return $data;
 
     }
 
@@ -272,7 +278,7 @@ class HomeModel extends Mysql
         t_preguntas.id_subcategoria  = t_subcategoria_preguntas.id
         INNER JOIN t_categorias_preguntas ON
         t_subcategoria_preguntas.id_categoria  = t_categorias_preguntas.id
-        WHERE t_preguntas.id_encuesta = 5 LIMIT 3";
+        WHERE t_preguntas.id_encuesta = 5 LIMIT 5";
 		$request = $this->select_all($sql);
 		return $request;
     }

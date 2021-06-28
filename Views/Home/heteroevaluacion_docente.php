@@ -59,7 +59,7 @@
                         <div class="col-md-8">
                             <h2 class="text-center">HETEROEVALUACION DOCENTE</h2>
                             <div class="text-center"><h2>Tema:<b>DIDACTICA DE LA LECTURA COMPRENSIVA</b></h2></div>
-                            <div class="text-center"><h4><strong>Docente: </strong>Jorge Eliezer Gomez Lopez</h4></div><br>
+                            <div class="text-center"><h4><strong>Ponente: </strong>Jorge Eliezer Gomez Lopez</h4></div><br>
                         </div>
                         <div class="col-md-2 d-none d-sm-block">
                             <img src="<?php echo media();?>/images/bandera-colombia-copia1.jpeg" style="max-width:100%"></img>

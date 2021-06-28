@@ -38,15 +38,15 @@
                         $data_materias['username'] = $username;
                         $data_materias['plataforma'] = $plataforma;
                         $data_materias['materias'] = $materias;
+                        /*Guardar Docente en la BD*/
+                        $this->model->guardarDocenteBD($data_materias);
                         /*guardar todas las materias en la _BD */
                         $this->model->guardarMateriasBD($data_materias);
-                        /*Guardar Docente en la BD*/
-                      //  $this->model->guardarDocenteBD($data_materias);
                         /* consultar el status de evaluacion de la materia */
-                      //  $status = $this->model->consultarStatusEncuestaMateria($data_materias);
-                      //  $data_materias['status'] = $status;
+                        $status = $this->model->consultarStatusEncuestaMateria($data_materias);
+                        $data_materias['status'] = $status;
                         /* Mostrar vista y enviar Array de datos de la Materias */
-                       // $data_materias['page_functions_js'] = "functions_alumno.js";
+                        $data_materias['page_functions_js'] = "functions_heteroevaluacion_alumno.js";
                         $this->views->getView($this,"Home/alumno",$data_materias);
 
                     }
