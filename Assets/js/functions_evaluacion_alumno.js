@@ -81,6 +81,7 @@ $(document).ready(function(){
                         if(result.isConfirmed){
                             history.go(-1);
                             
+                            
                         }
                     }) 
                 }

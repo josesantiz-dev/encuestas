@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="<?= media(); ?>/css/adminlte.min.css">
     <link rel="stylesheet" href="<?php echo media(); ?>/css/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    
 </head>
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">
@@ -34,7 +32,7 @@
                         </form>
                     </li>
                 </ul>      
-            </div>
+            </div>hjfuhdufhueuhfueufueuufuerfuhufu
         </nav>
         <div class="content-wrapper">
             <div class="content-header">

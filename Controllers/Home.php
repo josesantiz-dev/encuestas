@@ -6,13 +6,15 @@
 		{
 			parent::__construct();
 		}
-        //Funcion Principal */
+        
+        //Funcion Principal */uuuu
 		public function home(){
 			$data['page_tag'] = "Heteroevaluacion Docente _ SEUAT";
 			$data['page_title'] = "Encuestas SEUAT";
 			$data['page_name'] = "home";
 			$data['page_functions_js'] = "functions_home.js";
 			$this->views->getView($this,"Home/login",$data);
+
 		}
         //Funcion para consultar Tokem, Datos del Usuario y sus Materias */
         public function usuario(){
@@ -65,7 +67,9 @@
                     
                 }
             }else{
-				header("Location:".BASE_URL."?message=".base64_encode($token['error']));
+                $msessage = base64_encode($token['error']);
+				$this->exit($msessage);
+
             }
         }
 
@@ -142,8 +146,9 @@
         }
 
         /* funcion para Cerrar Sesion */
-        public function exit(){
-            header('Location:'.BASE_URL);
+        private function exit($msessage){
+            header("Location:".BASE_URL."?message=".$msessage);
+
         }
 	}
 ?>

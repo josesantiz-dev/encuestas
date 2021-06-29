@@ -1,5 +1,3 @@
-
-console.log(document.cookie);
 document.addEventListener('DOMContentLoaded', function(){
 
 	tableRoles = $('#tableAlumnos').dataTable( {
@@ -9,13 +7,13 @@ document.addEventListener('DOMContentLoaded', function(){
         	"url": " "+base_url+"/Assets/plugins/Spanish.json"
         },
         "ajax":{
-            "url": " "+base_url+"/Alumnos/getAlumnos",
+            "url": " "+base_url+"/Admin/getDocentes",
             "dataSrc":""
         },
         "columns":[
             {"data":"id"},
-            {"data":"nombrecompleto"},
-            {"data":"fecha"},
+            {"data":"nombre_docente"},
+            {"data":"apellidos_docente"},
             {"data":"options"}
         ],
         "responsive": true,
@@ -32,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function(){
 	    "iDisplayLength": 25
     });
 
-});
+	
 
+});
 $('#tableAlumnos').DataTable();

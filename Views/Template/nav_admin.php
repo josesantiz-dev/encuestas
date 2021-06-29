@@ -11,7 +11,7 @@
     </ul>
 
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
+   <!-- <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
               <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
                 <i class="align-middle" data-feather="settings"></i>
@@ -25,7 +25,7 @@
               </div>
             </li>
      
-    </ul>
+    </ul>-->
   </nav>
   <!-- /.navbar -->
 
@@ -33,7 +33,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <span class="brand-text font-weight-light">Heteroevaluacion Docente - SEUAT</span>
+      <span class="brand-text font-weight-light">Encuestas SEUAT</span>
     </a>
 
 
@@ -41,11 +41,26 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar nav-legacy text-sm nav-compact flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="alumnos" class="nav-link">
+            <a href="" class="nav-link">
               <i class="ml-3 mr-2" data-feather="users"></i>
               <p>
-                Estudiantes
-                <span class="right badge bg-primary">Nuevo</span>
+                Heteroevaluacion - Estudiantes  
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="ml-3 mr-2" data-feather="users"></i>
+              <p>
+                Heteroevaluacion - Docente  
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="ml-3 mr-2" data-feather="users"></i>
+              <p>
+                Autoevaluacion - Docente  
               </p>
             </a>
           </li>
