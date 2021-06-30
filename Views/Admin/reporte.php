@@ -16,16 +16,19 @@
 
 
             <div class="card">
+              <div class="text-center mt-4">
+                <a href="viewpdf?id=" target=”_blank”><button class="btn btn-primary btn-sm" title="">Ver Reporte General</button></a>              
+              </div>
               <div class="card-body">
-                <h3 class="card-title">Lista de Docentes</h3>
+                <h3 class="card-title">Lista de Materias</h3>
                 <p class="card-text">
                 <table id="tableAlumnos" class="table table-bordered table-striped table-sm">
                   <thead>
                   <tr>
                     <th width="7%">#</th>
-                    <th width="15%">Nombre</th>
-                    <th width="13%">Apellidos</th>
-                    <th width="15%">Opciones</th>
+                    <th width="10%">Nombre de la Materia</th>
+                    <th width="10%">Plataforma</th>
+                    <th width="10%">Acciones</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -40,8 +43,6 @@
       </div>
     </div>
   </div>
-
-
 </div>
 
 <?php footerAdmin($data); ?>

@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function(){
-
+	var url = new URLSearchParams(location.search);
+	var id = url.get('id');
 	tableRoles = $('#tableAlumnos').dataTable( {
 		"aProcessing":true,
 		"aServerSide":true,
@@ -7,14 +8,14 @@ document.addEventListener('DOMContentLoaded', function(){
         	"url": " "+base_url+"/Assets/plugins/Spanish.json"
         },
         "ajax":{
-            "url": " "+base_url+"/Admin/getDocentes",
+            "url": " "+base_url+"/Admin/getMaterias?id="+id,
             "dataSrc":""
         },
         "columns":[
-            {"data":"id"},
-            {"data":"nombre_docente"},
-            {"data":"apellidos_docente"},
-            {"data":"options"}
+            {"data":"id_materia"},
+			{"data":"nombre_materia"},
+			{"data":"plataforma"},
+			{"data":"options"}
         ],
         "responsive": true,
 	    "paging": true,
