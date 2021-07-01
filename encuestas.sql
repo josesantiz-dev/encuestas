@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 26-06-2021 a las 23:14:32
+-- Tiempo de generación: 01-07-2021 a las 17:52:05
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.3.27
 
@@ -33,14 +33,6 @@ CREATE TABLE `t_alumnos` (
   `nombre` varchar(100) DEFAULT NULL,
   `apellidos` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `t_alumnos`
---
-
-INSERT INTO `t_alumnos` (`id`, `nombre_usuario`, `nombre`, `apellidos`) VALUES
-(54, 'alumno.prueba23', 'ALUMNO 1', 'PRUEBA'),
-(55, 'docente.virtual', 'JOSE', 'SANTIZ RUIZ');
 
 -- --------------------------------------------------------
 
@@ -93,6 +85,26 @@ INSERT INTO `t_categoria_persona` (`id`, `nombre_categoria_persona`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `t_curso`
+--
+
+CREATE TABLE `t_curso` (
+  `id` int(11) NOT NULL,
+  `id_ponente` int(11) DEFAULT NULL,
+  `nombre_curso` varchar(100) DEFAULT NULL,
+  `sede` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `t_curso`
+--
+
+INSERT INTO `t_curso` (`id`, `id_ponente`, `nombre_curso`, `sede`) VALUES
+(1, 1, 'DIDACTICA DE LA LECTURA COMPRENSIVA', 'CAMPECHE');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `t_docente`
 --
 
@@ -103,17 +115,6 @@ CREATE TABLE `t_docente` (
   `nombre_docente` varchar(100) DEFAULT NULL,
   `apellidos_docente` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `t_docente`
---
-
-INSERT INTO `t_docente` (`id`, `id_usuario_plataforma`, `usuario_docente`, `nombre_docente`, `apellidos_docente`) VALUES
-(89, 246, 'jesus.jimenez', 'JESUS ALEJANDRO', 'JIMENEZ MORALES'),
-(90, 811, 'lubeydi.lopez', 'LUBEYDI', 'LOPEZ RAMIREZ'),
-(91, 551, 'claudia.zepeda', 'CLAUDIA YADIRA', 'ZEPEDA SANCHEZ'),
-(92, 550, 'mayra.mederos', 'MAYRA', 'MEDEROS'),
-(96, 228, 'docente.virtual', 'JOSE', 'SANTIZ RUIZ');
 
 -- --------------------------------------------------------
 
@@ -137,8 +138,6 @@ CREATE TABLE `t_encuesta` (
 INSERT INTO `t_encuesta` (`id`, `nombre_encuesta`, `descripcion`, `id_categoria_persona`, `id_periodo`, `estatus`) VALUES
 (1, 'AUTOEVALUACION', 'DETECCIÓN DE NECESIDADES DE CAPACITACIÓN', 2, 2, 1),
 (2, 'HETEROEVALUACION', 'EVALUACIÓN DEL DESEMPEÑO DOCENTE', 2, 2, 0),
-(3, 'EVALUACIONPRUEBA1', 'EVALUACIONPRUEBA1', 2, 2, 0),
-(4, 'EVALUACIONPRUEBA2', 'EVALUACIONPRUEBA2', 2, 2, 0),
 (5, 'HETEROEVALUACION CURSO', 'DESEMPEÑO DEL CURSO DE CAPACITACION', 2, 2, 0);
 
 -- --------------------------------------------------------
@@ -155,55 +154,6 @@ CREATE TABLE `t_materias` (
   `nombre_materia` varchar(200) DEFAULT NULL,
   `nombre_carrera` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `t_materias`
---
-
-INSERT INTO `t_materias` (`id`, `id_curso_plataforma`, `id_docente`, `plataforma`, `nombre_materia`, `nombre_carrera`) VALUES
-(67, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(68, '813', NULL, 'tuxtla.sm', 'FUNDAMENTOS DE FÍSICA', 'Licenciatura en T.S.U. en Imagenología'),
-(69, '831', NULL, 'tuxtla.sm', 'MANEJO DE APARATOS ELECTROMEDICOS', 'Licenciatura en Enfermería'),
-(70, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(71, '813', 89, 'tuxtla.sm', 'FUNDAMENTOS DE FÍSICA', 'Licenciatura en T.S.U. en Imagenología'),
-(72, '831', 90, 'tuxtla.sm', 'MANEJO DE APARATOS ELECTROMEDICOS', 'Licenciatura en Enfermería'),
-(73, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(74, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(75, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(76, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(77, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(78, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(79, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(80, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(81, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(82, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(83, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(84, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(85, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(86, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(87, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(88, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(89, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(90, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(91, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(92, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(93, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(94, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(95, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(96, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(97, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(98, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(99, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(100, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(101, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(102, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(103, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(104, '249', NULL, 'tuxtla.sm', 'Orientación Psicológica', 'Otros'),
-(105, '250', NULL, 'tuxtla.sm', 'Asesoría Médica', 'Otros'),
-(106, '249', 91, 'tuxtla.sm', 'Orientación Psicológica', 'Otros'),
-(107, '250', 92, 'tuxtla.sm', 'Asesoría Médica', 'Otros'),
-(108, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
-(109, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL);
 
 -- --------------------------------------------------------
 
@@ -258,6 +208,24 @@ INSERT INTO `t_periodo` (`id`, `nombre_periodo`) VALUES
 (3, 'ENERO-JUNIO 2021'),
 (4, 'JULIO-DICIEMBRE 2021'),
 (5, 'MAYO-AGOSTO 2021');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `t_ponente`
+--
+
+CREATE TABLE `t_ponente` (
+  `id` int(11) NOT NULL,
+  `nombre_ponente` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `t_ponente`
+--
+
+INSERT INTO `t_ponente` (`id`, `nombre_ponente`) VALUES
+(1, 'JORGE ELIESER GOMEZ LOPEZ');
 
 -- --------------------------------------------------------
 
@@ -441,14 +409,22 @@ CREATE TABLE `t_respuestas_autoevaluacion_docente` (
   `duracion` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Volcado de datos para la tabla `t_respuestas_autoevaluacion_docente`
+-- Estructura de tabla para la tabla `t_respuestas_heteroevaluacion_docente`
 --
 
-INSERT INTO `t_respuestas_autoevaluacion_docente` (`id`, `id_encuesta`, `id_pregunta`, `id_docente`, `id_respuesta`, `estatus`, `duracion`) VALUES
-(1, 1, 10, NULL, 2, 1, 100),
-(2, 1, 10, NULL, 2, 1, 100),
-(3, 1, 10, NULL, 2, 1, 100);
+CREATE TABLE `t_respuestas_heteroevaluacion_docente` (
+  `id` int(11) NOT NULL,
+  `id_curso` int(11) DEFAULT NULL,
+  `id_encuesta` int(11) DEFAULT NULL,
+  `id_pregunta` int(11) DEFAULT NULL,
+  `id_docente` int(11) DEFAULT NULL,
+  `id_respuesta` int(11) DEFAULT NULL,
+  `estatus` int(11) DEFAULT NULL,
+  `duracion` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -506,6 +482,13 @@ ALTER TABLE `t_categoria_persona`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `t_curso`
+--
+ALTER TABLE `t_curso`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `t_curso_FK` (`id_ponente`);
+
+--
 -- Indices de la tabla `t_docente`
 --
 ALTER TABLE `t_docente`
@@ -536,6 +519,12 @@ ALTER TABLE `t_opciones_respuestas`
 -- Indices de la tabla `t_periodo`
 --
 ALTER TABLE `t_periodo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `t_ponente`
+--
+ALTER TABLE `t_ponente`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -570,6 +559,17 @@ ALTER TABLE `t_respuestas_autoevaluacion_docente`
   ADD KEY `t_respuestas_autoevaluacion_docente_t_opciones_respuestas_FK` (`id_respuesta`);
 
 --
+-- Indices de la tabla `t_respuestas_heteroevaluacion_docente`
+--
+ALTER TABLE `t_respuestas_heteroevaluacion_docente`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `t_respuestas_heteroevaluacion_docente_FK` (`id_encuesta`),
+  ADD KEY `t_respuestas_heteroevaluacion_docente_FK_1` (`id_pregunta`),
+  ADD KEY `t_respuestas_heteroevaluacion_docente_FK_2` (`id_docente`),
+  ADD KEY `t_respuestas_heteroevaluacion_docente_FK_4` (`id_curso`),
+  ADD KEY `t_respuestas_heteroevaluacion_docente_FK_3` (`id_respuesta`);
+
+--
 -- Indices de la tabla `t_subcategoria_preguntas`
 --
 ALTER TABLE `t_subcategoria_preguntas`
@@ -584,7 +584,7 @@ ALTER TABLE `t_subcategoria_preguntas`
 -- AUTO_INCREMENT de la tabla `t_alumnos`
 --
 ALTER TABLE `t_alumnos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT de la tabla `t_categorias_preguntas`
@@ -599,10 +599,16 @@ ALTER TABLE `t_categoria_persona`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT de la tabla `t_curso`
+--
+ALTER TABLE `t_curso`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `t_docente`
 --
 ALTER TABLE `t_docente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT de la tabla `t_encuesta`
@@ -614,7 +620,7 @@ ALTER TABLE `t_encuesta`
 -- AUTO_INCREMENT de la tabla `t_materias`
 --
 ALTER TABLE `t_materias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=428;
 
 --
 -- AUTO_INCREMENT de la tabla `t_opciones_respuestas`
@@ -629,6 +635,12 @@ ALTER TABLE `t_periodo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT de la tabla `t_ponente`
+--
+ALTER TABLE `t_ponente`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `t_preguntas`
 --
 ALTER TABLE `t_preguntas`
@@ -638,13 +650,19 @@ ALTER TABLE `t_preguntas`
 -- AUTO_INCREMENT de la tabla `t_respuestas`
 --
 ALTER TABLE `t_respuestas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=564;
 
 --
 -- AUTO_INCREMENT de la tabla `t_respuestas_autoevaluacion_docente`
 --
 ALTER TABLE `t_respuestas_autoevaluacion_docente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+
+--
+-- AUTO_INCREMENT de la tabla `t_respuestas_heteroevaluacion_docente`
+--
+ALTER TABLE `t_respuestas_heteroevaluacion_docente`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `t_subcategoria_preguntas`
@@ -655,6 +673,12 @@ ALTER TABLE `t_subcategoria_preguntas`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `t_curso`
+--
+ALTER TABLE `t_curso`
+  ADD CONSTRAINT `t_curso_FK` FOREIGN KEY (`id_ponente`) REFERENCES `t_ponente` (`id`);
 
 --
 -- Filtros para la tabla `t_encuesta`
@@ -695,6 +719,16 @@ ALTER TABLE `t_respuestas_autoevaluacion_docente`
   ADD CONSTRAINT `t_respuestas_autoevaluacion_docente_t_encuesta_FK` FOREIGN KEY (`id_encuesta`) REFERENCES `t_encuesta` (`id`),
   ADD CONSTRAINT `t_respuestas_autoevaluacion_docente_t_opciones_respuestas_FK` FOREIGN KEY (`id_respuesta`) REFERENCES `t_opciones_respuestas` (`id`),
   ADD CONSTRAINT `t_respuestas_autoevaluacion_docente_t_preguntas_FK` FOREIGN KEY (`id_pregunta`) REFERENCES `t_preguntas` (`id`);
+
+--
+-- Filtros para la tabla `t_respuestas_heteroevaluacion_docente`
+--
+ALTER TABLE `t_respuestas_heteroevaluacion_docente`
+  ADD CONSTRAINT `t_respuestas_heteroevaluacion_docente_FK` FOREIGN KEY (`id_encuesta`) REFERENCES `t_encuesta` (`id`),
+  ADD CONSTRAINT `t_respuestas_heteroevaluacion_docente_FK_1` FOREIGN KEY (`id_pregunta`) REFERENCES `t_preguntas` (`id`),
+  ADD CONSTRAINT `t_respuestas_heteroevaluacion_docente_FK_2` FOREIGN KEY (`id_docente`) REFERENCES `t_docente` (`id`),
+  ADD CONSTRAINT `t_respuestas_heteroevaluacion_docente_FK_3` FOREIGN KEY (`id_respuesta`) REFERENCES `t_opciones_respuestas` (`id`),
+  ADD CONSTRAINT `t_respuestas_heteroevaluacion_docente_FK_4` FOREIGN KEY (`id_curso`) REFERENCES `t_curso` (`id`);
 
 --
 -- Filtros para la tabla `t_subcategoria_preguntas`
