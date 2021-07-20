@@ -19,6 +19,7 @@
               <div class="card-body">
                 <h3 class="card-title">Lista de Docentes</h3>
                 <p class="card-text">
+                <!--  
                 <table id="tableAlumnos" class="table table-bordered table-striped table-sm">
                   <thead>
                   <tr>
@@ -32,6 +33,7 @@
                   </tbody>
 
                 </table>
+-->
               </p>
               </div>
             </div>

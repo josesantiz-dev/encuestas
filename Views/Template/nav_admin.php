@@ -40,29 +40,34 @@
     <div class="sidebar">
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar nav-legacy text-sm nav-compact flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
           <li class="nav-item">
-            <a href="" class="nav-link">
-              <i class="ml-3 mr-2" data-feather="users"></i>
+            <a href="#" class="nav-link">
+              <i class="ml-3 mr-2" data-feather="book-open"></i>
+              <!--<i class="nav-icon fas fa-tachometer-alt"></i>-->
               <p>
-                Heteroevaluacion - Estudiantes  
+                Evaluaciones
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-          </li>
-          <li class="nav-item">
-            <a href="" class="nav-link">
-              <i class="ml-3 mr-2" data-feather="users"></i>
-              <p>
-                Heteroevaluacion - Docente  
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="" class="nav-link">
-              <i class="ml-3 mr-2" data-feather="users"></i>
-              <p>
-                Autoevaluacion - Docente  
-              </p>
-            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo BASE_URL; ?>/Biblioteca/NuevoPrestamo" class="nav-link">
+                   <i class="ml-3 mr-2" data-feather="plus"></i>
+
+                  <p>Nueva Encuesta</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo BASE_URL; ?>/Admin/administrarEncuestas" class="nav-link">
+                   <i class="ml-3 mr-2" data-feather="flag"></i>
+
+                  <p>Administrar Encuestas</p>
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>

@@ -5,11 +5,42 @@
         public function __construct(){
             parent::__construct();
         }
+
+
         public function admin(){
             $data['page_functions_js'] = "functions_list_docentes.js";
 			$this->views->getView($this,"dashboard",$data);
         }
+        
+        public function AdministrarEncuestas(){
+            $data['page_tag'] = "Administrar Encuestas";
+			$data['page_title'] = "Administrar Encuestas";
+			$data['page_name'] = "administrar encuestas";
+            $data['page_functions_js'] = "functions_administrar_encuestas.js";
+            $this->views->getView($this,"administrar_encuestas",$data);
 
+        }
+        public function getEncuestas(){
+            $arrData = $this->model->selectEncuestas();
+            for ($i=0; $i < count($arrData); $i++) {
+                if($arrData[$i]['estatus'] == 1)
+				{
+					$arrData[$i]['estatus'] = '<span class="badge badge-success">Activo</span>';
+				}else{
+					$arrData[$i]['estatus'] = '<span class="badge badge-danger">Inactivo</span>';
+				}
+                $arrData[$i]['options'] = '<div class="text-center">
+
+				<button class="btn btn-secondary btn-sm btnPermisosRol" rl="'.$arrData[$i]['id'].'" title="Ver"><i class="fas fa-eye"></i></button>
+				<button type="button" class="btn btn-primary btn-sm btnEditRol" data-toggle="modal" data-target="#modalAlumno" rl="'.$arrData[$i]['id'].'" title="Editar"><i class="fas fa-pencil-alt"></i></button>
+				</div>';
+            }
+            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+            die();
+
+        }
+        
+        /*
         public function getDocentes(){
             $arrData = $this->model->selectDocentes();                                  
                 for ($i=0; $i < count($arrData); $i++) {
@@ -39,6 +70,7 @@
         public function viewpdf(){
             $this->views->getView($this,"viewpdf",$data);
         }
+        */
         
     }
 

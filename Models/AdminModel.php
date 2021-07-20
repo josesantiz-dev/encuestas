@@ -3,7 +3,7 @@ class AdminModel extends Mysql{
     public function __construct(){
         parent::__construct();
     }
-
+    /*
     public function selectDocentes(){
         $sql = "SELECT * FROM t_docente";
 		$request = $this->select_all($sql);   
@@ -14,6 +14,13 @@ class AdminModel extends Mysql{
         INNER JOIN t_docente AS doc ON res.id_docente = doc.id
         INNER JOIN t_materias AS mat ON res.id_materia = mat.id
         WHERE res.id_docente = '$data' GROUP BY res.id_materia";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+    */
+    public function selectEncuestas(){
+        $sql = "SELECT *FROM t_encuesta AS enc
+        INNER JOIN t_categoria_persona AS cat ON enc.id_categoria_persona = cat.id ";
         $request = $this->select_all($sql);
         return $request;
     }
