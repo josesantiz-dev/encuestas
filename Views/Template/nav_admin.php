@@ -68,6 +68,24 @@
                 </a>
               </li>
             </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo BASE_URL; ?>/Admin/ListaDocentes" class="nav-link">
+                   <i class="ml-3 mr-2" data-feather="flag"></i>
+
+                  <p>Lista de Docentes</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo BASE_URL; ?>/Admin/ListaAlumnos" class="nav-link">
+                   <i class="ml-3 mr-2" data-feather="flag"></i>
+
+                  <p>Lista de Alumnos</p>
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>

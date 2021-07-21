@@ -10,15 +10,14 @@ document.addEventListener('DOMContentLoaded', function(){
         	"url": " "+base_url+"/Assets/plugins/Spanish.json"
         },
         "ajax":{
-            "url": " "+base_url+"/Admin/getEncuestas",
+            "url": " "+base_url+"/Admin/getDocentes",
             "dataSrc":""
         },
         "columns":[
             {"data":"id"},
-			{"data":"nombre_encuesta"},
-			{"data":"descripcion"},
-			{"data":"nombre_categoria_persona"},
-			{"data":"estatus"},
+			{"data":"usuario_docente"},
+			{"data":"nombre_docente"},
+			{"data":"apellidos_docente"},
 			{"data":"options"}
 
         ],
@@ -40,9 +39,3 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 $('#tableRoles').DataTable();
-
-function reporteEncuesta(answer){
-	let id = answer.getAttribute("rl");
-	location.href= base_url+"/Admin/reporteEncuesta?id="+id;
-
-}
