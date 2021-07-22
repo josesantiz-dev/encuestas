@@ -30,21 +30,33 @@ class AdminModel extends Mysql{
     //Obtener el Total de Participantes en una Enuesta en la Materia
     public function selectTotalPartEncMateria($data){
         $sql = "SELECT COUNT(*) FROM (SELECT COUNT(id) FROM t_respuestas WHERE id_materia = $data
-        GROUP BY id_materia HAVING COUNT(*)>1) t";
+        GROUP BY id_alumno HAVING COUNT(*)>1) t";
         $request = $this->select($sql);
         return $request;
     }
 
     /*Obtener todas las respuestas*/
     public function selectRespuestas($data){
-        $sql = "SELECT res.id_pregunta,res.id_opcion_respuesta,op.nombre_respuesta,op.puntuacion,pr.id_subcategoria,sub.nombre_subcategoria FROM t_respuestas AS res
+        $sql = "SELECT res.id_pregunta,res.id_opcion_respuesta,op.nombre_respuesta,op.puntuacion,pr.id_subcategoria,sub.nombre_subcategoria,sub.id_categoria,cate.nombre_categoria FROM t_respuestas AS res
         INNER JOIN t_opciones_respuestas AS op ON res.id_opcion_respuesta = op.id
         INNER JOIN t_preguntas AS pr ON res.id_pregunta = pr.id
         INNER JOIN t_subcategoria_preguntas AS sub ON pr.id_subcategoria = sub.id
+        INNER JOIN t_categorias_preguntas AS cate ON sub.id_categoria = cate.id
         WHERE res.id_materia = $data";
         $request = $this->select_all($sql);
         return $request;
     }
+
+
+
+
+
+
+
+
+
+
+
     
     public function selectEncuestas(){
         $sql = "SELECT enc.id,enc.nombre_encuesta,enc.descripcion,enc.estatus,cat.nombre_categoria_persona FROM t_encuesta AS enc

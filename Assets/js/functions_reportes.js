@@ -47,30 +47,97 @@ function reporteEncuesta(answer){
     let id = answer.getAttribute("rl");
     document.getElementById("nombreMateria").innerHTML = materia;
     document.getElementById("nombreDocente").innerHTML = docente;
-    respuestas(id);
     let url = base_url+"/Admin/getTotalParticipantesEncuesta?id="+id;
         fetch(url)
             .then(res => res.json())
             .then((out) => {
                 document.getElementById("ct-libros").innerHTML = out['COUNT(*)'];
+                respuestas(id,out['COUNT(*)']);
             })
             .catch(err => { throw err });
 
 }
-function respuestas(valor){
+function respuestas(valor,num){
     let url = base_url+"/Admin/getRespuestas?id="+valor;
-    var resultados = new Array;
+    let resultados = [];
     fetch(url)
         .then(res => res.json())
         .then((out) => {
+            $.each(out,function(index,element){
+                if(resultados[element.nombre_categoria]==undefined){
+                    resultados[element.nombre_categoria] =0;
+                }
+                resultados[element.nombre_categoria] += parseInt(element.puntuacion,10);
+            });
+            /*
+            out.reduce(function(res,value){
+                if(!res[value.id_subcategoria]){
+                    res[value.id_subcategoria] = {Id:value.id_subcategoria, id_subcategoria:0};
+                    resultados.push(res[value.id_subcategoria])
+                }
+                res[value.id_subcategoria].puntuacion += value.puntuacion;
+                return res;
+            });*/
+            /*
             out.forEach(element => {
                var id_subcategoria = element.id_subcategoria;
                if(!resultados.includes(id_subcategoria)){
                    resultados.push(id_subcategoria);
-                
                }
             });
+            */ 
+            var valores = Object.values(resultados);
+            var categorias = [];
+            categorias = Object.keys(resultados);
+            var puntuacionMaxima = [12,84,15,15,21];
+            graficas(categorias,valores,num);
+            mostrarTabla(resultados,categorias,puntuacionMaxima,num);
+
         })
         .catch(err => { throw err });
-   // console.log(resultados);
+
+   // graficas(resultados);
+  
+}
+
+// === include 'setup' then 'config' above ===
+function graficas(categorias,sumatorias,num){       
+    var MeSeContext = document.getElementById('myChart').getContext('2d');
+    var MeSeData = {
+        labels: categorias,
+        datasets: [{
+            label: "Test",
+            data: sumatorias,
+            backgroundColor: ["#669911", "#119966","#669911", "#119966","#669911"],
+            hoverBackgroundColor: ["#66A2EB", "#FCCE56","#66A2EB", "#FCCE56","#66A2EB"]
+        }]
+    };
+    var MeSeChart = new Chart(MeSeContext, {
+        type: 'horizontalBar',
+        data: MeSeData,
+        options: {
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        min: 1
+                    }
+                }],
+                yAxes: [{
+                    stacked: true
+                }]
+            }
+    
+        }
+    });
+}
+
+function mostrarTabla(resultados,categorias,puntuacionMaxima,num){
+    var contador = 0;
+    console.log(num);
+    document.getElementById("valoresTabla").innerHTML = null;
+    categorias.forEach(element => {
+        contador += 1;
+        document.getElementById("valoresTabla").innerHTML +="<tr><td>"+contador+".</td><td>"+element+"</td><td><div class='progress progress-xs'><div class='progress-bar progress-bar-danger' style='width: "+((resultados[element]*100)/puntuacionMaxima[contador-1])/num+"%'></div></div></td><td>"+puntuacionMaxima[contador-1]+"</td><td><h4><b>"+resultados[element]/num+"</b></h4></td></tr>";
+
+    });
 }

@@ -89,8 +89,45 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                                  
+                                    <div class="col-lg-12 col-12 row">
+                                        <div class="col-lg-6 col-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <canvas id="myChart"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                  <h3 class="card-title">Resultados</h3>
+                                                </div>
+                                                <!-- /.card-header -->
+                                                <div class="card-body">
+                                                  <table class="table table-bordered">
+                                                    <thead>
+                                                      <tr>
+                                                        <th style="width: 10px">#</th>
+                                                        <th>Calidad de desempeño en la áreas</th>
+                                                        <th>Puntuación Máxima</th>
+                                                        <th>Puntuacion Máxima</th>
+                                                        <th style="width: 40px">Puntos obtenidos</th>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody id="valoresTabla">
+                                                    </tbody>
+                                                  </table>
+                                                </div>
+                                                <!-- /.card-body -->
+                                                <div class="card-footer clearfix">
+        
+                                                </div>
+                                              </div>
+                                        </div>
+                                    </div>
+                                </div>   
+                      
+                                
                             </div>
                         </div>
                     </div>

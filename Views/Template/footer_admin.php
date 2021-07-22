@@ -21,6 +21,8 @@
 <script src="<?php echo media(); ?>/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo media(); ?>/js/adminlte.js"></script>
+<!-- ChartJS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
 <!-- Iconos -->
 <script src="<?php echo media(); ?>/js/app.js"></script>
 <!-- Funciones -->
