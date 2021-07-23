@@ -79,6 +79,7 @@ $(document).ready(function(){
                     'success'
                     ).then((result) =>{
                         if(result.isConfirmed){
+                            
                             window.close();        
                         }
                     }) 
