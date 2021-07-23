@@ -32,7 +32,7 @@
                         </form>
                     </li>
                 </ul>      
-            </div>hjfuhdufhueuhfueufueuufuerfuhufu
+            </div>
         </nav>
         <div class="content-wrapper">
             <div class="content-header">
@@ -56,20 +56,7 @@
                     <div class="card">
                         <h5 class="card-header">CALIDAD DEL DESEMPEÑO DOCENTE EN LAS AREAS</h5>
                         <div class="card-body">
-                            <form id="msform">
-                                <ul id="progressbar">
-                                    <?php
-                                        for($i = 0; $i<sizeof($data['preguntas']);$i++ ){
-                                            if($i==0){?>
-                                                <!--<li class="active" id="personal"><strong><?php echo($data['datos_categorias'][$i]['nombre_categoria']); ?></strong></li>   -->
-                                            <?php 
-                                            }else{?>
-                                               <!-- <li id="personal"><strong><?php echo($data['datos_categorias'][$i]['nombre_categoria']); ?></strong></li>   -->
-                                            <?php
-                                            }   
-                                        }
-                                    ?>
-                                </ul>
+                            <form id="msform" class="mt-0">
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div><br>

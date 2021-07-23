@@ -52,19 +52,10 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo BASE_URL; ?>/Biblioteca/NuevoPrestamo" class="nav-link">
-                   <i class="ml-3 mr-2" data-feather="plus"></i>
-
-                  <p>Nueva Encuesta</p>
-                </a>
-              </li>
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
                 <a href="<?php echo BASE_URL; ?>/Admin/administrarEncuestas" class="nav-link">
                    <i class="ml-3 mr-2" data-feather="flag"></i>
 
-                  <p>Administrar Encuestas</p>
+                  <p>Encuestas</p>
                 </a>
               </li>
             </ul>

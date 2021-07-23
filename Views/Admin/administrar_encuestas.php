@@ -10,7 +10,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">  <?= $data['page_title'] ?>
-              <a href="AgregarLibros"><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle fa-md"></i> Nuevo</button></a>
+              <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalEncuesta"><i class="fa fa-plus-circle fa-md"></i> Nuevo</button>
             </h1>
           </div>
           <!--
@@ -56,28 +56,36 @@
                     </div>
 
               <!-- Modal para buscar Matricula del Alumno-->
-                    <div class="modal fade" id="modalAlumno" tabindex="-1" role="dialog" aria-labelledby="modalAlumnoLabel" aria-hidden="true">
+                    <div class="modal fade" id="modalEncuesta" tabindex="-1" role="dialog" aria-labelledby="modalEncuestaLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="modalAlumnoLabel">Buscar Alumno</h5>
+                                    <h5 class="modal-title" id="modalEncuestaLabel">Agregar Encuesta</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="text" class="form-control" id="busquedaAlumno" placeholder="Nombre de la Encuesta" maxlength="100" autocomplete="off" onKeyUp="buscarAlumno();" />
+                                    <input type="text" class="form-control" id="nomEncuesta" placeholder="Nombre de la Encuesta" maxlength="100" autocomplete="off" />
                                     <br>
-                                    <input type="text" class="form-control" id="busquedaAlumno" placeholder="Descripcion de la Encuesta" maxlength="100" autocomplete="off" onKeyUp="buscarAlumno();" />
+                                    <input type="text" class="form-control" id="desEncuesta" placeholder="Descripcion de la Encuesta" maxlength="100" autocomplete="off" />
                                     <br>
-                                    <input type="text" class="form-control" id="busquedaAlumno" placeholder="Publico" maxlength="100" autocomplete="off" onKeyUp="buscarAlumno();" />
+                                    <select class="custom-select" id="inputGroupSelect04" name="ubicacion" onchange = "opcionPublico(value)"required="">
+                                         <option value="" selected="">Publico</option>
+                                         <option value="alumno">Alumnos</option>
+                                         <option value="docente">Docentes</option>
+                                    </select>
                                     <br>
-                                    <input type="text" class="form-control" id="busquedaAlumno" placeholder="Estatus" maxlength="100" autocomplete="off" onKeyUp="buscarAlumno();" />
                                     <br>
-                             
+                                    <select class="custom-select" id="inputGroupSelect04" name="ubicacion" onchange="optionEstatus(value)" required="">
+                                         <option value="" selected="">Estatus</option>
+                                         <option value="activo">Activo</option>
+                                         <option value="innactivo">Inactivo</option>
+                                    </select>
+                                    <br>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-primary" onclick="AgregarEncuesta()">Agregar</button>
                                 </div>
                             </div>
                         </div>

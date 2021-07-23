@@ -46,3 +46,30 @@ function reporteEncuesta(answer){
 	location.href= base_url+"/Admin/reporteEncuesta?id="+id;
 
 }
+
+
+var idPublico;
+var idEstatus;
+function AgregarEncuesta(){
+	var nombreEncuesta = document.getElementById("nomEncuesta").value;
+	var descripcionEncuesta = document.getElementById("desEncuesta").value;
+	console.log(nombreEncuesta);
+	console.log(descripcionEncuesta);
+	console.log(idPublico);
+	console.log(idEstatus);
+	if(nombreEncuesta =="" && descripcionEncuesta == "" && idEstatus == 'undefined' && idPublico == 'undefined'){
+		console.log("hay  datos vacios");
+	}else if(nombreEncuesta =="" && descripcionEncuesta == "" && idEstatus == "" && idPublico == ""){
+		console.log("hay  datos vacios");
+	}
+	else{
+		console.log("Enviando datos");
+	}
+
+}
+function opcionPublico(valor){
+	idPublico = valor;
+}
+function optionEstatus(valor){
+	idEstatus = valor;
+}

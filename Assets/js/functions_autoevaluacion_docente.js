@@ -139,4 +139,11 @@ function guardarDatos(){
         }); 
 }
 
+document.addEventListener("DOMContentLoaded",function(){
+    Swal.fire({
+        title: 'Mensaje',
+        text: 'El siguiente cuestionario tiene la finalidad de detectar las necesidades de capacitación que los docentes de la Universidad IESSIC y es fundamental para que la oferta de cursos sea diseñado para cubrir las necesidades.',
+      })
+})
+
 

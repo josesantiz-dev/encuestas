@@ -141,3 +141,10 @@ function guardarDatos(){
         
 }
 
+document.addEventListener("DOMContentLoaded",function(){
+    Swal.fire({
+        title: 'Mensaje',
+        text: 'El siguiente cuestionario tiene la finalidad de evaluar el desempeño del curso de capacitacion y actualizacion impartido a los docentes de la Universidad IESSIC.',
+      })
+})
+
