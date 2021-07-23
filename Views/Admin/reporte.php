@@ -119,8 +119,8 @@
                                                   </table>
                                                 </div>
                                                 <!-- /.card-body -->
-                                                <div class="card-footer clearfix">
-        
+                                                <div class="card-footer clearfix" id="totalPunto">
+                                                
                                                 </div>
                                               </div>
                                         </div>

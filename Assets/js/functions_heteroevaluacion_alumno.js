@@ -1,7 +1,4 @@
-
-console.log(document.cookie);
 document.addEventListener('DOMContentLoaded', function(){
-
 	tableRoles = $('#tableAlumnos').dataTable( {
 		"aProcessing":true,
 		"aServerSide":true,
@@ -35,3 +32,10 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 $('#tableAlumnos').DataTable();
+document.addEventListener("visibilitychange", function() {
+    console.log( document.visibilityState );
+    location.reload();
+    if(document.visibilityState == "visible" || document.visibilityState == "hidden"){
+        location.reload();
+    }
+  });

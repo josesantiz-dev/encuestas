@@ -79,9 +79,7 @@ $(document).ready(function(){
                     'success'
                     ).then((result) =>{
                         if(result.isConfirmed){
-                            history.go(-1);
-                            
-                            
+                            window.close();        
                         }
                     }) 
                 }

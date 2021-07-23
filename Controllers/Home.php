@@ -146,8 +146,12 @@
         }
 
         /* funcion para Cerrar Sesion */
-        private function exit($msessage){
+        public function exit($msessage){
             header("Location:".BASE_URL."?message=".$msessage);
+
+        }
+        public function salir(){
+            header("Location:".BASE_URL);
 
         }
 	}

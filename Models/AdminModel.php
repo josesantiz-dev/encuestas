@@ -17,19 +17,34 @@ class AdminModel extends Mysql{
     }
     
     public function selectheteroEvalaucionDocente($data){
-        $sql = "SELECT res.id,CONCAT(doc.nombre_docente,' ',doc.apellidos_docente)AS nombreDocente,mat.nombre_materia,
-        mat.plataforma,mat.nombre_carrera,mat.id AS mat_id FROM t_respuestas res
+        /*$sql = "SELECT res.id,res.id_materia,CONCAT(doc.nombre_docente,' ',doc.apellidos_docente)AS nombreDocente,mat.nombre_materia,
+        mat.plataforma,mat.nombre_carrera,mat.id AS mat_id FROM t_respuestas AS res
         INNER JOIN t_docente AS doc ON res.id_docente = doc.id
         INNER JOIN t_materias AS mat ON res.id_materia = mat.id
         WHERE res.id_encuesta = $data
-        GROUP BY res.id_materia HAVING COUNT(*)>1";
+        GROUP BY res.id_materia HAVING COUNT(*)>1";*/
+
+        /*$sql = "SELECT res.id,res.id_materia,CONCAT(doc.nombre_docente,' ',doc.apellidos_docente)AS nombreDocente,mat.nombre_materia,
+        mat.plataforma,mat.nombre_carrera FROM t_respuestas res 
+        INNER JOIN t_docente AS doc ON res.id_docente = doc.id
+        INNER JOIN t_materias AS mat ON res.id_materia = mat.id
+        WHERE res.id_materia IN (SELECT id_materia FROM t_respuestas res 
+        WHERE res.id_encuesta = $data
+        GROUP BY res.id_materia  HAVING COUNT(*)>1) LIMIT 1 ";
+        */
+        $sql = "SELECT res.id_materia,doc.nombre_docente,doc.apellidos_docente,mat.nombre_materia,
+        mat.plataforma,mat.nombre_carrera,mat.id AS mat_id FROM t_respuestas AS res
+        INNER JOIN t_docente AS doc ON res.id_docente = doc.id
+        INNER JOIN t_materias AS mat ON res.id_materia = mat.id
+        WHERE res.id_encuesta = $data
+        GROUP BY res.id_materia,doc.nombre_docente,doc.apellidos_docente HAVING COUNT(*)>1";
         $request = $this->select_all($sql);
         return $request;
     }
 
     //Obtener el Total de Participantes en una Enuesta en la Materia
     public function selectTotalPartEncMateria($data){
-        $sql = "SELECT COUNT(*) FROM (SELECT COUNT(id) FROM t_respuestas WHERE id_materia = $data
+        $sql = "SELECT COUNT(*) FROM (SELECT id_alumno, COUNT(id) FROM t_respuestas WHERE id_materia = $data
         GROUP BY id_alumno HAVING COUNT(*)>1) t";
         $request = $this->select($sql);
         return $request;

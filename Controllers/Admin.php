@@ -95,8 +95,9 @@
             $arrData = $this->model->selectheteroEvalaucionDocente($id);
             for ($i=0; $i < count($arrData); $i++) {
                 $arrData[$i]['numeracion'] = $i+1;
+                $arrData[$i]['nombreDocente'] = $arrData[$i]['nombre_docente']." ".$arrData[$i]['apellidos_docente'];
                 $arrData[$i]['options'] = '<div class="text-center">
-                <button class="btn btn-secondary btn-sm" rl="'.$arrData[$i]['mat_id'].'" m="'.$arrData[$i]['nombreDocente'].'" d="'.$arrData[$i]['nombre_materia'].'" title="Ver" onclick="reporteEncuesta(this)"><i class="fas fa-eye"></i></button>
+                <button class="btn btn-secondary btn-sm" rl="'.$arrData[$i]['id_materia'].'" m="'.$arrData[$i]['nombreDocente'].'" d="'.$arrData[$i]['nombre_materia'].'" title="Ver" onclick="reporteEncuesta(this)"><i class="fas fa-eye"></i></button>
 				</div>';
             }
             echo json_encode($arrData,JSON_UNESCAPED_UNICODE);

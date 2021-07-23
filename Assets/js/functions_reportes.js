@@ -1,6 +1,17 @@
 var tableBiblioteca;
 let url = new URLSearchParams(location.search);
 var u = url.get('id');
+/*
+let url1 = base_url+"/Admin/getHeteroEvaluacionDocente?id="+u;
+        fetch(url1)
+            .then(res => res.json())
+            .then((out) => {
+                console.log(out);
+            })
+            .catch(err => { throw err });
+            */
+
+
 document.addEventListener('DOMContentLoaded', function(){
 	tableRoles = $('#tableRoles').dataTable( {
 		"aProcessing":true,
@@ -41,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 $('#tableRoles').DataTable();
 
+
 function reporteEncuesta(answer){
     let materia = answer.getAttribute("m");
     let docente = answer.getAttribute("d");
@@ -64,6 +76,7 @@ function respuestas(valor,num){
         .then(res => res.json())
         .then((out) => {
             $.each(out,function(index,element){
+                
                 if(resultados[element.nombre_categoria]==undefined){
                     resultados[element.nombre_categoria] =0;
                 }
@@ -85,8 +98,11 @@ function respuestas(valor,num){
                    resultados.push(id_subcategoria);
                }
             });
-            */ 
-            var valores = Object.values(resultados);
+            */
+            var valores = [];
+            Object.values(resultados).forEach(element => {
+                valores.push(element/num);
+            });
             var categorias = [];
             categorias = Object.keys(resultados);
             var puntuacionMaxima = [12,84,15,15,21];
@@ -101,12 +117,13 @@ function respuestas(valor,num){
 }
 
 // === include 'setup' then 'config' above ===
-function graficas(categorias,sumatorias,num){       
+function graficas(categorias,sumatorias,num){     
+    document.getElementById("myChart").innerHTML = null;  
     var MeSeContext = document.getElementById('myChart').getContext('2d');
     var MeSeData = {
         labels: categorias,
         datasets: [{
-            label: "Test",
+            label: "Total de Puntos",
             data: sumatorias,
             backgroundColor: ["#669911", "#119966","#669911", "#119966","#669911"],
             hoverBackgroundColor: ["#66A2EB", "#FCCE56","#66A2EB", "#FCCE56","#66A2EB"]
@@ -135,9 +152,12 @@ function mostrarTabla(resultados,categorias,puntuacionMaxima,num){
     var contador = 0;
     console.log(num);
     document.getElementById("valoresTabla").innerHTML = null;
+    var total = 0;
     categorias.forEach(element => {
         contador += 1;
+        total +=resultados[element]/num; 
         document.getElementById("valoresTabla").innerHTML +="<tr><td>"+contador+".</td><td>"+element+"</td><td><div class='progress progress-xs'><div class='progress-bar progress-bar-danger' style='width: "+((resultados[element]*100)/puntuacionMaxima[contador-1])/num+"%'></div></div></td><td>"+puntuacionMaxima[contador-1]+"</td><td><h4><b>"+resultados[element]/num+"</b></h4></td></tr>";
 
     });
+    document.getElementById("totalPunto").innerHTML ="<div class='text-center'><h3><b>Total:</b> "+total+" de <small>"+147+" puntos</small></h3></div>";
 }
