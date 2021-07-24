@@ -199,22 +199,25 @@ function reporteGeneralAutoEvaluacionDocente(){
         fetch(url)
             .then(res => res.json())
             .then((out) => {
+                var array = [];
                 out.forEach(element => {
-                    var array = [];
                     var id = element.id_pregunta;
                     var url_valores = base_url+"/Admin/getRespuestasPreguntaIndividual?id="+id;
                     fetch(url_valores)
                         .then(res => res.json())
                         .then((resultado) => {
                             resultado.forEach(element => {
-                                array.push([element]);
+                                //console.log(element.id_pregunta);
+                       
+                                array[element.id_pregunta] = element;
 
                             });
                             
                         })
                         .catch(err => { throw err });
-                        //console.log(array);
+                        
                         });
+                        console.log(array);
                         
                 })
             .catch(err => { throw err });
