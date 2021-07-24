@@ -35,6 +35,8 @@
             $data['page_functions_js'] = "functions_lista_estudiantes.js";
             $this->views->getView($this,"lista_estudiantes",$data);
         }
+
+        //Mostrar Vista de Cada Reporte
         public function reporteEncuesta(){
             $data['page_tag'] = "Reportes";
 			$data['page_title'] = "Reportes de Encuestas";
@@ -42,26 +44,34 @@
             $data['id'] = $_GET['id'];
             $data['datos_encuesta'] =  $this->model->selectEncuesta($_GET['id']);
             $data['page_functions_js'] = "functions_reportes.js";
-            $this->views->getView($this,"reporte",$data);
+            if($_GET['id'] == 2){
+                $this->views->getView($this,"reporteHeteroEvaluacionAlumno",$data);
+            }if($_GET['id'] == 1){
+                $this->views->getView($this,"reporteAutoEvaluacionDocente",$data);
+            }if($_GET['id'] == 6){
+                $this->views->getView($this,"reporteModeloEducativo",$data);
+            }
+    
         }
 
 
 
-
+        //Obtener lista de Encuestas
         public function getEncuestas(){
             $arrData = $this->model->selectEncuestas();
             for ($i=0; $i < count($arrData); $i++) {
                 if($arrData[$i]['estatus'] == 1)
-				{
+				{   
 					$arrData[$i]['estatus'] = '<span class="badge badge-success">Activo</span>';
+                    $arrData[$i]['options'] = '<div class="text-center">
+                    <button class="btn btn-secondary btn-sm btnPermisosRol" rl="'.$arrData[$i]['id'].'" title="Ver" onclick="reporteEncuesta(this)"><i class="fas fa-eye"></i></button>
+				    </div>';
 				}else{
 					$arrData[$i]['estatus'] = '<span class="badge badge-danger">Inactivo</span>';
+                    $arrData[$i]['options'] = '<div class="text-center">
+                    <button class="btn btn-secondary btn-sm btnPermisosRol" rl="'.$arrData[$i]['id'].'" title="Ver" onclick="reporteEncuesta(this)" disabled><i class="fas fa-eye"></i></button>
+				    </div>';
 				}
-                $arrData[$i]['options'] = '<div class="text-center">
-
-                <button class="btn btn-secondary btn-sm btnPermisosRol" rl="'.$arrData[$i]['id'].'" title="Ver" onclick="reporteEncuesta(this)"><i class="fas fa-eye"></i></button>
-				<button type="button" class="btn btn-primary btn-sm btnEditRol" data-toggle="modal" data-target="#modalAlumno" rl="'.$arrData[$i]['id'].'" title="Editar"><i class="fas fa-pencil-alt"></i></button>
-				</div>';
             }
             echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
             die();
@@ -90,6 +100,7 @@
                 die();
         }
 
+        /*Obtener lista de Participantes en HeteroEvaluacion Docente*/
         public function getHeteroEvaluacionDocente(){
             $id = $_GET['id'];
             $arrData = $this->model->selectheteroEvalaucionDocente($id);
@@ -104,6 +115,67 @@
             die();
         }
 
+        /*Obtener lista de Participantes en HeteroEvaluacion Docente*/
+        public function getAutoEvaluacionDocente(){
+            $id = $_GET['id'];
+            $arrData = $this->model->selectAutoEvaluacionDocente($id);
+            for ($i=0; $i < count($arrData); $i++) {
+                $arrData[$i]['numeracion'] = $i+1;
+                $arrData[$i]['nombreDocente'] = $arrData[$i]['nombre_docente']." ".$arrData[$i]['apellidos_docente'];
+                $arrData[$i]['options'] = '<div class="text-center">
+                <button class="btn btn-secondary btn-sm" rl="'.$arrData[$i]['id'].'" n="'.$arrData[$i]['nombreDocente'].'" title="Ver" onclick="reporteEncuestaAutoEvalaucionDocente(this)"><i class="fas fa-eye"></i></button>
+				</div>';
+            }
+            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+            die();
+        }
+        /*Obtener Resultados de la Encuesta de un Docente */
+        public function getResultadosAutoEvaluacionDocente(){
+            $id = $_GET['id'];
+            $arrData = $this->model->selectRespuestasAutoEvaluacionDocente($id);
+            for ($i=0; $i < count($arrData); $i++) {
+                if($arrData[$i]['nombre_respuesta'] =='PR'){
+                    $arrData[$i]['nombre_respuesta'] = 'Prioritario';
+                }if($arrData[$i]['nombre_respuesta'] =='AL'){
+                    $arrData[$i]['nombre_respuesta'] = 'Alto';
+                }if($arrData[$i]['nombre_respuesta'] =='ME'){
+                    $arrData[$i]['nombre_respuesta'] = 'Medio';
+                }if($arrData[$i]['nombre_respuesta'] =='BA'){
+                    $arrData[$i]['nombre_respuesta'] = 'Bajo';
+                }if($arrData[$i]['nombre_respuesta'] =='NM'){
+                    $arrData[$i]['nombre_respuesta'] = 'Necesita Mejorar';
+                }
+            }
+            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+            die();
+        }
+
+        /*Obtener el Reporte General de la Encuesta AutoEvaluacionDocente*/
+        public function getReporteGeneralAutoEvaluacionDocente(){
+            $arrData = $this->model->selectReporteGralAutoEvaluacionDocente();
+            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+            die();
+        }
+
+        public function getRespuestasPreguntaIndividual(){
+            $id = $_GET['id'];
+            $arrData = $this->model->selectRespuestasPreguntaIndivisual($id);
+            for ($i=0; $i < count($arrData); $i++) {
+                if($arrData[$i]['nombre_respuesta'] =='PR'){
+                    $arrData[$i]['nombre_respuesta'] = 'Prioritario';
+                }if($arrData[$i]['nombre_respuesta'] =='AL'){
+                    $arrData[$i]['nombre_respuesta'] = 'Alto';
+                }if($arrData[$i]['nombre_respuesta'] =='ME'){
+                    $arrData[$i]['nombre_respuesta'] = 'Medio';
+                }if($arrData[$i]['nombre_respuesta'] =='BA'){
+                    $arrData[$i]['nombre_respuesta'] = 'Bajo';
+                }if($arrData[$i]['nombre_respuesta'] =='NM'){
+                    $arrData[$i]['nombre_respuesta'] = 'Necesita Mejorar';
+                }
+            }
+            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+            die();
+        }
         //Obtener el Total de Participantes de la Encuesta en una Materia
         public function getTotalParticipantesEncuesta(){
             $id = $_GET['id'];

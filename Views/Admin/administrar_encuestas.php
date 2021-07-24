@@ -10,7 +10,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">  <?= $data['page_title'] ?>
-              <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalEncuesta"><i class="fa fa-plus-circle fa-md"></i> Nuevo</button>
+              <!--<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalEncuesta"><i class="fa fa-plus-circle fa-md"></i> Nuevo</button>-->
             </h1>
           </div>
           <!--
@@ -41,6 +41,7 @@
                                                         <th>Nombre</th>
                                                         <th>Descripcion</th>
                                                         <th>Publico</th>
+                                                        <th>Periodo</th>
                                                         <th>Estatus</th>
                                                         <th>Acciones</th>
                                                     </tr>

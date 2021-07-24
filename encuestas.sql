@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.7
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:8889
--- Tiempo de generación: 23-07-2021 a las 06:28:18
--- Versión del servidor: 5.7.32
--- Versión de PHP: 7.4.12
+-- Servidor: localhost
+-- Tiempo de generación: 24-07-2021 a las 23:02:33
+-- Versión del servidor: 10.4.18-MariaDB
+-- Versión de PHP: 7.3.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -57,7 +58,8 @@ INSERT INTO `t_categorias_preguntas` (`id`, `nombre_categoria`) VALUES
 (6, 'PAPEL DEL INSTRUCTOR'),
 (7, 'MATERIAL DE APOYO DOCUMENTAL(BIBLIOGRAFIA)'),
 (8, 'MATERIAL DE APOYO DIGITAL'),
-(9, 'ASPECTOS SOBRE EL CURSO IMPARTIDO');
+(9, 'ASPECTOS SOBRE EL CURSO IMPARTIDO'),
+(10, 'EVALUACION MODELO EDUACTIVO');
 
 -- --------------------------------------------------------
 
@@ -135,9 +137,10 @@ CREATE TABLE `t_encuesta` (
 --
 
 INSERT INTO `t_encuesta` (`id`, `nombre_encuesta`, `descripcion`, `id_categoria_persona`, `id_periodo`, `estatus`) VALUES
-(1, 'AUTOEVALUACION', 'DETECCIÓN DE NECESIDADES DE CAPACITACIÓN', 3, 2, 0),
+(1, 'AUTOEVALUACION', 'DETECCIÓN DE NECESIDADES DE CAPACITACIÓN', 3, 2, 1),
 (2, 'HETEROEVALUACION', 'EVALUACIÓN DEL DESEMPEÑO DOCENTE', 2, 2, 1),
-(5, 'HETEROEVALUACION CURSO', 'DESEMPEÑO DEL CURSO DE CAPACITACION', 3, 2, 0);
+(5, 'HETEROEVALUACION CURSO', 'DESEMPEÑO DEL CURSO DE CAPACITACION', 3, 2, 0),
+(6, 'EVALUACIÓN MODELO EDUCATIVO', 'EVALUACIÓN MODELO EDUCATIVO', 3, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -185,6 +188,67 @@ INSERT INTO `t_opciones_respuestas` (`id`, `nombre_respuesta`, `identificador_nu
 (11, 'MB', 10, 3),
 (12, 'AC', 11, 2),
 (13, 'NM1', 12, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `t_opciones_respuestas_opcion_multiple`
+--
+
+CREATE TABLE `t_opciones_respuestas_opcion_multiple` (
+  `id` int(11) NOT NULL,
+  `nombre_inciso` varchar(100) DEFAULT NULL,
+  `nombre_respuesta` varchar(500) DEFAULT NULL,
+  `puntuacion` int(11) DEFAULT NULL,
+  `id_pregunta` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `t_opciones_respuestas_opcion_multiple`
+--
+
+INSERT INTO `t_opciones_respuestas_opcion_multiple` (`id`, `nombre_inciso`, `nombre_respuesta`, `puntuacion`, `id_pregunta`) VALUES
+(83, 'a', 'Una elección inteligente', 0, 209),
+(84, 'b', 'Una Educación humanista por competencias y desarrollo social', 0, 209),
+(85, 'c', 'Una educación humanista con enfoque en competencias de sentido social', 1, 209),
+(86, 'a', 'Mundial, Nacional y Estatal', 0, 210),
+(87, 'b', 'Internacional, Nacional y Regional', 1, 210),
+(88, 'c', 'Nacional, Estatal y Municipal', 0, 210),
+(89, 'a', 'Art. 3° y art. 5° Constitucional, Reforma educativa 2019 y DOF', 0, 211),
+(90, 'b', 'Plan de desarrollo Nacional y estatal 2019 – 2024 y art. 5° Constitucional.', 0, 211),
+(91, 'c', 'Art. 3° Constitucional, Reforma educativa 2019 y Plan de desarrollo Nacional y estatal 2019 – 2024.', 1, 211),
+(92, 'a', 'Epistemológico, filosófico y social.', 0, 212),
+(93, 'b', 'Filosófico, pedagógico y social.', 1, 212),
+(94, 'c', 'Pedagógico, epistemológico y filosófico.', 0, 212),
+(95, 'a', 'La filosofía humanista', 1, 213),
+(96, 'b', 'Pedagogía constructivista', 0, 213),
+(97, 'c', 'Un sentido social', 0, 213),
+(98, 'a', 'Conductista', 0, 214),
+(99, 'b', 'Tradicional', 0, 214),
+(100, 'c', 'Constructivista', 1, 214),
+(101, 'a', 'Creación de ambientes de aprendizajes, un docente facilitador y motivador.', 1, 215),
+(102, 'b', 'Estructuras mentales, apoyo creativo y docencia magistral.', 0, 215),
+(103, 'c', 'Estructuras metales, experiencias y autoridad.', 0, 215),
+(104, 'a', 'Saber: conocer, hacer, convivir y ser.', 1, 216),
+(105, 'b', 'Saber: conocer, saber, querer y sentir', 0, 216),
+(106, 'c', 'Saber: sentir, convivir, hacer y conocer', 0, 216),
+(107, 'a', 'La filosofía humanista', 0, 217),
+(108, 'b', 'Pedagogía constructivista', 0, 217),
+(109, 'c', 'Un sentido social.', 1, 217),
+(110, 'a', 'Formar profesionales con sentido de una educación integral humanista, basada en el enfoque de desarrollo de competencias del Siglo XXI y responsabilidad social, a fin de que construyan propuestas y alternativas de solución a problemas sociales, políticos, culturales y económicos del estado, de la región y del país.', 1, 218),
+(111, 'a', 'Ser un Sistema Educativo reconocido regional, nacional e internacionalmente por la calidad de sus programas de formación y servicios, la consolidación de su Modelo Educativo Institucional respecto de los componentes de equidad de género, sustentabilidad, interculturalidad, inclusión social y desarrollo de la Investigación Científica', 1, 219),
+(112, 'a', 'Autonomía, Templanza, Honestidad, Respeto, Inclusión y Disciplina', 1, 220),
+(113, 'b', 'Autonomía, Templanza, Cooperación, Dignidad, Paz y Tolerancia.', 0, 220),
+(114, 'c', 'Amor, Justicia, Respeto, Libertad, Inclusión y Amistad.', 0, 220),
+(115, 'a', 'Inclusión social, igualdad, sostenibilidad y profesional.', 0, 221),
+(116, 'b', 'Inclusión social, Interculturalidad, sustentabilidad y equidad de género.', 1, 221),
+(117, 'c', 'Inclusión social, cultural, económico y emprendimiento', 0, 221),
+(118, 'a', 'Seminario de tesis', 0, 222),
+(119, 'b', 'Programas de apoyo al estudiante.', 1, 222),
+(120, 'c', 'Proyecto integrados', 0, 222),
+(121, 'a', 'Seminario de tesis', 0, 223),
+(122, 'b', 'Programas de apoyo al estudiante.', 0, 223),
+(123, 'c', 'Proyecto integrador', 1, 223);
 
 -- --------------------------------------------------------
 
@@ -372,7 +436,22 @@ INSERT INTO `t_preguntas` (`id`, `nombre_pregunta`, `id_encuesta`, `id_subcatego
 (126, 'Es adecuado el tiempo de trabajo para alcanzar el aprendizaje esperado', 5, 21, NULL),
 (127, 'Se organiza oportunamente y en tiempo con la agenda', 5, 21, NULL),
 (128, 'Cuenta con el apoyo humano, material y de equipo requerido', 5, 21, NULL),
-(129, 'Evaluacion general del curso', 5, 21, NULL);
+(129, 'Evaluacion general del curso', 5, 21, NULL),
+(209, '¿Cuál es la filosofía del modelo educativo SEUAT?', 6, 25, NULL),
+(210, '¿Cuáles son los tres contextos estadísticos que toma como marco referencial el Modelo Educativo SEUAT?', 6, 25, NULL),
+(211, 'Son el fundamento legal del Modelo Educativo:', 6, 25, NULL),
+(212, '¿Cuáles son los fundamentos epistemológicos del Modelo Educativo SEUAT?', 6, 25, NULL),
+(213, 'Nuestro sistema se centra en educar e instrumentar los procesos de convivencia en el surgimiento y desarrollo del SENTIDO COMÚN de su personal académico, administrativo y estudiantes … son tendencias de:', 6, 25, NULL),
+(214, 'Pedagogía que adopta SEUAT para su modelo educativo:', 6, 25, NULL),
+(215, 'Son componentes de una pedagogía constructivista:', 6, 25, NULL),
+(216, '¿Cuáles son los cuatro pilares de la educación por competencias?', 6, 25, NULL),
+(217, 'En este proceso formativo es consigna actuante de los programas educativos y atmósfera envolvente entorno a la dignidad e igualdad de las personas, la solidaridad y la estima del bien común, el respeto a los demás y la participación colectiva; son indicios de:', 6, 25, NULL),
+(218, ' Escribe la Misión del SEUAT según el Modelo educativo:', 6, 25, NULL),
+(219, 'Escribe la Visión del SEUAT según el Modelo Educativo:', 6, 25, NULL),
+(220, 'Son valores que se deben de ejercer en SEUAT según el Modelo Educativo:', 6, 25, NULL),
+(221, 'Son ejes de la formación profesional del estudiante desde la perspectiva del modelo educativo.', 6, 25, NULL),
+(222, 'Está diseñado para la atención del estudiante en el trayecto de toda su formación profesional, vista de diferentes perspectivas como son formación integral, movilidad de estudiante, asesoría académica, tutorías, etc.', 6, 25, NULL),
+(223, 'Es una herramienta formativa diseñada en tres sentidos, didáctica, epistémica y metodológica. Desde la didáctica, establece las condiciones para aprender a aprender a investigar. Desde la herramienta epistémica, el mismo proceso didáctico genera conocimiento de la realidad. A su vez, se traduce en una herramienta metodológica en la medida que el estudiante construye un método acompañado de técnicas de investigación…', 6, 25, NULL);
 
 -- --------------------------------------------------------
 
@@ -406,6 +485,22 @@ CREATE TABLE `t_respuestas_autoevaluacion_docente` (
   `id_respuesta` int(11) DEFAULT NULL,
   `estatus` int(11) DEFAULT NULL,
   `duracion` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `t_respuestas_evaluacion_modelo_educativo`
+--
+
+CREATE TABLE `t_respuestas_evaluacion_modelo_educativo` (
+  `id` int(11) NOT NULL,
+  `id_encuesta` int(11) DEFAULT NULL,
+  `id_pregunta` int(11) DEFAULT NULL,
+  `id_docente` int(11) DEFAULT NULL,
+  `id_opcion_respuesta` int(11) DEFAULT NULL,
+  `estatus` int(11) DEFAULT NULL,
+  `tiempo_dedicado` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -456,7 +551,8 @@ INSERT INTO `t_subcategoria_preguntas` (`id`, `nombre_subcategoria`, `id_categor
 (19, 'MATERIAL DE APOYO DOCUMENTAL (BIBLIOGRAFIA)', 7),
 (20, 'MATERIAL DE APOYO DIGITAL', 8),
 (21, 'ASPECTOS SOBRE EL CURSO IMPARTIDO', 9),
-(22, 'DOCENCIA', 2);
+(22, 'DOCENCIA', 2),
+(25, 'EVALUACION MODELO EDUCATIVO', 10);
 
 --
 -- Índices para tablas volcadas
@@ -515,6 +611,13 @@ ALTER TABLE `t_opciones_respuestas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `t_opciones_respuestas_opcion_multiple`
+--
+ALTER TABLE `t_opciones_respuestas_opcion_multiple`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `t_opciones_respuestas_opcion_multiple_t_preguntas_FK` (`id_pregunta`);
+
+--
 -- Indices de la tabla `t_periodo`
 --
 ALTER TABLE `t_periodo`
@@ -558,6 +661,16 @@ ALTER TABLE `t_respuestas_autoevaluacion_docente`
   ADD KEY `t_respuestas_autoevaluacion_docente_t_opciones_respuestas_FK` (`id_respuesta`);
 
 --
+-- Indices de la tabla `t_respuestas_evaluacion_modelo_educativo`
+--
+ALTER TABLE `t_respuestas_evaluacion_modelo_educativo`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `t_respuestas_evaluacion_modelo_educativo_t_encuesta_FK` (`id_encuesta`),
+  ADD KEY `t_respuestas_evaluacion_modelo_educativo_t_preguntas_FK` (`id_pregunta`),
+  ADD KEY `t_respuestas_evaluacion_modelo_educativo_t_docente_FK` (`id_docente`),
+  ADD KEY `ion_modelo_educativo_t_opciones_respiple_FK` (`id_opcion_respuesta`);
+
+--
 -- Indices de la tabla `t_respuestas_heteroevaluacion_docente`
 --
 ALTER TABLE `t_respuestas_heteroevaluacion_docente`
@@ -583,13 +696,13 @@ ALTER TABLE `t_subcategoria_preguntas`
 -- AUTO_INCREMENT de la tabla `t_alumnos`
 --
 ALTER TABLE `t_alumnos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT de la tabla `t_categorias_preguntas`
 --
 ALTER TABLE `t_categorias_preguntas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `t_categoria_persona`
@@ -607,25 +720,31 @@ ALTER TABLE `t_curso`
 -- AUTO_INCREMENT de la tabla `t_docente`
 --
 ALTER TABLE `t_docente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT de la tabla `t_encuesta`
 --
 ALTER TABLE `t_encuesta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `t_materias`
 --
 ALTER TABLE `t_materias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=623;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=672;
 
 --
 -- AUTO_INCREMENT de la tabla `t_opciones_respuestas`
 --
 ALTER TABLE `t_opciones_respuestas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT de la tabla `t_opciones_respuestas_opcion_multiple`
+--
+ALTER TABLE `t_opciones_respuestas_opcion_multiple`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 
 --
 -- AUTO_INCREMENT de la tabla `t_periodo`
@@ -643,19 +762,25 @@ ALTER TABLE `t_ponente`
 -- AUTO_INCREMENT de la tabla `t_preguntas`
 --
 ALTER TABLE `t_preguntas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=209;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=224;
 
 --
 -- AUTO_INCREMENT de la tabla `t_respuestas`
 --
 ALTER TABLE `t_respuestas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1687;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1785;
 
 --
 -- AUTO_INCREMENT de la tabla `t_respuestas_autoevaluacion_docente`
 --
 ALTER TABLE `t_respuestas_autoevaluacion_docente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
+
+--
+-- AUTO_INCREMENT de la tabla `t_respuestas_evaluacion_modelo_educativo`
+--
+ALTER TABLE `t_respuestas_evaluacion_modelo_educativo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `t_respuestas_heteroevaluacion_docente`
@@ -667,7 +792,7 @@ ALTER TABLE `t_respuestas_heteroevaluacion_docente`
 -- AUTO_INCREMENT de la tabla `t_subcategoria_preguntas`
 --
 ALTER TABLE `t_subcategoria_preguntas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Restricciones para tablas volcadas
@@ -691,6 +816,12 @@ ALTER TABLE `t_encuesta`
 --
 ALTER TABLE `t_materias`
   ADD CONSTRAINT `t_materias_t_docente_FK` FOREIGN KEY (`id_docente`) REFERENCES `t_docente` (`id`);
+
+--
+-- Filtros para la tabla `t_opciones_respuestas_opcion_multiple`
+--
+ALTER TABLE `t_opciones_respuestas_opcion_multiple`
+  ADD CONSTRAINT `t_opciones_respuestas_opcion_multiple_t_preguntas_FK` FOREIGN KEY (`id_pregunta`) REFERENCES `t_preguntas` (`id`);
 
 --
 -- Filtros para la tabla `t_preguntas`
@@ -720,6 +851,15 @@ ALTER TABLE `t_respuestas_autoevaluacion_docente`
   ADD CONSTRAINT `t_respuestas_autoevaluacion_docente_t_preguntas_FK` FOREIGN KEY (`id_pregunta`) REFERENCES `t_preguntas` (`id`);
 
 --
+-- Filtros para la tabla `t_respuestas_evaluacion_modelo_educativo`
+--
+ALTER TABLE `t_respuestas_evaluacion_modelo_educativo`
+  ADD CONSTRAINT `ion_modelo_educativo_t_opciones_respiple_FK` FOREIGN KEY (`id_opcion_respuesta`) REFERENCES `t_opciones_respuestas_opcion_multiple` (`id`),
+  ADD CONSTRAINT `t_respuestas_evaluacion_modelo_educativo_t_docente_FK` FOREIGN KEY (`id_docente`) REFERENCES `t_docente` (`id`),
+  ADD CONSTRAINT `t_respuestas_evaluacion_modelo_educativo_t_encuesta_FK` FOREIGN KEY (`id_encuesta`) REFERENCES `t_encuesta` (`id`),
+  ADD CONSTRAINT `t_respuestas_evaluacion_modelo_educativo_t_preguntas_FK` FOREIGN KEY (`id_pregunta`) REFERENCES `t_preguntas` (`id`);
+
+--
 -- Filtros para la tabla `t_respuestas_heteroevaluacion_docente`
 --
 ALTER TABLE `t_respuestas_heteroevaluacion_docente`
@@ -734,6 +874,7 @@ ALTER TABLE `t_respuestas_heteroevaluacion_docente`
 --
 ALTER TABLE `t_subcategoria_preguntas`
   ADD CONSTRAINT `FK_t_subcategoria_preguntas_t_categorias_preguntas` FOREIGN KEY (`id_categoria`) REFERENCES `t_categorias_preguntas` (`id`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

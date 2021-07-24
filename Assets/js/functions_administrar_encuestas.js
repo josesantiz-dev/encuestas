@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function(){
 			{"data":"nombre_encuesta"},
 			{"data":"descripcion"},
 			{"data":"nombre_categoria_persona"},
+			{"data":"nombre_periodo"},
 			{"data":"estatus"},
 			{"data":"options"}
 
@@ -41,10 +42,10 @@ document.addEventListener('DOMContentLoaded', function(){
 
 $('#tableRoles').DataTable();
 
+
 function reporteEncuesta(answer){
 	let id = answer.getAttribute("rl");
 	location.href= base_url+"/Admin/reporteEncuesta?id="+id;
-
 }
 
 

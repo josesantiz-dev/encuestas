@@ -2,7 +2,7 @@
     <div class="float-right d-none d-sm-inline">
       <a href="#">Soporte | </a> Versión v1.0.0
     </div>
-    <strong>Copyright &copy; 2020-<?php echo date('Y'); ?> <a href="https://seuat.mx">Heteroevaliacion Docente - SEUAT</a>.</strong> Todos los derechos reservados.
+    <strong>Copyright &copy; 2020-<?php echo date('Y'); ?> <a href="https://seuat.mx">Encuestas - SEUAT</a>.</strong> Todos los derechos reservados.
   </footer>
 </div>
 

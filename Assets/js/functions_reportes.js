@@ -1,17 +1,8 @@
-var tableBiblioteca;
+//Obtener el Id de la Encuesta mediante GET
 let url = new URLSearchParams(location.search);
 var u = url.get('id');
-/*
-let url1 = base_url+"/Admin/getHeteroEvaluacionDocente?id="+u;
-        fetch(url1)
-            .then(res => res.json())
-            .then((out) => {
-                console.log(out);
-            })
-            .catch(err => { throw err });
-            */
 
-
+////Mostrar en Datatable lista de Docetes Encuestados en Heteroevaluacion Alumno
 document.addEventListener('DOMContentLoaded', function(){
 	tableRoles = $('#tableRoles').dataTable( {
 		"aProcessing":true,
@@ -49,10 +40,10 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 });
-
 $('#tableRoles').DataTable();
 
 
+//Funcion para obtener total de Participantes de una Encuesta del HeteroEvalaucionDocente*/
 function reporteEncuesta(answer){
     let materia = answer.getAttribute("m");
     let docente = answer.getAttribute("d");
@@ -69,6 +60,7 @@ function reporteEncuesta(answer){
             .catch(err => { throw err });
 
 }
+ //Funcion para obtener las respuestas y sumarlo por categorias
 function respuestas(valor,num){
     let url = base_url+"/Admin/getRespuestas?id="+valor;
     let resultados = [];
@@ -82,23 +74,6 @@ function respuestas(valor,num){
                 }
                 resultados[element.nombre_categoria] += parseInt(element.puntuacion,10);
             });
-            /*
-            out.reduce(function(res,value){
-                if(!res[value.id_subcategoria]){
-                    res[value.id_subcategoria] = {Id:value.id_subcategoria, id_subcategoria:0};
-                    resultados.push(res[value.id_subcategoria])
-                }
-                res[value.id_subcategoria].puntuacion += value.puntuacion;
-                return res;
-            });*/
-            /*
-            out.forEach(element => {
-               var id_subcategoria = element.id_subcategoria;
-               if(!resultados.includes(id_subcategoria)){
-                   resultados.push(id_subcategoria);
-               }
-            });
-            */
             var valores = [];
             Object.values(resultados).forEach(element => {
                 valores.push(element/num);
@@ -110,13 +85,10 @@ function respuestas(valor,num){
             mostrarTabla(resultados,categorias,puntuacionMaxima,num);
 
         })
-        .catch(err => { throw err });
-
-   // graficas(resultados);
-  
+        .catch(err => { throw err });  
 }
 
-// === include 'setup' then 'config' above ===
+//Funcion para Mostrar en grafica de barra horizontal resultados de HeteroEvaluacionDocente
 function graficas(categorias,sumatorias,num){     
     document.getElementById("myChart").innerHTML = null;  
     var MeSeContext = document.getElementById('myChart').getContext('2d');
@@ -147,7 +119,7 @@ function graficas(categorias,sumatorias,num){
         }
     });
 }
-
+//Funcion para Mostrar Tabla de Resultados de HeteroEvaluacionDocente
 function mostrarTabla(resultados,categorias,puntuacionMaxima,num){
     var contador = 0;
     console.log(num);
@@ -160,4 +132,91 @@ function mostrarTabla(resultados,categorias,puntuacionMaxima,num){
 
     });
     document.getElementById("totalPunto").innerHTML ="<div class='text-center'><h3><b>Total:</b> "+total+" de <small>"+147+" puntos</small></h3></div>";
+}
+
+
+//Mostrar en Datatable lista de Docetes Encuestados en Autoevaluacion Docente
+document.addEventListener('DOMContentLoaded', function(){
+	tableRoles = $('#tableAutoEvaluacionDocente').dataTable( {
+		"aProcessing":true,
+		"aServerSide":true,
+        "language": {
+        	//url:"<?php echo media(); ?>/plugins/Spanish.json"
+        	"url": " "+base_url+"/Assets/plugins/Spanish.json"
+        },
+        "ajax":{
+            "url": " "+base_url+"/Admin/getAutoEvaluacionDocente?id="+u,
+            "dataSrc":""
+        },
+        "columns":[
+            {"data":"numeracion"},
+			{"data":"nombre_docente"},
+			{"data":"apellidos_docente"},
+            {"data":"options"}
+
+        ],
+        "responsive": true,
+	    "paging": true,
+	    "lengthChange": true,
+	    "searching": true,
+	    "ordering": true,
+	    "info": true,
+	    "autoWidth": false,
+	    "scrollY": '42vh',
+	    "scrollCollapse": true,
+	    "bDestroy": true,
+	    "order": [[ 0, "asc" ]],
+	    "iDisplayLength": 25
+    });
+});
+$('#tableAutoEvaluacionDocente').DataTable();
+//Funcion  para reporteEncuestaAutoEvalaucionDocente
+function reporteEncuestaAutoEvalaucionDocente(valor){
+    let nombre = valor.getAttribute("n");
+    let id = valor.getAttribute("rl");
+    var contador = 0;
+    document.getElementById("nombreDocente").innerHTML =nombre;
+    let url = base_url+"/Admin/getResultadosAutoEvaluacionDocente?id="+id;
+        fetch(url)
+            .then(res => res.json())
+            .then((out) => {
+                document.getElementById("valoresTablaAutoEvaluacionDocente").innerHTML = null;
+                out.forEach(element => {
+                    contador +=1;
+                    var nombrePregunta = element.nombre_pregunta;
+                    var nombreArea = element.nombre_subcategoria;
+                    var nivelNecesidad = element.nombre_respuesta;
+                    document.getElementById("valoresTablaAutoEvaluacionDocente").innerHTML +="<tr><td>"+contador+".</td><td>"+nombrePregunta+"</td><td>"+nombreArea+"</td><td>"+nivelNecesidad+"</td></tr>";
+                });
+            })
+            .catch(err => { throw err });
+}
+
+//Funcion para reporte general de la AutoEvaluacionDocente
+reporteGeneralAutoEvaluacionDocente();
+function reporteGeneralAutoEvaluacionDocente(){
+    let url = base_url+"/Admin/getReporteGeneralAutoEvaluacionDocente";
+        fetch(url)
+            .then(res => res.json())
+            .then((out) => {
+                out.forEach(element => {
+                    var array = [];
+                    var id = element.id_pregunta;
+                    var url_valores = base_url+"/Admin/getRespuestasPreguntaIndividual?id="+id;
+                    fetch(url_valores)
+                        .then(res => res.json())
+                        .then((resultado) => {
+                            resultado.forEach(element => {
+                                array.push([element]);
+
+                            });
+                            
+                        })
+                        .catch(err => { throw err });
+                        //console.log(array);
+                        });
+                        
+                })
+            .catch(err => { throw err });
+ 
 }
