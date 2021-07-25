@@ -59,6 +59,7 @@
                     $data['page_title'] = "Evaluaciones Docente";
                     $data['page_functions_js'] = "functions_docente.js";
                     $data['id_bd_docente'] = $this->model->guardarDocenteEvBD($data);
+                    $data['estatus_encuesta'] = $this->model->estatusEncuestaAutoEvDocente($data['id_bd_docente'][0]['id']);
                     $this->views->getView($this,"Home/docente",$data);
                     
    

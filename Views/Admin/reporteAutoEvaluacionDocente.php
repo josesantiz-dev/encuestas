@@ -54,87 +54,75 @@
                                     </div>
                                 </div>
                                 <div class="card">
-                                    <div class="m-auto">
-                                        <div class="row">
-                                            <h4>Docente: </h4>
-                                            <p id="nombreDocente" class="ml-4"></p>
-                                        </div>
-                                    </div>
-                                    <!--
-                                    <div class="col-lg-12 col-12 row">
-                                        <div class="col-lg-12 col-12">
-                                            <div class="card card-primary">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">Reporte general de la Encuesta</h3>
-                                                    <div class="card-tools">
-                                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                            <i class="fas fa-minus"></i>
-                                                        </button>
-                                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                            <i class="fas fa-times"></i>
-                                                        </button>
-                                                    </div>  
-                                                  </div>
+                                    <div class="col-lg-12 col-12">
+                                        <div class="card card-primary">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Reporte general de la Encuesta</h3>
+                                                <div class="card-tools">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
                                                 </div>
-                                                <!-- /.card-header
-                                                <div class="card-body" style="display:block">
-                                                  <table class="table table-bordered">
+                                            </div>
+                                            <div class="card-body" style="display: block;">
+                                                <table class="table table-bordered">
                                                     <thead>
-                                                      <tr>
-                                                        <th style="width: 10px">#</th>
-                                                        <th>Pregunta</th>
-                                                        <th>Área de Capacitación y Actualización Docente</th>
-                                                        <th>Prioritario</th>
-                                                        <th>Alto</th>
-                                                        <th>Medio</th>
-                                                        <th>Bajo</th>
-                                                        <th>Necesita Mejorar</th>
-                                                      </tr>
+                                                        <tr>
+                                                            <th style="width: 10px">#</th>
+                                                            <th>Pregunta</th>
+                                                            <th>Área de Capacitación y Actualización Docente</th>
+                                                            <th>Prioritario</th>
+                                                            <th>Alto</th>
+                                                            <th>Medio</th>
+                                                            <th>Bajo</th>
+                                                            <th>Necesita Mejorar</th>
+                                                        </tr>
                                                     </thead>
                                                     <tbody id="reporteGeneralAutoEvaluacionDocente">
                                                     </tbody>
-                                                  </table>
+                                                </table>
+                                            </div>
+                                        </div>   
+                                    </div>
+                                    <div class="col-lg-12 col-12">
+                                        <div class="card card-danger">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Resultado Individual de la Encuesta</h3>
+                                                <div class="card-tools">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
                                                 </div>
-                                                <div class="card-footer clearfix" id="totalPunto">
-                                                
+                                            </div>
+                                            <div class="card-body" style="display: block;">
+                                                <div class="m-auto">
+                                                    <div class="row">
+                                                        <h4>Docente: </h4>
+                                                        <h4 id="nombreDocente" class="ml-4"></h4>
+                                                    </div>
                                                 </div>
-                                              </div>
-                                        </div>
-                                    </div>-->
-
-                                    <div class="col-lg-12 col-12 row">
-                                        <div class="col-lg-12 col-12">
-                                            <div class="card card-primary">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">Resultado Individual de la Encuesta</h3>
-                                      
-                                                  </div>
-                                                </div>
-                                                <!-- /.card-header -->
-                                                <div class="card-body" style="display:block">
-                                                  <table class="table table-bordered">
+                                                <table class="table table-bordered">
                                                     <thead>
-                                                      <tr>
-                                                        <th style="width: 10px">#</th>
-                                                        <th>Pregunta</th>
-                                                        <th>Área de Capacitación y Actualización Docente</th>
-                                                        <th>Nivel de Necesidad</th>
-                                                      </tr>
+                                                        <tr>
+                                                            <th style="width: 10px">#</th>
+                                                            <th>Pregunta</th>
+                                                            <th>Área de Capacitación y Actualización Docente</th>
+                                                            <th>Nivel de Necesidad</th>
+                                                        </tr>
                                                     </thead>
                                                     <tbody id="valoresTablaAutoEvaluacionDocente">
                                                     </tbody>
-                                                  </table>
-                                                </div>
-                                                <!-- /.card-body -->
-                                                <div class="card-footer clearfix" id="totalPunto">
-                                                
-                                                </div>
-                                              </div>
-                                        </div>
+                                                </table>
+                                            </div>
+                                        </div>   
                                     </div>
-                                </div>   
-                      
-                                
+                                </div>    
                             </div>
                         </div>
                     </div>

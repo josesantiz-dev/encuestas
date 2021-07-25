@@ -282,5 +282,17 @@ class HomeModel extends Mysql
 		$request = $this->select_all($sql);
 		return $request;
     }
+
+    function estatusEncuestaAutoEvDocente($data){
+        $estatusParticipado = 1;
+        $estatusNoParticipado = 0;
+        $sql = "SELECT id_docente FROM t_respuestas_autoevaluacion_docente WHERE id_docente = $data LIMIT 1";
+        $request = $this->select($sql);
+        if($request){
+            return $estatusParticipado;
+        }else{
+            return $estatusNoParticipado;
+        }
+    }
 }
 ?>

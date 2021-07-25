@@ -87,7 +87,7 @@ class AdminModel extends Mysql{
     //Obtener todas las respuestas del AutoEvaluacion Docente
 
     public function selectReporteGralAutoEvaluacionDocente(){
-        $sql = "SELECT id_pregunta,COUNT(*) FROM t_respuestas_autoevaluacion_docente
+        $sql = "SELECT id_pregunta,COUNT(*) FROM (SELECT * FROM t_respuestas_autoevaluacion_docente ORDER BY id_pregunta) AS res
         GROUP BY id_pregunta HAVING COUNT(*)>1";
         $request = $this->select_all($sql);
         return $request;
@@ -95,12 +95,17 @@ class AdminModel extends Mysql{
 
     public function selectRespuestasPreguntaIndivisual($data){
         $id = $data;
-        $sql = "SELECT res.id_pregunta,res.id_respuesta,pr.nombre_pregunta,sub.nombre_subcategoria,opc.nombre_respuesta,COUNT(*) FROM t_respuestas_autoevaluacion_docente res
-        INNER JOIN t_preguntas AS pr ON res.id_pregunta = pr.id
-        INNER JOIN t_opciones_respuestas AS opc ON res.id_respuesta = opc.id
-        INNER JOIN t_subcategoria_preguntas AS sub ON pr.id_subcategoria = sub.id
-        WHERE res.id_pregunta = $id
-        GROUP BY res.id_respuesta";
+        $sql = "SELECT trad.id_pregunta,tp.nombre_pregunta,tsp.nombre_subcategoria,
+        (SELECT COUNT(*) FROM t_respuestas_autoevaluacion_docente trad INNER JOIN t_opciones_respuestas AS tor ON trad.id_respuesta = tor.id WHERE trad.id_pregunta = $id AND tor.nombre_respuesta = 'PR') AS PR,
+        (SELECT COUNT(*) FROM t_respuestas_autoevaluacion_docente trad INNER JOIN t_opciones_respuestas AS tor ON trad.id_respuesta = tor.id WHERE trad.id_pregunta = $id AND tor.nombre_respuesta = 'AL') AS AL,
+        (SELECT COUNT(*) FROM t_respuestas_autoevaluacion_docente trad INNER JOIN t_opciones_respuestas AS tor ON trad.id_respuesta = tor.id WHERE trad.id_pregunta = $id AND tor.nombre_respuesta = 'ME') AS ME,
+        (SELECT COUNT(*) FROM t_respuestas_autoevaluacion_docente trad INNER JOIN t_opciones_respuestas AS tor ON trad.id_respuesta = tor.id WHERE trad.id_pregunta = $id AND tor.nombre_respuesta = 'BA') AS BA,
+        (SELECT COUNT(*) FROM t_respuestas_autoevaluacion_docente trad INNER JOIN t_opciones_respuestas AS tor ON trad.id_respuesta = tor.id WHERE trad.id_pregunta = $id AND tor.nombre_respuesta = 'NM') AS NM
+        FROM t_respuestas_autoevaluacion_docente trad
+        INNER JOIN t_preguntas AS tp ON trad.id_pregunta = tp.id 
+        INNER JOIN t_opciones_respuestas AS tor ON trad.id_respuesta = tor.id
+        INNER JOIN t_subcategoria_preguntas AS tsp ON tp.id_subcategoria = tsp.id
+        WHERE trad.id_pregunta = $id LIMIT 1";
         $request = $this->select_all($sql);
         return $request;
     }

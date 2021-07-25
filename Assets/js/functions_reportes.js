@@ -199,26 +199,29 @@ function reporteGeneralAutoEvaluacionDocente(){
         fetch(url)
             .then(res => res.json())
             .then((out) => {
-                var array = [];
+                var contador = 0;
+                console.log(out);
                 out.forEach(element => {
                     var id = element.id_pregunta;
                     var url_valores = base_url+"/Admin/getRespuestasPreguntaIndividual?id="+id;
                     fetch(url_valores)
                         .then(res => res.json())
                         .then((resultado) => {
-                            resultado.forEach(element => {
-                                //console.log(element.id_pregunta);
-                       
-                                array[element.id_pregunta] = element;
-
-                            });
+                            contador += 1;
+                            var nombrePregunta = resultado[0].nombre_pregunta;
+                            var nombreSubcategoria = resultado[0].nombre_subcategoria;
+                            var cantPrioritario = resultado[0].PR;
+                            var cantAlto = resultado[0].AL;
+                            var cantMedio = resultado[0].ME;
+                            var cantBajo = resultado[0].BA;
+                            var cantNecesitaMeorar = resultado[0].NM;
+                            document.getElementById("reporteGeneralAutoEvaluacionDocente").innerHTML +="<tr><td>"+contador+"</td><td>"+nombrePregunta+"</td><td>"+nombreSubcategoria+"</td><td>"+cantPrioritario+"</td><td>"+cantAlto+".</td><td>"+cantMedio+"</td><td>"+cantBajo+"</td><td>"+cantNecesitaMeorar+"</td></tr>";
                             
                         })
                         .catch(err => { throw err });
                         
                         });
-                        console.log(array);
-                        
+                 
                 })
             .catch(err => { throw err });
  

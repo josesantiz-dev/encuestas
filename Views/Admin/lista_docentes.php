@@ -10,7 +10,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">  <?= $data['page_title'] ?>
-              <a href="AgregarLibros"><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle fa-md"></i> Nuevo</button></a>
+              <!--<a href="AgregarLibros"><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle fa-md"></i> Nuevo</button></a>-->
             </h1>
           </div>
           <!--

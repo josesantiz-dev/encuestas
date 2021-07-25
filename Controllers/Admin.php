@@ -8,8 +8,11 @@
 
 
         public function admin(){
-            $data['page_functions_js'] = "functions_list_docentes.js";
-			$this->views->getView($this,"dashboard",$data);
+            $data['page_tag'] = "Administrar Encuestas";
+			$data['page_title'] = "Administrar Encuestas";
+			$data['page_name'] = "administrar encuestas";
+            $data['page_functions_js'] = "functions_administrar_encuestas.js";
+			$this->views->getView($this,"administrar_encuestas",$data);
         }
         
         public function AdministrarEncuestas(){
@@ -83,7 +86,7 @@
                 for ($i=0; $i < count($arrData); $i++) {
                     $arrData[$i]['nombre'] = $arrData[$i]['nombre_docente']." ".$arrData[$i]['apellidos_docente'];
                     $arrData[$i]['options'] = '<div class="text-center">
-                    <a href="Admin/reporte?id='.$arrData[$i]['id'].'"><button class="btn btn-primary btn-sm btnPermisosRol" rl="'.$arrData[$i]['id'].'" title="Permisos">Ver</button></a>
+                    <a href="Admin/reporte?id='.$arrData[$i]['id'].'"><button class="btn btn-primary btn-sm btnPermisosRol" rl="'.$arrData[$i]['id'].'" title="Permisos" disabled>Ver</button></a>
                     </div>';
                 }
                 echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
@@ -93,7 +96,7 @@
             $arrData = $this->model->selectEstudiantes();                                  
                 for ($i=0; $i < count($arrData); $i++) {
                     $arrData[$i]['options'] = '<div class="text-center">
-                    <a href="Admin/reporte?id='.$arrData[$i]['id'].'"><button class="btn btn-primary btn-sm btnPermisosRol" rl="'.$arrData[$i]['id'].'" title="Permisos">Ver</button></a>
+                    <a href="Admin/reporte?id='.$arrData[$i]['id'].'"><button class="btn btn-primary btn-sm btnPermisosRol" rl="'.$arrData[$i]['id'].'" title="Permisos" disabled>Ver</button></a>
                     </div>';
                 }
                 echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
