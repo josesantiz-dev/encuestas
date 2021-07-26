@@ -100,6 +100,14 @@
             $this->views->getView($this,"Home/heteroevaluacion_docente",$datos);
             
         }
+        /*Funcion para la Vista de Evaluacion - Modelo Educativo */
+        public function modeloEducativo(){
+            $datos['preguntas'] = $this->model->selectPreguntasModeloEducativo();
+            $datos['opciones'] = $this->model->selectOpcionesModeloEducativo();
+            $datos['page_functions_js'] = "functions_evaluacion_modelo_educativo.js";
+            $this->views->getView($this,"Home/evaluacion_modelo_educativo",$datos);
+            
+        }
 
          /*Funcion para Guardar Respuestas de la Evaluacion a Alumnos */
          public function recRespuestasHeteroevaluacionAlumno(){

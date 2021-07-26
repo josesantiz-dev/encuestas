@@ -74,6 +74,23 @@
                             <?php } ?> 
                         </div>
                     </div>
+                    <div class="card">
+                        <h5 class="card-header bg-primary">EVALUACIÓN - MODELO EDUCATIVO</h5>
+                        <div class="card-body">
+                            <h5 class="card-title">MODELO EDUCATIVO</h5>
+                            <div class="text-center">
+                                <a href="modeloEducativo?u=<?php echo $data['username'] ?>&id=<?php echo $data['datos']['userid'] ?>&n=<?php echo($data['datos']['nombre'].' '.$data['datos']['apellidos'])?>&idbd=<?php echo $data['id_bd_docente'][0]['id'] ?>"><button class="btn btn-primary" <?php if($data['estatus_encuesta'] == 1){ echo "disabled"; } ?>>Ir a la Encuesta</button></a>
+                            </div><br>
+                            <?php if($data['estatus_encuesta'] == 1){?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Ya haz contestado!</strong> La encuesta.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <?php } ?> 
+                        </div>
+                    </div>
                     <!--
                     <div class="card">
                         <h5 class="card-header bg-danger">HETEROEVALUACION</h5>

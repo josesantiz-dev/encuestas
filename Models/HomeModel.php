@@ -294,5 +294,19 @@ class HomeModel extends Mysql
             return $estatusNoParticipado;
         }
     }
+    //Select a Preguntas del Modelo Educativo
+    function selectPreguntasModeloEducativo(){
+        $sql = "SELECT pr.id,pr.nombre_pregunta,sub.nombre_subcategoria FROM t_preguntas AS pr
+        INNER JOIN t_subcategoria_preguntas AS sub ON pr.id_subcategoria = sub.id
+        WHERE pr.id_encuesta = 6";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+    //select a Opciones de Respuestas del Modelo Educativo
+    function selectOpcionesModeloEducativo(){
+        $sql = "SELECT *FROM t_opciones_respuestas_opcion_multiple";
+        $request = $this->select_all($sql);
+        return $request;
+    }
 }
 ?>
