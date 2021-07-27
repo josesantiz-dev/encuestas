@@ -67,7 +67,6 @@ $(document).ready(function(){
         data_respuestas.forEach(element => {
             contador +=1;
         });
-        console.log(contador);
         if(contador == steps-1){
             Swal.fire({
                 title: 'Enviar todo y terminar?',
@@ -114,6 +113,7 @@ $(document).ready(function(){
 const option_list = document.querySelector(".option_list");
 const seccion_list = document.querySelector("section");
 function optionSelected(answer){
+    let idOpcion = answer.getAttribute('rl');
     let p = answer.id;
     let indice = p.indexOf("+");
     let pre = p.substring(0,indice);
@@ -122,7 +122,7 @@ function optionSelected(answer){
     d.className += " correct";
     let opcion_s = p.split("+");
     var arreglo = ['a','b','c','d'];
-    data_respuestas[pre] = ({id_pregunta:pre,respuesta:opcion_s[1]});
+    data_respuestas[pre] = ({id_pregunta:pre,respuesta:opcion_s[1],idOpcionSel:idOpcion});
     for(i=0;i<allOptions;i++){
         var d = document.getElementById(pre+"+"+arreglo[i]);
         if(p == pre+"+"+arreglo[i]){
@@ -142,10 +142,7 @@ function guardarDatos(){
     });
     const respuestas_preguntas = JSON.stringify(datos);
 
-    console.log(respuestas_preguntas);
-    
-    /*
-    let url = base_url+"/Home/recRespuestasAutoevaluacionDocente?res="+respuestas_preguntas+"&dat="+datos_usuario;
+    let url = base_url+"/Home/recRespuestasModeloEducativo?res="+respuestas_preguntas+"&dat="+datos_usuario;
     fetch(url)
             .then(res => res.json())
             .then((out) => {
@@ -155,12 +152,12 @@ function guardarDatos(){
             
                 throw err; 
         }); 
-        */
+    
 }
 
 document.addEventListener("DOMContentLoaded",function(){
     Swal.fire({
         title: 'Mensaje',
-        text: 'El siguiente cuestionario tiene la finalidad de detectar las necesidades de capacitación que los docentes de la Universidad IESSIC y es fundamental para que la oferta de cursos sea diseñado para cubrir las necesidades.',
+        text: 'Contestar correctamente las siguientes preguntas, seleccionando una de las opciones enlistadas.',
       })
 })

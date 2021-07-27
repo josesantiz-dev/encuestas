@@ -60,7 +60,6 @@
                                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div><br>
                                 <?php
-                                //var_dump($data['opciones']);
                                     $sizearray = sizeof($data['preguntas']);
                                     for($i = 0; $i<=$sizearray;$i++ ){?>
                                         <fieldset>
@@ -103,14 +102,14 @@
                                                         </header>
                                                         <section>
                                                             <div class="que_text "><span><?php echo($data['preguntas'][$i]['nombre_pregunta']);?></span></div>
-                                                            <div class="option_list col-md-5 col-sm-12">
+                                                            <div class="option_list col-md-9 col-sm-12">
                                                                 <?php
                                                                     $contador = 0;
                                                                     foreach ($data['opciones'] as $value) {
                                                                         $contador += 1;
                                                                         if($value['id_pregunta'] == $data['preguntas'][$i]['id']){
                                                                             ?>
-                                                                            <div class="option" id="<?php  echo($data['preguntas'][$i]['id']); ?>+<?php echo($value['nombre_inciso']); ?>" onclick="optionSelected(this)">
+                                                                            <div class="option" id="<?php  echo($data['preguntas'][$i]['id']); ?>+<?php echo($value['nombre_inciso']); ?>" rl="<?php echo ($value['id']); ?>"onclick="optionSelected(this)">
                                                                                 <span><b><?php  echo($value['nombre_inciso']); ?>) </b><?php  echo($value['nombre_respuesta']. '<br>'); ?></span>
                                                                             </div>   
                                                                             <?php    

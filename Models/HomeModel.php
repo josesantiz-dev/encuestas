@@ -254,6 +254,20 @@ class HomeModel extends Mysql
         return $data;
 
     }
+    /*Guardar resultados Evaluacion Modelo Educativo */
+    public function guardarResultadoModeloEducativoBD($data){
+        $idDocente = $data['dat'][0]['idbd'];
+        foreach ($data['res'] as $value) {
+            $numPregunta = $value['id_pregunta'];
+            $opcionRespuesta = $value['respuesta'];
+            $idOpcionRespuesta = $value['idOpcionSel'];
+            $sql = "INSERT INTO t_respuestas_evaluacion_modelo_educativo (id_encuesta,id_pregunta,id_docente,id_opcion_respuesta,estatus,tiempo_dedicado)
+                VALUES (?,?,?,?,?,?)";
+            $this->insert($sql,array(6,$numPregunta,$idDocente,$idOpcionRespuesta,1,100));
+            
+        }
+        return $idDocente;
+    }
 
     /*Consultar preguntas Docente */
     public function consultarPreguntasAutoevaluacion(){
@@ -287,6 +301,17 @@ class HomeModel extends Mysql
         $estatusParticipado = 1;
         $estatusNoParticipado = 0;
         $sql = "SELECT id_docente FROM t_respuestas_autoevaluacion_docente WHERE id_docente = $data LIMIT 1";
+        $request = $this->select($sql);
+        if($request){
+            return $estatusParticipado;
+        }else{
+            return $estatusNoParticipado;
+        }
+    }
+    function estatusEncuestaModeloEducativo($data){
+        $estatusParticipado = 1;
+        $estatusNoParticipado = 0;
+        $sql = "SELECT id_docente FROM t_respuestas_evaluacion_modelo_educativo WHERE id_docente = $data LIMIT 1";
         $request = $this->select($sql);
         if($request){
             return $estatusParticipado;

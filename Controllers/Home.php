@@ -59,7 +59,8 @@
                     $data['page_title'] = "Evaluaciones Docente";
                     $data['page_functions_js'] = "functions_docente.js";
                     $data['id_bd_docente'] = $this->model->guardarDocenteEvBD($data);
-                    $data['estatus_encuesta'] = $this->model->estatusEncuestaAutoEvDocente($data['id_bd_docente'][0]['id']);
+                    $data['estatus_encuesta_autoevaluacion'] = $this->model->estatusEncuestaAutoEvDocente($data['id_bd_docente'][0]['id']);
+                    $data['estatus_encuesta_modelo_educativo'] = $this->model->estatusEncuestaModeloEducativo($data['id_bd_docente'][0]['id']);
                     $this->views->getView($this,"Home/docente",$data);
                     
    
@@ -151,6 +152,21 @@
             if($request){
                 echo json_encode($request, JSON_UNESCAPED_UNICODE);
 		        die();
+            }
+        }
+
+        /*Funcion para Guardar Respuestas de la Evaluacion de Modelo Eductaivo*/
+        public function recRespuestasModeloEducativo(){
+            $valor_r = $_GET['res'];
+            $valor_d = $_GET['dat'];
+            $valor_res = json_decode($valor_r, JSON_UNESCAPED_UNICODE);
+            $valor_dat = json_decode($valor_d,JSON_UNESCAPED_UNICODE);
+            $valor['res'] = $valor_res;
+            $valor['dat'] = $valor_dat;
+            $request = $this->model->guardarResultadoModeloEducativoBD($valor);
+            if($request){
+                echo json_encode($request,JSON_UNESCAPED_UNICODE);
+                die();
             }
         }
 
