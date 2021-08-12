@@ -179,6 +179,36 @@
             echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
             die();
         }
+        public function getListaParticipantesModeloEducativo(){
+            $arrData = $this->model->selectListaParticipantesModeloEducativo();
+            for ($i = 0; $i < count($arrData); $i++){
+                $arrData[$i]['numeracion'] = $i+1;
+                $arrData[$i]['nombreDocente'] = $arrData[$i]['nombre_docente']." ".$arrData[$i]['apellidos_docente'];
+                $arrData[$i]['options'] = '<div class="text-center">
+                <button class="btn btn-secondary btn-sm" rl="'.$arrData[$i]['id_docente'].'" n="'.$arrData[$i]['nombreDocente'].'" title="Ver" onclick="reporteIndModeloEduvativo(this)"><i class="fas fa-eye"></i></button>
+				</div>';
+            }
+            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+            die();
+        }
+        public function getReporteIndModeloEducativo(){
+            $idDocente = $_GET['id'];
+            $arrData = $this->model->selectResIndModeloEduvativo($idDocente);
+            for ($i=0; $i < count($arrData); $i++) {
+                if($arrData[$i]['puntuacion'] == 1){
+                    $arrData[$i]['resultado'] = '<span class="badge badge-success">Correcto</span>';
+                }else{
+                    $arrData[$i]['resultado'] = '<span class="badge badge-danger">Incorrecto</span>';
+                }
+            }
+            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+            die();
+        }
+        public function getReporteGeneralModeloEducativoDocente(){
+            $arrData = $this->model->selectReporteGralModeloEducativoDocente();
+            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+            die();
+        }
         //Obtener el Total de Participantes de la Encuesta en una Materia
         public function getTotalParticipantesEncuesta(){
             $id = $_GET['id'];

@@ -109,6 +109,30 @@ class AdminModel extends Mysql{
         $request = $this->select_all($sql);
         return $request;
     }
+    
+    public function selectListaParticipantesModeloEducativo(){
+        $sql = "SELECT res.id_docente,doc.nombre_docente,doc.apellidos_docente,COUNT(*) FROM t_respuestas_evaluacion_modelo_educativo AS res
+                INNER JOIN t_docente AS doc ON res.id_docente = doc.id
+                GROUP BY res.id_docente HAVING COUNT(*)>1";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+
+    public function selectResIndModeloEduvativo($data){
+        $sql = "SELECT res.id_pregunta,pr.nombre_pregunta,op.nombre_respuesta,op.puntuacion FROM t_respuestas_evaluacion_modelo_educativo AS res
+        INNER JOIN t_preguntas AS pr ON res.id_pregunta = pr.id
+        INNER JOIN t_opciones_respuestas_opcion_multiple AS op ON res.id_opcion_respuesta = op.id
+        WHERE res.id_docente = $data";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+    public function selectReporteGralModeloEducativoDocente(){
+        $sql = "SELECT id_pregunta,FROM t_respuestas_evaluacion_modelo_educativo as res
+        INNER JOIN t_preguntas AS pr ON res.id_pregunta = pr.id
+        INNER JOIN t_opciones_respuestas_opcion_multiple AS opc ON res.id_opcion_respuesta = opc.id";
+        $request = $this->select_all($sql);
+        return $request;
+    }
     /*
     public function selectReporteGralAutoEvaluacionDocente(){
         $sql = "SELECT res.id_pregunta,opc.id AS id_opcion_respuesta,opc.nombre_respuesta,preg.nombre_pregunta,sub.id AS id_subcategoria,sub.nombre_subcategoria FROM t_respuestas_autoevaluacion_docente AS res

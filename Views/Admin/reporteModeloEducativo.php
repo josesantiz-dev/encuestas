@@ -36,16 +36,14 @@
                             <div class="col-12 col-xl-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h3 class="card-title">Lista de Docentes Evaluados</h3>
+                                        <h3 class="card-title">Lista de Docentes</h3>
                                         <p class="card-text">
-                                            <table id="tableRoles" class="table table-bordered table-striped table-sm">
+                                            <table id="tableListaModeloEducativo" class="table table-bordered table-striped table-sm">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Nombre</th>
-                                                        <th>Materia</th>
-                                                        <th>Plataforma</th>
-                                                        <th>Carrera</th>
+                                                        <th>Apellidos</th>
                                                         <th>Acciones</th>
                                                     </tr>
                                                 </thead>
@@ -58,10 +56,6 @@
                                 <div class="card">
                                     <div class="m-auto">
                                         <div class="row">
-                                            <h4>Materia:</h4>
-                                            <h4 id="nombreMateria" class="ml-4"></h4>
-                                        </div>
-                                        <div class="row">
                                             <h4>Docente: </h4>
                                             <p id="nombreDocente" class="ml-4"></p>
                                         </div>
@@ -71,7 +65,7 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col mt-0">
-                                                        <h5 class="card-title">Total de Participantes</h5>
+                                                        <h5 class="card-title">Resultado Individual</h5>
                                                     </div>
                                                     <div class="col-auto">
                                                         <div class="avatar">
@@ -81,23 +75,18 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <h1 class="mt-1 mb-3 font-weight-bold" id="ct-libros">#</h1>
+                                                <h1 class="mt-1 mb-3 font-weight-bold" id="ct-promedio">#</h1>
                                                 <div class="mb-0">
                                                     <!--<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>-->
-                                                    <span class="text-muted">Alumnos le han evaluado</span>
+                                                    <h2 class="text-muted">de 100%</hex2bin>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+            
                                     <div class="col-lg-12 col-12 row">
-                                        <div class="col-lg-6 col-12">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <canvas id="myChart"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-12">
+               
+                                        <div class="col-lg-12 col-12">
                                             <div class="card">
                                                 <div class="card-header">
                                                   <h3 class="card-title">Resultados</h3>
@@ -108,13 +97,12 @@
                                                     <thead>
                                                       <tr>
                                                         <th style="width: 10px">#</th>
-                                                        <th>Calidad de desempeño en la áreas</th>
-                                                        <th>Puntuación Máxima</th>
-                                                        <th>Puntuacion Máxima</th>
-                                                        <th style="width: 40px">Puntos obtenidos</th>
+                                                        <th>Nombre Pregunta</th>
+                                                        <th>Respuesta</th>
+                                                        <th>Resultado</th>
                                                       </tr>
                                                     </thead>
-                                                    <tbody id="valoresTabla">
+                                                    <tbody id="resultadoIndividualModeloEducativo">
                                                     </tbody>
                                                   </table>
                                                 </div>

@@ -122,7 +122,6 @@ function graficas(categorias,sumatorias,num){
 //Funcion para Mostrar Tabla de Resultados de HeteroEvaluacionDocente
 function mostrarTabla(resultados,categorias,puntuacionMaxima,num){
     var contador = 0;
-    console.log(num);
     document.getElementById("valoresTabla").innerHTML = null;
     var total = 0;
     categorias.forEach(element => {
@@ -200,7 +199,6 @@ function reporteGeneralAutoEvaluacionDocente(){
             .then(res => res.json())
             .then((out) => {
                 var contador = 0;
-                console.log(out);
                 out.forEach(element => {
                     var id = element.id_pregunta;
                     var url_valores = base_url+"/Admin/getRespuestasPreguntaIndividual?id="+id;
@@ -225,4 +223,85 @@ function reporteGeneralAutoEvaluacionDocente(){
                 })
             .catch(err => { throw err });
  
+}
+reportesModeloEducativo();
+function reportesModeloEducativo(){
+    listaParticipantes();
+    reporteGeneralModeloEducativoDocente();
+}
+function listaParticipantes(){
+        document.addEventListener('DOMContentLoaded', function(){
+            tableRoles = $('#tableListaModeloEducativo').dataTable( {
+                "aProcessing":true,
+                "aServerSide":true,
+                "language": {
+                    //url:"<?php echo media(); ?>/plugins/Spanish.json"
+                    "url": " "+base_url+"/Assets/plugins/Spanish.json"
+                },
+                "ajax":{
+                    "url": " "+base_url+"/Admin/getListaParticipantesModeloEducativo",
+                    "dataSrc":""
+                },
+                "columns":[
+                    {"data":"numeracion"},
+                    {"data":"nombre_docente"},
+                    {"data":"apellidos_docente"},
+                    {"data":"options"}
+        
+                ],
+                "responsive": true,
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "scrollY": '42vh',
+                "scrollCollapse": true,
+                "bDestroy": true,
+                "order": [[ 0, "asc" ]],
+                "iDisplayLength": 25
+            });
+        
+        
+        });
+        $('#tableListaModeloEducativo').DataTable();    
+}
+function  reporteIndModeloEduvativo(answer){
+    const idDocente = answer.getAttribute('rl');
+    let docente = answer.getAttribute("n");
+    var calificacion;
+    document.getElementById("nombreDocente").innerHTML = docente;
+    let url = base_url+"/Admin/getReporteIndModeloEducativo?id="+idDocente;
+    fetch(url)
+        .then(res => res.json())
+        .then((resultado) =>{
+            var sizeArray = resultado.length;
+            var contador = 0;
+            document.getElementById("resultadoIndividualModeloEducativo").innerHTML = null;
+            resultado.forEach(element => {
+                contador += 1;
+                if(calificacion==undefined){
+                    calificacion =0;
+                }
+                document.getElementById("resultadoIndividualModeloEducativo").innerHTML +="<tr><td>"+contador+"</td><td>"+element['nombre_pregunta']+"</td><td>"+element['nombre_respuesta']+"</td><td>"+element['resultado']+"</td></tr>";
+                calificacion += parseInt(element['puntuacion']);
+            });
+            var porcentaje = (100*calificacion)/sizeArray;
+            porResultado(porcentaje);
+            function porResultado(porcentaje) {
+                console.log(Number.parseFloat(porcentaje).toFixed(2));
+                document.getElementById("totalPunto").innerHTML = "<div class='text-center'><h2><b>"+Number.parseFloat(porcentaje).toFixed(2)+" %</b> de 100%</h2></div>";
+                document.getElementById("ct-promedio").innerHTML = Number.parseFloat(porcentaje).toFixed(2)+"%";
+
+              }
+        })
+}
+function reporteGeneralModeloEducativoDocente(){
+    let url = base_url+"/Admin/getReporteGeneralModeloEducativoDocente";
+    fetch(url)
+        .then(res => res.json())
+        .then((resultado) =>{
+            //console.table(resultado);
+        })
 }

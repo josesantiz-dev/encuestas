@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 12-08-2021 a las 15:59:43
+-- Tiempo de generación: 24-07-2021 a las 23:02:33
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.3.27
 
@@ -33,13 +33,6 @@ CREATE TABLE `t_alumnos` (
   `nombre` varchar(100) DEFAULT NULL,
   `apellidos` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `t_alumnos`
---
-
-INSERT INTO `t_alumnos` (`id`, `nombre_usuario`, `nombre`, `apellidos`) VALUES
-(76, 'docente.prueba', 'DOCENTE PRUEBA', 'PRUEBA');
 
 -- --------------------------------------------------------
 
@@ -123,14 +116,6 @@ CREATE TABLE `t_docente` (
   `nombre_docente` varchar(100) DEFAULT NULL,
   `apellidos_docente` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `t_docente`
---
-
-INSERT INTO `t_docente` (`id`, `id_usuario_plataforma`, `usuario_docente`, `nombre_docente`, `apellidos_docente`) VALUES
-(129, 228, 'docente.virtual', 'JOSE', 'SANTIZ RUIZ'),
-(130, 909, 'docente.prueba', 'DOCENTE PRUEBA', 'PRUEBA');
 
 -- --------------------------------------------------------
 
@@ -251,7 +236,7 @@ INSERT INTO `t_opciones_respuestas_opcion_multiple` (`id`, `nombre_inciso`, `nom
 (108, 'b', 'Pedagogía constructivista', 0, 217),
 (109, 'c', 'Un sentido social.', 1, 217),
 (110, 'a', 'Formar profesionales con sentido de una educación integral humanista, basada en el enfoque de desarrollo de competencias del Siglo XXI y responsabilidad social, a fin de que construyan propuestas y alternativas de solución a problemas sociales, políticos, culturales y económicos del estado, de la región y del país.', 1, 218),
-(111, 'a', 'Ser un Sistema Educativo reconocido  nacional e internacionalmente por la calidad de sus programas de formación , la consolidación de su Modelo Educativo Institucional respecto de los componentes de equidad de género, sustentabilidad, interculturalidad, inclusión social y desarrollo de la Investigación', 0, 219),
+(111, 'a', 'Ser un Sistema Educativo reconocido regional, nacional e internacionalmente por la calidad de sus programas de formación y servicios, la consolidación de su Modelo Educativo Institucional respecto de los componentes de equidad de género, sustentabilidad, interculturalidad, inclusión social y desarrollo de la Investigación Científica', 1, 219),
 (112, 'a', 'Autonomía, Templanza, Honestidad, Respeto, Inclusión y Disciplina', 1, 220),
 (113, 'b', 'Autonomía, Templanza, Cooperación, Dignidad, Paz y Tolerancia.', 0, 220),
 (114, 'c', 'Amor, Justicia, Respeto, Libertad, Inclusión y Amistad.', 0, 220),
@@ -263,11 +248,7 @@ INSERT INTO `t_opciones_respuestas_opcion_multiple` (`id`, `nombre_inciso`, `nom
 (120, 'c', 'Proyecto integrados', 0, 222),
 (121, 'a', 'Seminario de tesis', 0, 223),
 (122, 'b', 'Programas de apoyo al estudiante.', 0, 223),
-(123, 'c', 'Proyecto integrador', 1, 223),
-(124, 'b', 'Formar profesionales con sentido de una educación integral y social , basada en el enfoque de desarrollo de competencias del Siglo XXI y responsabilidad social, a fin de que construyan propuestas y alternativas de solución a problemas religiosos, culturales y económicos del estado.', 0, 218),
-(125, 'c', 'Formar profesionales con sentido de una educación integral humanista, basada en el enfoque de desarrollo de competencias del Siglo XXI y responsabilidad social, a fin de que construyan propuestas y alternativas de solución a problemas políticos, culturales y económicos del país.\r\n', 0, 218),
-(126, 'b', 'Ser un Sistema Educativo reconocido regional, nacional e internacionalmente por la calidad de sus programas de formación y servicios, la consolidación de su Modelo Educativo Institucional respecto de los componentes de equidad de género, sustentabilidad, interculturalidad, inclusión social y desarrollo de la Investigación Científica.', 1, 219),
-(127, 'c', 'Ser un Sistema Educativo reconocido regional, nacional por la calidad de sus programas de formación y servicios, la consolidación de su Modelo Educativo Institucional respecto de los componentes de equidad de género, inclusión social y desarrollo de la Investigación Científica.', 0, 219);
+(123, 'c', 'Proyecto integrador', 1, 223);
 
 -- --------------------------------------------------------
 
@@ -506,108 +487,6 @@ CREATE TABLE `t_respuestas_autoevaluacion_docente` (
   `duracion` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `t_respuestas_autoevaluacion_docente`
---
-
-INSERT INTO `t_respuestas_autoevaluacion_docente` (`id`, `id_encuesta`, `id_pregunta`, `id_docente`, `id_respuesta`, `estatus`, `duracion`) VALUES
-(225, 1, 51, 129, 5, 1, 100),
-(226, 1, 52, 129, 7, 1, 100),
-(227, 1, 53, 129, 7, 1, 100),
-(228, 1, 54, 129, 7, 1, 100),
-(229, 1, 55, 129, 6, 1, 100),
-(230, 1, 56, 129, 8, 1, 100),
-(231, 1, 57, 129, 9, 1, 100),
-(232, 1, 58, 129, 8, 1, 100),
-(233, 1, 59, 129, 9, 1, 100),
-(234, 1, 60, 129, 6, 1, 100),
-(235, 1, 61, 129, 8, 1, 100),
-(236, 1, 62, 129, 5, 1, 100),
-(237, 1, 63, 129, 7, 1, 100),
-(238, 1, 64, 129, 7, 1, 100),
-(239, 1, 65, 129, 6, 1, 100),
-(240, 1, 66, 129, 7, 1, 100),
-(241, 1, 67, 129, 8, 1, 100),
-(242, 1, 68, 129, 6, 1, 100),
-(243, 1, 69, 129, 7, 1, 100),
-(244, 1, 70, 129, 9, 1, 100),
-(245, 1, 71, 129, 6, 1, 100),
-(246, 1, 72, 129, 7, 1, 100),
-(247, 1, 73, 129, 8, 1, 100),
-(248, 1, 74, 129, 7, 1, 100),
-(249, 1, 75, 129, 5, 1, 100),
-(250, 1, 76, 129, 8, 1, 100),
-(251, 1, 77, 129, 8, 1, 100),
-(252, 1, 78, 129, 7, 1, 100),
-(253, 1, 79, 129, 7, 1, 100),
-(254, 1, 80, 129, 8, 1, 100),
-(255, 1, 81, 129, 7, 1, 100),
-(256, 1, 82, 129, 7, 1, 100),
-(257, 1, 83, 129, 8, 1, 100),
-(258, 1, 84, 129, 7, 1, 100),
-(259, 1, 85, 129, 7, 1, 100),
-(260, 1, 86, 129, 8, 1, 100),
-(261, 1, 87, 129, 5, 1, 100),
-(262, 1, 88, 129, 8, 1, 100),
-(263, 1, 89, 129, 7, 1, 100),
-(264, 1, 90, 129, 6, 1, 100),
-(265, 1, 91, 129, 5, 1, 100),
-(266, 1, 92, 129, 7, 1, 100),
-(267, 1, 93, 129, 6, 1, 100),
-(268, 1, 94, 129, 6, 1, 100),
-(269, 1, 95, 129, 6, 1, 100),
-(270, 1, 96, 129, 6, 1, 100),
-(271, 1, 97, 129, 6, 1, 100),
-(272, 1, 98, 129, 6, 1, 100),
-(273, 1, 51, 130, 7, 1, 100),
-(274, 1, 52, 130, 6, 1, 100),
-(275, 1, 53, 130, 5, 1, 100),
-(276, 1, 54, 130, 7, 1, 100),
-(277, 1, 55, 130, 8, 1, 100),
-(278, 1, 56, 130, 6, 1, 100),
-(279, 1, 57, 130, 5, 1, 100),
-(280, 1, 58, 130, 7, 1, 100),
-(281, 1, 59, 130, 6, 1, 100),
-(282, 1, 60, 130, 5, 1, 100),
-(283, 1, 61, 130, 7, 1, 100),
-(284, 1, 62, 130, 6, 1, 100),
-(285, 1, 63, 130, 5, 1, 100),
-(286, 1, 64, 130, 8, 1, 100),
-(287, 1, 65, 130, 9, 1, 100),
-(288, 1, 66, 130, 5, 1, 100),
-(289, 1, 67, 130, 6, 1, 100),
-(290, 1, 68, 130, 8, 1, 100),
-(291, 1, 69, 130, 5, 1, 100),
-(292, 1, 70, 130, 5, 1, 100),
-(293, 1, 71, 130, 8, 1, 100),
-(294, 1, 72, 130, 7, 1, 100),
-(295, 1, 73, 130, 6, 1, 100),
-(296, 1, 74, 130, 9, 1, 100),
-(297, 1, 75, 130, 5, 1, 100),
-(298, 1, 76, 130, 6, 1, 100),
-(299, 1, 77, 130, 7, 1, 100),
-(300, 1, 78, 130, 7, 1, 100),
-(301, 1, 79, 130, 9, 1, 100),
-(302, 1, 80, 130, 5, 1, 100),
-(303, 1, 81, 130, 8, 1, 100),
-(304, 1, 82, 130, 7, 1, 100),
-(305, 1, 83, 130, 6, 1, 100),
-(306, 1, 84, 130, 8, 1, 100),
-(307, 1, 85, 130, 5, 1, 100),
-(308, 1, 86, 130, 9, 1, 100),
-(309, 1, 87, 130, 6, 1, 100),
-(310, 1, 88, 130, 8, 1, 100),
-(311, 1, 89, 130, 6, 1, 100),
-(312, 1, 90, 130, 5, 1, 100),
-(313, 1, 91, 130, 7, 1, 100),
-(314, 1, 92, 130, 8, 1, 100),
-(315, 1, 93, 130, 9, 1, 100),
-(316, 1, 94, 130, 6, 1, 100),
-(317, 1, 95, 130, 8, 1, 100),
-(318, 1, 96, 130, 5, 1, 100),
-(319, 1, 97, 130, 6, 1, 100),
-(320, 1, 98, 130, 9, 1, 100);
-
 -- --------------------------------------------------------
 
 --
@@ -623,42 +502,6 @@ CREATE TABLE `t_respuestas_evaluacion_modelo_educativo` (
   `estatus` int(11) DEFAULT NULL,
   `tiempo_dedicado` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `t_respuestas_evaluacion_modelo_educativo`
---
-
-INSERT INTO `t_respuestas_evaluacion_modelo_educativo` (`id`, `id_encuesta`, `id_pregunta`, `id_docente`, `id_opcion_respuesta`, `estatus`, `tiempo_dedicado`) VALUES
-(122, 6, 209, 129, 83, 1, 100),
-(123, 6, 210, 129, 87, 1, 100),
-(124, 6, 211, 129, 89, 1, 100),
-(125, 6, 212, 129, 93, 1, 100),
-(126, 6, 213, 129, 96, 1, 100),
-(127, 6, 214, 129, 100, 1, 100),
-(128, 6, 215, 129, 102, 1, 100),
-(129, 6, 216, 129, 104, 1, 100),
-(130, 6, 217, 129, 108, 1, 100),
-(131, 6, 218, 129, 124, 1, 100),
-(132, 6, 219, 129, 127, 1, 100),
-(133, 6, 220, 129, 113, 1, 100),
-(134, 6, 221, 129, 115, 1, 100),
-(135, 6, 222, 129, 119, 1, 100),
-(136, 6, 223, 129, 122, 1, 100),
-(152, 6, 209, 130, 84, 1, 100),
-(153, 6, 210, 130, 87, 1, 100),
-(154, 6, 211, 130, 89, 1, 100),
-(155, 6, 212, 130, 94, 1, 100),
-(156, 6, 213, 130, 96, 1, 100),
-(157, 6, 214, 130, 98, 1, 100),
-(158, 6, 215, 130, 103, 1, 100),
-(159, 6, 216, 130, 105, 1, 100),
-(160, 6, 217, 130, 107, 1, 100),
-(161, 6, 218, 130, 125, 1, 100),
-(162, 6, 219, 130, 126, 1, 100),
-(163, 6, 220, 130, 113, 1, 100),
-(164, 6, 221, 130, 115, 1, 100),
-(165, 6, 222, 130, 119, 1, 100),
-(166, 6, 223, 130, 121, 1, 100);
 
 -- --------------------------------------------------------
 
@@ -901,7 +744,7 @@ ALTER TABLE `t_opciones_respuestas`
 -- AUTO_INCREMENT de la tabla `t_opciones_respuestas_opcion_multiple`
 --
 ALTER TABLE `t_opciones_respuestas_opcion_multiple`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 
 --
 -- AUTO_INCREMENT de la tabla `t_periodo`
@@ -931,13 +774,13 @@ ALTER TABLE `t_respuestas`
 -- AUTO_INCREMENT de la tabla `t_respuestas_autoevaluacion_docente`
 --
 ALTER TABLE `t_respuestas_autoevaluacion_docente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=321;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
 
 --
 -- AUTO_INCREMENT de la tabla `t_respuestas_evaluacion_modelo_educativo`
 --
 ALTER TABLE `t_respuestas_evaluacion_modelo_educativo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `t_respuestas_heteroevaluacion_docente`
