@@ -111,10 +111,11 @@ class AdminModel extends Mysql{
     }
     
     public function selectListaParticipantesModeloEducativo(){
-        $sql = "SELECT res.id_docente,doc.nombre_docente,doc.apellidos_docente,COUNT(*) FROM t_respuestas_evaluacion_modelo_educativo AS res
+        $sql = "SELECT res.id_docente,doc.nombre_docente,doc.apellidos_docente,COUNT(*) 
+                FROM t_respuestas_evaluacion_modelo_educativo AS res
                 INNER JOIN t_docente AS doc ON res.id_docente = doc.id
                 GROUP BY res.id_docente HAVING COUNT(*)>1";
-        $request = $this->select_all($sql);
+        $request = $this->select_all($sql); 
         return $request;
     }
 
@@ -156,6 +157,32 @@ class AdminModel extends Mysql{
     public function selectEncuesta($data){
         $sql = "SELECT *FROM t_encuesta WHERE id = $data";
         $request = $this->select($sql);
+        return $request;
+    }
+
+    public function selectListaParticipantesHeteroevaluacion($idMateria)
+    {
+        $sql = "SELECT alum.nombre , alum.apellidos, resp.id_materia, resp.id_alumno
+        FROM t_respuestas as resp
+        INNER JOIN t_alumnos as alum
+        ON alum.id = resp.id_alumno 
+        WHERE id_materia = $idMateria
+        GROUP BY resp.id_alumno ";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+
+    public function selectPreguntasRespuestaS($idAl, $idMate)
+    {
+        $sql = "SELECT preg.nombre_pregunta, opc_resp.nombre_respuesta 
+        FROM t_respuestas as resp
+        INNER JOIN t_preguntas as preg
+        ON resp.id_pregunta = preg.id
+        INNER JOIN t_opciones_respuestas as opc_resp 
+        ON resp.id_opcion_respuesta = opc_resp.id 
+        WHERE id_alumno = $idAl
+        AND id_materia = $idMate";
+        $request = $this->select_all($sql);
         return $request;
     }
 }

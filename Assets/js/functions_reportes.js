@@ -1,6 +1,7 @@
 //Obtener el Id de la Encuesta mediante GET
 let url = new URLSearchParams(location.search);
 var u = url.get('id');
+var idMateria = "";
 
 ////Mostrar en Datatable lista de Docetes Encuestados en Heteroevaluacion Alumno
 document.addEventListener('DOMContentLoaded', function(){
@@ -56,10 +57,63 @@ function reporteEncuesta(answer){
             .then((out) => {
                 document.getElementById("ct-libros").innerHTML = out['COUNT(*)'];
                 respuestas(id,out['COUNT(*)']);
+                mostrarListaParticipantes(id);
             })
             .catch(err => { throw err });
-
 }
+
+function mostrarListaParticipantes(id)
+{
+    datos = document.querySelector('#datos');
+    let url = base_url+'/Admin/getParticipantesHeteroevaluacion/'+id;
+    fetch(url)
+    .then(response => response.json())
+    .then(data =>{
+        datos.innerHTML = "";
+        idMateria = id;
+        for (let i = 0; i < data.length; i++) {
+            const nombre = data[i]['nombre']+" "+data[i]['apellidos'];
+            datos.innerHTML += '<tr><td><a href="#" onClick="obtenerRespuestas(this)" rl="'+ data[i]['id_alumno'] +'">' + nombre + '<br></a></td></tr>';
+        }
+    })
+}
+
+function obtenerRespuestas(nombre)
+{
+    var idAlumno = nombre.getAttribute('rl');
+    $('#ModalRespuestas').modal('show');
+    document.querySelector('#nombreParticipante').innerHTML = "Nombre participante: " + nombre.text;
+    let url = base_url+'/Admin/getPregResp?idAl='+idAlumno+'&idMat='+idMateria;
+    fetch(url)
+        .then(response => response.json())
+        .then(data =>{
+            
+            //console.log(data);
+            var coleccion = document.querySelector('#contenido');
+            for (let i = 0; i < data.length; i++) {
+                var respuesta = "";
+                if (data[i]['nombre_respuesta'] == 'S') {
+                    respuesta = "Siempre";
+                }
+                else if(data[i]['nombre_respuesta'] == 'CS')
+                {
+                    respuesta = "Casi siempre";
+                }
+                else if(data[i]['nombre_respuesta'] == 'AV')
+                {
+                    respuesta = 'Algunas ';
+                }
+                else if(data[i]['nombre_respuesta'] == 'N')
+                {
+                    respuesta = 'Nunca';
+                }
+                coleccion.innerHTML += "<tr><td class='text-justify'><b>"+data[i]['nombre_pregunta']+"</b></td><td width='200px' class='text-center'>"+respuesta+"</td></tr>"
+            }
+        })
+
+    //Vaciar los datos de la consulta (preguntas y respuestas con fetch).
+}
+
  //Funcion para obtener las respuestas y sumarlo por categorias
 function respuestas(valor,num){
     let url = base_url+"/Admin/getRespuestas?id="+valor;
@@ -81,7 +135,7 @@ function respuestas(valor,num){
             var categorias = [];
             categorias = Object.keys(resultados);
             var puntuacionMaxima = [12,84,15,15,21];
-            graficas(categorias,valores,num);
+            //graficas(categorias,valores,num);
             mostrarTabla(resultados,categorias,puntuacionMaxima,num);
 
         })
@@ -89,7 +143,7 @@ function respuestas(valor,num){
 }
 
 //Funcion para Mostrar en grafica de barra horizontal resultados de HeteroEvaluacionDocente
-function graficas(categorias,sumatorias,num){     
+/*function graficas(categorias,sumatorias,num){     
     document.getElementById("myChart").innerHTML = null;  
     var MeSeContext = document.getElementById('myChart').getContext('2d');
     var MeSeData = {
@@ -118,7 +172,7 @@ function graficas(categorias,sumatorias,num){
     
         }
     });
-}
+}*/
 //Funcion para Mostrar Tabla de Resultados de HeteroEvaluacionDocente
 function mostrarTabla(resultados,categorias,puntuacionMaxima,num){
     var contador = 0;
@@ -213,7 +267,7 @@ function reporteGeneralAutoEvaluacionDocente(){
                             var cantMedio = resultado[0].ME;
                             var cantBajo = resultado[0].BA;
                             var cantNecesitaMeorar = resultado[0].NM;
-                            document.getElementById("reporteGeneralAutoEvaluacionDocente").innerHTML +="<tr><td>"+contador+"</td><td>"+nombrePregunta+"</td><td>"+nombreSubcategoria+"</td><td>"+cantPrioritario+"</td><td>"+cantAlto+".</td><td>"+cantMedio+"</td><td>"+cantBajo+"</td><td>"+cantNecesitaMeorar+"</td></tr>";
+                            //document.getElementById("reporteGeneralAutoEvaluacionDocente").innerHTML +="<tr><td>"+contador+"</td><td>"+nombrePregunta+"</td><td>"+nombreSubcategoria+"</td><td>"+cantPrioritario+"</td><td>"+cantAlto+".</td><td>"+cantMedio+"</td><td>"+cantBajo+"</td><td>"+cantNecesitaMeorar+"</td></tr>";
                             
                         })
                         .catch(err => { throw err });
@@ -224,11 +278,11 @@ function reporteGeneralAutoEvaluacionDocente(){
             .catch(err => { throw err });
  
 }
-reportesModeloEducativo();
-function reportesModeloEducativo(){
-    listaParticipantes();
-    reporteGeneralModeloEducativoDocente();
-}
+// reportesModeloEducativo();
+// function reportesModeloEducativo(){
+//     listaParticipantes();
+//     reporteGeneralModeloEducativoDocente();
+// }
 function listaParticipantes(){
         document.addEventListener('DOMContentLoaded', function(){
             tableRoles = $('#tableListaModeloEducativo').dataTable( {
@@ -297,11 +351,11 @@ function  reporteIndModeloEduvativo(answer){
               }
         })
 }
-function reporteGeneralModeloEducativoDocente(){
-    let url = base_url+"/Admin/getReporteGeneralModeloEducativoDocente";
-    fetch(url)
-        .then(res => res.json())
-        .then((resultado) =>{
-            //console.table(resultado);
-        })
-}
+// function reporteGeneralModeloEducativoDocente(){
+//     let url = base_url+"/Admin/getReporteGeneralModeloEducativoDocente";
+//     fetch(url)
+//         .then(res => res.json())
+//         .then((resultado) =>{
+//             //console.table(resultado);
+//         })
+// }

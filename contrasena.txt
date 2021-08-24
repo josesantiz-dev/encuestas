@@ -1,0 +1,3 @@
+plan tuxtla-semestral
+alumno.prueba23
+Seuat.2020

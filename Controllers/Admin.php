@@ -224,6 +224,23 @@
             echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
             die();
         }
+
+        public function getParticipantesHeteroevaluacion($idMateria)
+        {
+            $id = $idMateria;
+            $arrData = $this->model->selectListaParticipantesHeteroevaluacion($id);
+            echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+            die();
+        }
+
+        public function getPregResp()
+        {
+            $idAlum = $_GET['idAl'];
+            $idMat = $_GET['idMat'];
+            $arrData = $this->model->selectPreguntasRespuestas($idAlum, $idMat);
+            echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+            die();
+        }
         /*
         public function reporte(){
             $data['page_functions_js'] = "functions_list_materias_docentes.js";
