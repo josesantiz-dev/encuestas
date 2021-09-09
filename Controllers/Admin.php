@@ -241,12 +241,13 @@
             echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
             die();
         }
-        /*
+        
         public function reporte(){
             $data['page_functions_js'] = "functions_list_materias_docentes.js";
             $this->views->getView($this,"reporte",$data);
 
         }
+        
         public function getMaterias(){
             $id = $_GET['id'];
             $arrData = $this->model->selectMaterias($id);
@@ -258,10 +259,9 @@
             echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
             die();
         }
-        public function viewpdf(){
-            $this->views->getView($this,"viewpdf",$data);
-        }
-        */
+        // public function viewpdf(){
+        //     $this->views->getView($this,"viewpdf",$data);
+        // }
         
     }
 

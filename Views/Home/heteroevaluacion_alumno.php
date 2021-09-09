@@ -55,7 +55,7 @@
                     <div class="col-md-12">
                         <div class="text-center"><h2><b><?php echo($data['materia']['request'][0]['fullname_course']) ?></b></h2></div>
                         <div class="text-center col-md-12"><h4><strong>Docente: </strong>  <?php echo($data['materia']['request'][0]['teacher_firstname']." ".$data['materia']['request'][0]['teacher_lastname']) ?></h4></div><br>
-                        <div><p>Estimado(a) estudiante, tu opinión acerca de la forma como el dicente organiza, desarrolla y evalúa el curso es muy importante para nuestra institución educativa. 
+                        <div><p>Estimado(a) estudiante, tu opinión acerca de la forma como el docente organiza, desarrolla y evalúa el curso es muy importante para nuestra institución educativa. 
                             A continuación se presenta una serie de aspectos relevantes en este sentido, para que valores el desempeño del docente con la mayor objetividad posible,
                             seleccionando cada aspecto la opción que mejor respresente tu opinión.
                         </p></div><br>

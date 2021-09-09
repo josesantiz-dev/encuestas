@@ -1,0 +1,5 @@
+#Archivos que no son necesarios para el repositorio
+contrasena.txt
+*.sql
+/db
+/.vscode

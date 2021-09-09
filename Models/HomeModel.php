@@ -123,7 +123,7 @@ class HomeModel extends Mysql
   
             $sql_docente= "INSERT INTO t_docente (id_usuario_plataforma,usuario_docente,nombre_docente,apellidos_docente) SELECT * FROM (SELECT $id_user,'$username','$nombre','$apellidos')
             AS doc WHERE NOT EXISTS (SELECT usuario_docente FROM t_docente WHERE usuario_docente = '$username') LIMIT 1";
-            $request_docente = $this->insert($sql_docente,array($id_user,$usernme,$nombre,$apellidos));  
+            $request_docente = $this->insert($sql_docente,array($id_user,$username,$nombre,$apellidos));  
             }             
         }
        return $datos_materias;

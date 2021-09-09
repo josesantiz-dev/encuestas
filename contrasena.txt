@@ -1,3 +1,15 @@
 plan tuxtla-semestral
 alumno.prueba23
 Seuat.2020
+
+plan tuxtla-semestral
+alumno.prueba2
+Seuat.2021
+
+plan tuxtla-semestral
+alumno.prueba3
+Seuat.2021
+
+plan tuxtla-semestral
+alumno.prueba4
+Seuat.2021

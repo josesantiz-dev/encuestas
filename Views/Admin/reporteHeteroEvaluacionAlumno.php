@@ -94,19 +94,28 @@ getModal('respuestasModal', $data);
                                             <div class="col-lg-5">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h2>Lista de participantes.</h2>
+                                                        <h5>Lista de participantes anónimos.</h5>
                                                     </div>
                                                     <div class="card-body">
-                                                        <table class="table table-striped" id="datosTabla">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Nombre participante</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="datos">
-                                                                
-                                                            </tbody>
-                                                        </table>
+                                                        <p>
+                                                            <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Ver participantes</a>
+                                                        </p>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="collapse multi-collapse" id="multiCollapseExample1">
+                                                                    <table class="table table-striped" id="datosTabla">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Nombre completo de participante</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody id="datos">
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -123,8 +132,8 @@ getModal('respuestasModal', $data);
                                                                     <th style="width: 10px">#</th>
                                                                     <th>Calidad de desempeño en la áreas</th>
                                                                     <th>Puntuación Máxima</th>
-                                                                    <th>Puntuacion Máxima</th>
                                                                     <th style="width: 40px">Puntos obtenidos</th>
+                                                                    <th>Puntuacion Máxima</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody id="valoresTabla">

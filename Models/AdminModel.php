@@ -155,7 +155,7 @@ class AdminModel extends Mysql{
 
     //Obtener datos de una Encuesta mediante ID
     public function selectEncuesta($data){
-        $sql = "SELECT *FROM t_encuesta WHERE id = $data";
+        $sql = "SELECT * FROM t_encuesta WHERE id = $data";
         $request = $this->select($sql);
         return $request;
     }
@@ -167,12 +167,12 @@ class AdminModel extends Mysql{
         INNER JOIN t_alumnos as alum
         ON alum.id = resp.id_alumno 
         WHERE id_materia = $idMateria
-        GROUP BY resp.id_alumno ";
+        GROUP BY resp.id_alumno HAVING COUNT(*)>1";
         $request = $this->select_all($sql);
         return $request;
     }
 
-    public function selectPreguntasRespuestaS($idAl, $idMate)
+    public function selectPreguntasRespuestas($idAl, $idMate)
     {
         $sql = "SELECT preg.nombre_pregunta, opc_resp.nombre_respuesta 
         FROM t_respuestas as resp

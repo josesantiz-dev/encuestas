@@ -144,6 +144,6 @@ function enviar(answer){
 document.addEventListener("DOMContentLoaded",function(){
     Swal.fire({
         title: 'Mensaje',
-        text: 'Estimado(a) estudiante, tu opinión acerca de la forma como el dicente organiza, desarrolla y evalúa el curso es muy importante para nuestra institución educativa. A continuación se presenta una serie de aspectos relevantes en este sentido, para que valores el desempeño del docente con la mayor objetividad posible, seleccionando cada aspecto la opción que mejor respresente tu opinión.',
+        text: 'Estimado(a) estudiante, tu opinión acerca de la forma como el docente organiza, desarrolla y evalúa el curso es muy importante para nuestra institución educativa. A continuación se presenta una serie de aspectos relevantes en este sentido, para que valores el desempeño del docente con la mayor objetividad posible, seleccionando cada aspecto la opción que mejor respresente tu opinión.',
       })
 })

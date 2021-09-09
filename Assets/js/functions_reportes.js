@@ -72,7 +72,8 @@ function mostrarListaParticipantes(id)
         datos.innerHTML = "";
         idMateria = id;
         for (let i = 0; i < data.length; i++) {
-            const nombre = data[i]['nombre']+" "+data[i]['apellidos'];
+            const nombre = 'ANÓNIMO';
+            //const nombre = data[i]['nombre']+" "+data[i]['apellidos'];
             datos.innerHTML += '<tr><td><a href="#" onClick="obtenerRespuestas(this)" rl="'+ data[i]['id_alumno'] +'">' + nombre + '<br></a></td></tr>';
         }
     })
@@ -87,27 +88,30 @@ function obtenerRespuestas(nombre)
     fetch(url)
         .then(response => response.json())
         .then(data =>{
-            
             //console.log(data);
+            var numero = document.querySelector('#num');
+            var contador = 0;
             var coleccion = document.querySelector('#contenido');
+            coleccion.innerHTML = "";
             for (let i = 0; i < data.length; i++) {
+                var contador = contador+1;
                 var respuesta = "";
                 if (data[i]['nombre_respuesta'] == 'S') {
-                    respuesta = "Siempre";
+                    respuesta = "<span class='badge badge-success'>Siempre</span>";
                 }
                 else if(data[i]['nombre_respuesta'] == 'CS')
                 {
-                    respuesta = "Casi siempre";
+                    respuesta = "<span class='badge badge-info'>Casi siempre</span>";
                 }
                 else if(data[i]['nombre_respuesta'] == 'AV')
                 {
-                    respuesta = 'Algunas ';
+                    respuesta = "<span class='badge badge-warning'>Algunas veces</span>";
                 }
                 else if(data[i]['nombre_respuesta'] == 'N')
                 {
-                    respuesta = 'Nunca';
+                    respuesta = "<span class='badge badge-danger'>Nunca</span>";
                 }
-                coleccion.innerHTML += "<tr><td class='text-justify'><b>"+data[i]['nombre_pregunta']+"</b></td><td width='200px' class='text-center'>"+respuesta+"</td></tr>"
+                coleccion.innerHTML += "<tr><td>"+contador+"</td><td class='text-justify'><b>"+data[i]['nombre_pregunta']+"</b></td><td width='200px' class='text-center'>"+respuesta+"</td></tr>"
             }
         })
 
@@ -143,7 +147,7 @@ function respuestas(valor,num){
 }
 
 //Funcion para Mostrar en grafica de barra horizontal resultados de HeteroEvaluacionDocente
-/*function graficas(categorias,sumatorias,num){     
+function graficas(categorias,sumatorias,num){     
     document.getElementById("myChart").innerHTML = null;  
     var MeSeContext = document.getElementById('myChart').getContext('2d');
     var MeSeData = {
@@ -172,7 +176,7 @@ function respuestas(valor,num){
     
         }
     });
-}*/
+}
 //Funcion para Mostrar Tabla de Resultados de HeteroEvaluacionDocente
 function mostrarTabla(resultados,categorias,puntuacionMaxima,num){
     var contador = 0;
@@ -181,10 +185,14 @@ function mostrarTabla(resultados,categorias,puntuacionMaxima,num){
     categorias.forEach(element => {
         contador += 1;
         total +=resultados[element]/num; 
-        document.getElementById("valoresTabla").innerHTML +="<tr><td>"+contador+".</td><td>"+element+"</td><td><div class='progress progress-xs'><div class='progress-bar progress-bar-danger' style='width: "+((resultados[element]*100)/puntuacionMaxima[contador-1])/num+"%'></div></div></td><td>"+puntuacionMaxima[contador-1]+"</td><td><h4><b>"+resultados[element]/num+"</b></h4></td></tr>";
+        document.getElementById("valoresTabla").innerHTML +="<tr><td>"+contador+".</td><td>"+element+"</td><td><div class='progress progress-xs'><div class='progress-bar progress-bar-danger' style='width: "+(((resultados[element]*100)/puntuacionMaxima[contador-1])/num).toFixed(1)+"%'></div></div></td><td>"+(resultados[element]/num).toFixed(1)+"</td><td>"+(puntuacionMaxima[contador-1]).toFixed(1)+"</td></tr>";
+
+        
+        
+
 
     });
-    document.getElementById("totalPunto").innerHTML ="<div class='text-center'><h3><b>Total:</b> "+total+" de <small>"+147+" puntos</small></h3></div>";
+    document.getElementById("totalPunto").innerHTML ="<div class='text-center'><h3><b>Total:</b> "+(total).toFixed(1)+" de <small>"+147+" puntos</small></h3></div>";
 }
 
 
