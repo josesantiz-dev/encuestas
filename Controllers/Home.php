@@ -28,28 +28,30 @@
             $token = $this->model->consultarToken($data);
             if($token['token']){
                 $data['token'] = $token['token'];
-                if($rol == "estudiante"){ 
-                    /*consultar datos usuario*/
+                if($rol == "estudiante"){
+                    //consultar datos usuario
                     $datos_usuario = $this->model->consultarDatosUsuario($data);
                     $data['datos'] = $datos_usuario;
                     if($datos_usuario){
-                        /* guardar datos usuario a la BD */
+                        // guardar datos usuario a la BD 
                         $this->model->guardarDatosAlumnoBD($data);
-                        /* consultar materias del Alumno */
-                        $materias = $this->model->consultarMateriasAlumno($data);
-                        $data_materias['username'] = $username;
-                        $data_materias['plataforma'] = $plataforma;
-                        $data_materias['materias'] = $materias;
-                        /*Guardar Docente en la BD*/
-                        $this->model->guardarDocenteBD($data_materias);
-                        /*guardar todas las materias en la _BD */
-                        $this->model->guardarMateriasBD($data_materias);
-                        /* consultar el status de evaluacion de la materia */
-                        $status = $this->model->consultarStatusEncuestaMateria($data_materias);
-                        $data_materias['status'] = $status;
-                        /* Mostrar vista y enviar Array de datos de la Materias */
-                        $data_materias['page_functions_js'] = "functions_heteroevaluacion_alumno.js";
-                        $this->views->getView($this,"Home/alumno",$data_materias);
+                        // consultar materias del Alumno 
+                        //$materias = $this->model->consultarMateriasAlumno($data);
+                        //$data_materias['username'] = $username;
+                        //$data_materias['plataforma'] = $plataforma;
+                        //$data_materias['materias'] = $materias;
+                        //Guardar Docente en la BD
+                        //$this->model->guardarDocenteBD($data_materias);
+                        //guardar todas las materias en la _BD 
+                        //$this->model->guardarMateriasBD($data_materias);
+                        // consultar el status de evaluacion de la materia 
+                        //$status = $this->model->consultarStatusEncuestaMateria($data_materias);
+                        //$data_materias['status'] = $status;
+                        $encuestas = $this->model->consultarListaEncuestasAlumno();
+                        $data['encuestas'] = $encuestas;
+                        // Mostrar vista y enviar Array de datos de la Materias
+                        $data['page_functions_js'] = "functions_heteroevaluacion_alumno.js";
+                        $this->views->getView($this,"Home/encuestas",$data);
 
                     }
                 }elseif($rol == "docente"){
@@ -71,7 +73,27 @@
             }else{
                 $msessage = base64_encode($token['error']);
 				$this->exit($msessage);
+            }
+        }
 
+        public function encuesta(){
+
+            $datos = $_GET;
+            $idEncuesta = base64_decode($datos['id']);
+            $username = base64_decode($datos['u']);
+            $plataforma = base64_decode($datos['p']);
+            $datos['plataforma'] = $plataforma;
+            $datos['username'] = $username;
+            $datos['id_encuesta'] = $idEncuesta;
+            if($idEncuesta == 2){
+                $materias = $this->model->consultarMateriasAlumno($datos);
+                $datos['materias'] = $materias;
+                $this->views->getview($this,"Home/alumno",$datos);
+            }else if($idEncuesta == 7){
+                $datos['preguntas'] = $this->model->getPreguntasHeteroEvDesProg($datos);
+                $datos['opciones'] = $this->model->selectOpcionesHeteroEcDesProg($datos);
+                $datos['page_functions_js'] = "functions_heteroevaluacion_ev_des_prog.js";
+                $this->views->getview($this,"Home/heteroevaluacion_ev_des_prog",$datos);
             }
         }
 
@@ -100,6 +122,12 @@
             $datos['page_functions_js'] = "functions_heteroevaluacion_docente.js";
             $this->views->getView($this,"Home/heteroevaluacion_docente",$datos);
             
+        }
+
+        public function heteroevaluacion_induccion()
+        {
+
+            $this->views->getView($this, "Home/heteroevaluacion_induccion");
         }
         /*Funcion para la Vista de Evaluacion - Modelo Educativo */
         public function modeloEducativo(){
@@ -170,6 +198,20 @@
             }
         }
 
+        public function recRespuestasHetero_ev_des_prog(){
+            $valor_r = $_GET['res'];
+            $valor_d = $_GET['dat'];
+            $valor_res = json_decode($valor_r, JSON_UNESCAPED_UNICODE);
+            $valor_dat = json_decode($valor_d,JSON_UNESCAPED_UNICODE);
+            $valor['res'] = $valor_res;
+            $valor['dat'] = $valor_dat;
+            $request = $this->model->guardarResultadoHetero_ev_des_prog_BD($valor);
+            if($request){
+                echo json_encode($request,JSON_UNESCAPED_UNICODE);
+                die();
+            }
+        }
+
         /* funcion para Cerrar Sesion */
         public function exit($msessage){
             header("Location:".BASE_URL."?message=".$msessage);
@@ -178,6 +220,13 @@
         public function salir(){
             header("Location:".BASE_URL);
 
+        }
+        public function estadoEncuesta(){
+            $id = $_GET['id'];
+            $u = $_GET['u'];
+            $request = $this->model->selectStatusEncuesta($id,$u);
+            echo json_encode($request,JSON_UNESCAPED_UNICODE);
+            die(); 
         }
 	}
 ?>

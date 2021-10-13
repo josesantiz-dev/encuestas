@@ -185,5 +185,68 @@ class AdminModel extends Mysql{
         $request = $this->select_all($sql);
         return $request;
     }
+    
+
+    //Obtener Lista de Alumnos que contestaron la Encuesta en Heteroevaluacion - Evaluacion del Desempeño del Programa
+    public function selectAlumnosHeteroEvDesProg(){
+        $sql = "SELECT res.id,CONCAT(al.nombre,' ',al.apellidos) AS nombre_completo,al.nombre,al.apellidos,res.plataforma,res.id_alumno AS id_alumno FROM t_respuestas_hetero_ev_des_prog AS res
+        INNER JOIN t_alumnos AS al ON res.id_alumno = al.id
+        GROUP BY res.id_alumno HAVING COUNT(*)>1";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+    public function selectTotalParticipantesPlantelHetEvDesPro(){
+        $sql = "SELECT * FROM t_respuestas_hetero_ev_des_prog
+        GROUP BY id_alumno HAVING COUNT(*)>1";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+    public function selectRespuestasAlumnoHetEvDesProg($id){
+        $idAlumno = $id;
+        $sql = "SELECT preg.id,preg.tipo_opcion_respuesta,preg.nombre_pregunta, res.opcion_respuesta,opc.nombre_respuesta FROM t_respuestas_hetero_ev_des_prog AS res 
+        INNER JOIN t_preguntas_hetero_ev_des_prog AS preg ON  res.id_pregunta = preg.id
+        INNER JOIN t_opciones_respuestas_hetero_ev_des_prog AS opc ON res.id_pregunta = opc.id
+        WHERE res.id_alumno = $idAlumno";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+    public function selectOpRespuestasAlumnoHetEvDesProg($id){
+        $idAlumno = $id;
+        $sql = "SELECT preg.nombre_pregunta,res.opcion_respuesta,opc.nombre_respuesta FROM t_respuestas_hetero_ev_des_prog AS res 
+        INNER JOIN t_opciones_respuestas_hetero_ev_des_prog AS opc ON res.id_pregunta = opc.id_pregunta
+        INNER JOIN t_preguntas_hetero_ev_des_prog AS preg ON res.id_pregunta = preg.id
+        WHERE res.id_alumno = $idAlumno AND res.opcion_respuesta = opc.nombre_inciso AND preg.id = 8";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+    public function selectOpRespuestasAlumnoHetEvDesProg1($id,$idP){
+        $idAlumno = $id;
+        $idPregunta = $idP;
+        $sql = " SELECT pre.nombre_pregunta, opc.nombre_respuesta FROM t_respuestas_hetero_ev_des_prog AS res
+        INNER JOIN t_preguntas_hetero_ev_des_prog AS pre ON res.id_pregunta = pre.id
+        INNER JOIN t_opciones_respuestas_hetero_ev_des_prog AS opc ON res.id_pregunta = opc.id_pregunta
+        WHERE res.opcion_respuesta = opc.nombre_inciso AND pre.id = $idPregunta AND res.id_alumno = $idAlumno";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+    public function selectNumeroHetEvDesPorPlantel($id,$pl){
+        $idencuesta = $id;
+        $plataforma = $pl;
+        $sql = " SELECT res.id_pregunta FROM t_respuestas_hetero_ev_des_prog AS res 
+        WHERE res.id_encuesta = $idencuesta
+        GROUP BY res.id_pregunta HAVING COUNT(*)>1";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+    public function selectrespuestasHetEvDesProPorPlantel($id,$pl){
+        $idPregunta = $id;
+        $plataforma =$pl;
+        $sql = "SELECT pre.id , pre.nombre_pregunta,pre.tipo_opcion_respuesta,op.nombre_respuesta,op.puntos FROM t_respuestas_hetero_ev_des_prog AS res 
+        INNER JOIN t_preguntas_hetero_ev_des_prog AS pre ON res.id_pregunta = pre.id
+        INNER JOIN t_opciones_respuestas_hetero_ev_des_prog AS op ON res.id_pregunta = op.id_pregunta
+        WHERE res.id_pregunta = $idPregunta AND res.plataforma = '$plataforma' AND res.opcion_respuesta = op.nombre_inciso";
+        $request = $this->select_all($sql);
+        return $request;
+    }
 }
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-	const BASE_URL = "http://localhost/encuestas";
+	const BASE_URL = "http://10.10.25.73/encuestas";
 
 	//Zona horaria
 	date_default_timezone_set('America/Mexico_City');

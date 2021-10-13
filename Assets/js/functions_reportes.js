@@ -2,7 +2,6 @@
 let url = new URLSearchParams(location.search);
 var u = url.get('id');
 var idMateria = "";
-
 ////Mostrar en Datatable lista de Docetes Encuestados en Heteroevaluacion Alumno
 document.addEventListener('DOMContentLoaded', function(){
 	tableRoles = $('#tableRoles').dataTable( {

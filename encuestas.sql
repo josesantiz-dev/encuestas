@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 12-08-2021 a las 15:59:43
+-- Tiempo de generación: 13-10-2021 a las 23:28:30
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.3.27
 
@@ -39,7 +39,14 @@ CREATE TABLE `t_alumnos` (
 --
 
 INSERT INTO `t_alumnos` (`id`, `nombre_usuario`, `nombre`, `apellidos`) VALUES
-(76, 'docente.prueba', 'DOCENTE PRUEBA', 'PRUEBA');
+(76, 'docente.prueba', 'DOCENTE PRUEBA', 'PRUEBA'),
+(77, 'alumno.prueba23', 'ALUMNO 1', 'PRUEBA'),
+(78, 'alumno.prueba', 'alumno de prueba', 'seuat'),
+(79, 'jose.santiz', 'José', 'Santíz Ruíz'),
+(81, 'alumno.demo', 'ALUMNO DEMO', 'ALUMNO DEMO'),
+(82, 'alumno.demo2', 'alumno', 'demo'),
+(83, 'alumno.jose', 'jsosjo', 'jsojos'),
+(84, 'alausjs', 'ksdjkosok', 'jsijis');
 
 -- --------------------------------------------------------
 
@@ -66,7 +73,10 @@ INSERT INTO `t_categorias_preguntas` (`id`, `nombre_categoria`) VALUES
 (7, 'MATERIAL DE APOYO DOCUMENTAL(BIBLIOGRAFIA)'),
 (8, 'MATERIAL DE APOYO DIGITAL'),
 (9, 'ASPECTOS SOBRE EL CURSO IMPARTIDO'),
-(10, 'EVALUACION MODELO EDUACTIVO');
+(10, 'EVALUACION MODELO EDUACTIVO'),
+(11, 'COMO CONSIDERA'),
+(12, 'TU OPINION NOS INTERESA'),
+(13, 'COMENTARIOS');
 
 -- --------------------------------------------------------
 
@@ -130,7 +140,10 @@ CREATE TABLE `t_docente` (
 
 INSERT INTO `t_docente` (`id`, `id_usuario_plataforma`, `usuario_docente`, `nombre_docente`, `apellidos_docente`) VALUES
 (129, 228, 'docente.virtual', 'JOSE', 'SANTIZ RUIZ'),
-(130, 909, 'docente.prueba', 'DOCENTE PRUEBA', 'PRUEBA');
+(130, 909, 'docente.prueba', 'DOCENTE PRUEBA', 'PRUEBA'),
+(131, 246, 'jesus.jimenez', 'JESUS ALEJANDRO', 'JIMENEZ MORALES'),
+(132, 811, 'lubeydi.lopez', 'LUBEYDI', 'LOPEZ RAMIREZ'),
+(133, 31, 'javier.hidalgo', 'JAVIER HIDALGO', 'RAMIREZ');
 
 -- --------------------------------------------------------
 
@@ -152,10 +165,11 @@ CREATE TABLE `t_encuesta` (
 --
 
 INSERT INTO `t_encuesta` (`id`, `nombre_encuesta`, `descripcion`, `id_categoria_persona`, `id_periodo`, `estatus`) VALUES
-(1, 'AUTOEVALUACION', 'DETECCIÓN DE NECESIDADES DE CAPACITACIÓN', 3, 2, 1),
-(2, 'HETEROEVALUACION', 'EVALUACIÓN DEL DESEMPEÑO DOCENTE', 2, 2, 1),
+(1, 'AUTOEVALUACION', 'DETECCIÓN DE NECESIDADES DE CAPACITACIÓN', 3, 2, 0),
+(2, 'HETEROEVALUACION', 'EVALUACIÓN DEL DESEMPEÑO DOCENTE', 2, 2, 0),
 (5, 'HETEROEVALUACION CURSO', 'DESEMPEÑO DEL CURSO DE CAPACITACION', 3, 2, 0),
-(6, 'EVALUACIÓN MODELO EDUCATIVO', 'EVALUACIÓN MODELO EDUCATIVO', 3, 2, 1);
+(6, 'EVALUACIÓN MODELO EDUCATIVO', 'EVALUACIÓN MODELO EDUCATIVO', 3, 2, 0),
+(7, 'HETEROEVALUACION', 'EVALUACION DEL DESEMPEÑO DEL PROGRAMA', 2, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -171,6 +185,50 @@ CREATE TABLE `t_materias` (
   `nombre_materia` varchar(200) DEFAULT NULL,
   `nombre_carrera` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `t_materias`
+--
+
+INSERT INTO `t_materias` (`id`, `id_curso_plataforma`, `id_docente`, `plataforma`, `nombre_materia`, `nombre_carrera`) VALUES
+(672, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
+(673, '813', 131, 'tuxtla.sm', 'FUNDAMENTOS DE FÍSICA', 'Licenciatura en T.S.U. en Imagenología'),
+(674, '831', 132, 'tuxtla.sm', 'MANEJO DE APARATOS ELECTROMEDICOS', 'Licenciatura en Enfermería'),
+(675, '850', 129, 'tuxtla.sm', 'QUIMICA I', 'Semestrales'),
+(676, '851', 129, 'tuxtla.sm', 'MATEMATICAS I', 'Semestrales'),
+(677, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
+(678, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
+(679, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
+(680, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
+(681, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
+(682, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
+(683, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
+(684, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
+(685, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
+(686, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
+(687, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
+(688, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
+(689, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
+(690, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
+(691, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
+(692, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
+(693, '5', NULL, 'prepaabierta', 'prueba', NULL),
+(694, '5', NULL, 'prepaabierta', 'prueba', NULL),
+(695, '5', NULL, 'prepaabierta', 'prueba', NULL),
+(696, '5', NULL, 'prepaabierta', 'prueba', NULL),
+(697, '5', NULL, 'prepaabierta', 'prueba', NULL),
+(698, '5', NULL, 'prepaabierta', 'prueba', NULL),
+(699, '5', NULL, 'prepaabierta', 'prueba', NULL),
+(700, '5', NULL, 'prepaabierta', 'prueba', NULL),
+(701, '5', NULL, 'prepaabierta', 'prueba', NULL),
+(702, '5', NULL, 'prepaabierta', 'prueba', NULL),
+(703, '5', NULL, 'prepaabierta', 'prueba', NULL),
+(704, '5', NULL, 'prepaabierta', 'prueba', NULL),
+(705, '5', 133, 'prepaabierta', 'prueba', NULL),
+(706, '5', 133, 'prepaabierta', 'prueba', NULL),
+(707, '6', 133, 'prepaabierta', 'MÓDULO 2. El lenguaje en la relación del hombre con el mundo', 'Preparatoria abierta con diplomado - Tuxtla'),
+(708, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL),
+(709, '511', NULL, 'tuxtla.sm', 'Capacitacion', NULL);
 
 -- --------------------------------------------------------
 
@@ -202,7 +260,83 @@ INSERT INTO `t_opciones_respuestas` (`id`, `nombre_respuesta`, `identificador_nu
 (10, 'EX', 9, 4),
 (11, 'MB', 10, 3),
 (12, 'AC', 11, 2),
-(13, 'NM1', 12, 1);
+(13, 'NM1', 12, 1),
+(14, 'SI', 13, 1),
+(15, 'NO', 14, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `t_opciones_respuestas_hetero_ev_des_prog`
+--
+
+CREATE TABLE `t_opciones_respuestas_hetero_ev_des_prog` (
+  `id` int(11) NOT NULL,
+  `identificador` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `nombre_respuesta` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `puntos` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `id_pregunta` int(11) DEFAULT NULL,
+  `nombre_inciso` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `t_opciones_respuestas_hetero_ev_des_prog`
+--
+
+INSERT INTO `t_opciones_respuestas_hetero_ev_des_prog` (`id`, `identificador`, `nombre_respuesta`, `puntos`, `id_pregunta`, `nombre_inciso`) VALUES
+(1, 'EX', 'Excelente', '4', 1, 'a'),
+(2, 'MB', 'Muy Bien', '3', 1, 'b'),
+(3, 'AC', 'Aceptable', '2', 1, 'c'),
+(4, 'NM', 'Necesita Mejorar', '1', 1, 'd'),
+(5, 'EX', 'Excelente', '4', 2, 'a'),
+(6, 'MB', 'Muy Bien', '3', 2, 'b'),
+(7, 'AC', 'Aceptable', '2', 2, 'c'),
+(8, 'NM', 'Necesita Mejorar', '1', 2, 'd'),
+(9, 'EX', 'Excelente', '4', 3, 'a'),
+(10, 'MB', 'Muy Bien', '3', 3, 'b'),
+(11, 'AC', 'Aceptable', '2', 3, 'c'),
+(12, 'NM', 'Necesita Mejorar', '1', 3, 'd'),
+(13, 'EX', 'Excelente', '4', 4, 'a'),
+(14, 'MB', 'Muy Bien', '3', 4, 'b'),
+(15, 'AC', 'Aceptable', '2', 4, 'c'),
+(16, 'NM', 'Necesita Mejorar', '1', 4, 'd'),
+(17, 'EX', 'Excelente', '4', 5, 'a'),
+(18, 'MB', 'Muy Bien', '3', 5, 'b'),
+(19, 'AC', 'Aceptable', '2', 5, 'c'),
+(20, 'NM', 'Necesita Mejorar', '1', 5, 'd'),
+(21, 'EX', 'Excelente', '4', 6, 'a'),
+(22, 'MB', 'Muy Bien', '3', 6, 'b'),
+(23, 'AC', 'Aceptable', '2', 6, 'c'),
+(24, 'NM', 'Necesita Mejorar', '1', 6, 'd'),
+(25, 'EX', 'Excelente', '4', 7, 'a'),
+(26, 'MB', 'Muy Bien', '3', 7, 'b'),
+(27, 'AC', 'Aceptable', '2', 7, 'c'),
+(28, 'NM', 'Necesita Mejorar', '1', 7, 'd'),
+(29, 'a)', 'Garantiza una fuente de empleo			', '1', 8, 'a'),
+(30, 'b)', 'Favorece el desarrollo personal			', '1', 8, 'b'),
+(31, 'c)', 'Tengo talento o habilidades			', '1', 8, 'c'),
+(32, 'd)', 'Su reconocimiento Social			', '1', 8, 'd'),
+(33, 'e)', 'Asegura buenos ingresos			', '1', 8, 'e'),
+(34, 'f)', 'Tradición familiar			', '1', 8, 'f'),
+(35, 'g)', 'Contribuir con el desarrollo de mi país			', '1', 8, 'g'),
+(36, 'h)', 'Es novedosa			', '1', 8, 'h'),
+(37, 'i)', 'Corresponde a mis gustos e intereses			', '1', 8, 'i'),
+(38, 'Si', 'Si', '1', 9, 'a'),
+(39, 'No', 'No', '0', 9, 'b'),
+(40, 'a)', 'Redes sociales (Facebook, twitter, youtube, etc)			', '1', 10, 'a'),
+(41, 'b)', 'Portal (SEUAT)			', '1', 10, 'b'),
+(42, 'c)', 'Radio			', '1', 10, 'c'),
+(43, 'd)', 'Espectaculares			', '1', 10, 'd'),
+(44, 'e)', 'Prensa			', '1', 10, 'e'),
+(45, 'f)', 'Ferias y Exposiciones			', '1', 10, 'f'),
+(46, 'g)', 'Otros			', '1', 10, 'g'),
+(47, 'Si', 'Si', '1', 11, 'a'),
+(48, 'No', 'No', '0', 11, 'b'),
+(49, 'Si', 'Si', '1', 12, 'a'),
+(50, 'No', 'No', '0', 12, 'b'),
+(51, 'Si', 'Si', '1', 13, 'a'),
+(52, 'No', 'No', '0', 13, 'b'),
+(53, 'abierta', 'opinion', '1', 14, '');
 
 -- --------------------------------------------------------
 
@@ -475,6 +609,40 @@ INSERT INTO `t_preguntas` (`id`, `nombre_pregunta`, `id_encuesta`, `id_subcatego
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `t_preguntas_hetero_ev_des_prog`
+--
+
+CREATE TABLE `t_preguntas_hetero_ev_des_prog` (
+  `id` int(11) NOT NULL,
+  `nombre_pregunta` varchar(500) DEFAULT NULL,
+  `id_encuesta` int(11) DEFAULT NULL,
+  `id_subcategoria` int(11) DEFAULT NULL,
+  `tipo_opcion_respuesta` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `t_preguntas_hetero_ev_des_prog`
+--
+
+INSERT INTO `t_preguntas_hetero_ev_des_prog` (`id`, `nombre_pregunta`, `id_encuesta`, `id_subcategoria`, `tipo_opcion_respuesta`) VALUES
+(1, '¿Como considera la información proporcionada durante la inducción a la universidad?	', 7, 26, 'multiple'),
+(2, '¿Como considera la cantidad y calidad de la información proporcionada durante la inducción?	', 7, 26, 'multiple'),
+(3, '¿Como considera las actividades que se llevaron a cabo en la inducción a la universidad?	', 7, 26, 'multiple'),
+(4, '¿Como considera las dinámicas realizadas en las actividades de inducción a la univerisdad?', 7, 26, 'multiple'),
+(5, '¿Como considera la utilidad de la información porporcionada en la inducción a la universidad?', 7, 26, 'multiple'),
+(6, '¿Como considera el apoyo brindado por el personal encargado de la inducción a la universidad?	', 7, 26, 'multiple'),
+(7, '¿Como considera el dominio de los temas del personal encargado de la inducción? ', 7, 26, 'multiple'),
+(8, 'Señale las razones más importantes por las que eligio su carrera: <b>(marca sólo tres)</b>			', 7, 27, 'multiple'),
+(9, '¿Habia visto o escuchado antes algún anuncio de la Universidad  SEUAT?			', 7, 27, 'multiple'),
+(10, '¿Por qué medio se enteró de la universidad?			', 7, 27, 'multiple'),
+(11, '¿El medio por el cuál se enteró lo motivó a acercarse a la Universidad  SEUAT?			', 7, 27, 'multiple'),
+(12, '¿La información presentada en los medios le fue de utilidad?			', 7, 27, 'multiple'),
+(13, '¿La información proporcionada durante el curso de inducción le fue de utilidad?			', 7, 27, 'multiple'),
+(14, 'Nos importa lo que piensa, comparta sus comentarios', 7, 28, 'abierta');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `t_respuestas`
 --
 
@@ -489,6 +657,208 @@ CREATE TABLE `t_respuestas` (
   `estatus` int(11) DEFAULT NULL,
   `tiempo_dedicado` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `t_respuestas`
+--
+
+INSERT INTO `t_respuestas` (`id`, `id_encuesta`, `id_pregunta`, `id_materia`, `id_docente`, `id_alumno`, `id_opcion_respuesta`, `estatus`, `tiempo_dedicado`) VALUES
+(1785, 2, 2, 673, 131, 77, 1, 1, 100),
+(1786, 2, 3, 673, 131, 77, 2, 1, 100),
+(1787, 2, 4, 673, 131, 77, 1, 1, 100),
+(1788, 2, 5, 673, 131, 77, 1, 1, 100),
+(1789, 2, 6, 673, 131, 77, 2, 1, 100),
+(1790, 2, 7, 673, 131, 77, 1, 1, 100),
+(1791, 2, 8, 673, 131, 77, 4, 1, 100),
+(1792, 2, 9, 673, 131, 77, 2, 1, 100),
+(1793, 2, 10, 673, 131, 77, 1, 1, 100),
+(1794, 2, 11, 673, 131, 77, 2, 1, 100),
+(1795, 2, 12, 673, 131, 77, 1, 1, 100),
+(1796, 2, 13, 673, 131, 77, 4, 1, 100),
+(1797, 2, 14, 673, 131, 77, 2, 1, 100),
+(1798, 2, 15, 673, 131, 77, 3, 1, 100),
+(1799, 2, 16, 673, 131, 77, 1, 1, 100),
+(1800, 2, 17, 673, 131, 77, 2, 1, 100),
+(1801, 2, 18, 673, 131, 77, 1, 1, 100),
+(1802, 2, 19, 673, 131, 77, 2, 1, 100),
+(1803, 2, 20, 673, 131, 77, 3, 1, 100),
+(1804, 2, 21, 673, 131, 77, 1, 1, 100),
+(1805, 2, 22, 673, 131, 77, 1, 1, 100),
+(1806, 2, 23, 673, 131, 77, 3, 1, 100),
+(1807, 2, 24, 673, 131, 77, 1, 1, 100),
+(1808, 2, 25, 673, 131, 77, 4, 1, 100),
+(1809, 2, 26, 673, 131, 77, 2, 1, 100),
+(1810, 2, 27, 673, 131, 77, 1, 1, 100),
+(1811, 2, 28, 673, 131, 77, 2, 1, 100),
+(1812, 2, 29, 673, 131, 77, 1, 1, 100),
+(1813, 2, 30, 673, 131, 77, 2, 1, 100),
+(1814, 2, 31, 673, 131, 77, 3, 1, 100),
+(1815, 2, 32, 673, 131, 77, 1, 1, 100),
+(1816, 2, 33, 673, 131, 77, 1, 1, 100),
+(1817, 2, 34, 673, 131, 77, 3, 1, 100),
+(1818, 2, 35, 673, 131, 77, 2, 1, 100),
+(1819, 2, 36, 673, 131, 77, 3, 1, 100),
+(1820, 2, 37, 673, 131, 77, 2, 1, 100),
+(1821, 2, 38, 673, 131, 77, 1, 1, 100),
+(1822, 2, 39, 673, 131, 77, 2, 1, 100),
+(1823, 2, 40, 673, 131, 77, 3, 1, 100),
+(1824, 2, 41, 673, 131, 77, 2, 1, 100),
+(1825, 2, 42, 673, 131, 77, 2, 1, 100),
+(1826, 2, 43, 673, 131, 77, 2, 1, 100),
+(1827, 2, 44, 673, 131, 77, 1, 1, 100),
+(1828, 2, 45, 673, 131, 77, 3, 1, 100),
+(1829, 2, 46, 673, 131, 77, 2, 1, 100),
+(1830, 2, 47, 673, 131, 77, 1, 1, 100),
+(1831, 2, 48, 673, 131, 77, 3, 1, 100),
+(1832, 2, 49, 673, 131, 77, 2, 1, 100),
+(1833, 2, 50, 673, 131, 77, 3, 1, 100),
+(1834, 2, 2, 693, NULL, 78, 1, 1, 100),
+(1835, 2, 3, 693, NULL, 78, 2, 1, 100),
+(1836, 2, 4, 693, NULL, 78, 2, 1, 100),
+(1837, 2, 5, 693, NULL, 78, 2, 1, 100),
+(1838, 2, 6, 693, NULL, 78, 2, 1, 100),
+(1839, 2, 7, 693, NULL, 78, 3, 1, 100),
+(1840, 2, 8, 693, NULL, 78, 2, 1, 100),
+(1841, 2, 9, 693, NULL, 78, 4, 1, 100),
+(1842, 2, 10, 693, NULL, 78, 2, 1, 100),
+(1843, 2, 11, 693, NULL, 78, 1, 1, 100),
+(1844, 2, 12, 693, NULL, 78, 2, 1, 100),
+(1845, 2, 13, 693, NULL, 78, 3, 1, 100),
+(1846, 2, 14, 693, NULL, 78, 2, 1, 100),
+(1847, 2, 15, 693, NULL, 78, 1, 1, 100),
+(1848, 2, 16, 693, NULL, 78, 4, 1, 100),
+(1849, 2, 17, 693, NULL, 78, 2, 1, 100),
+(1850, 2, 18, 693, NULL, 78, 3, 1, 100),
+(1851, 2, 19, 693, NULL, 78, 1, 1, 100),
+(1852, 2, 20, 693, NULL, 78, 3, 1, 100),
+(1853, 2, 21, 693, NULL, 78, 2, 1, 100),
+(1854, 2, 22, 693, NULL, 78, 4, 1, 100),
+(1855, 2, 23, 693, NULL, 78, 1, 1, 100),
+(1856, 2, 24, 693, NULL, 78, 2, 1, 100),
+(1857, 2, 25, 693, NULL, 78, 3, 1, 100),
+(1858, 2, 26, 693, NULL, 78, 2, 1, 100),
+(1859, 2, 27, 693, NULL, 78, 1, 1, 100),
+(1860, 2, 28, 693, NULL, 78, 3, 1, 100),
+(1861, 2, 29, 693, NULL, 78, 4, 1, 100),
+(1862, 2, 30, 693, NULL, 78, 1, 1, 100),
+(1863, 2, 31, 693, NULL, 78, 3, 1, 100),
+(1864, 2, 32, 693, NULL, 78, 2, 1, 100),
+(1865, 2, 33, 693, NULL, 78, 1, 1, 100),
+(1866, 2, 34, 693, NULL, 78, 3, 1, 100),
+(1867, 2, 35, 693, NULL, 78, 1, 1, 100),
+(1868, 2, 36, 693, NULL, 78, 3, 1, 100),
+(1869, 2, 37, 693, NULL, 78, 2, 1, 100),
+(1870, 2, 38, 693, NULL, 78, 4, 1, 100),
+(1871, 2, 39, 693, NULL, 78, 1, 1, 100),
+(1872, 2, 40, 693, NULL, 78, 3, 1, 100),
+(1873, 2, 41, 693, NULL, 78, 2, 1, 100),
+(1874, 2, 42, 693, NULL, 78, 3, 1, 100),
+(1875, 2, 43, 693, NULL, 78, 4, 1, 100),
+(1876, 2, 44, 693, NULL, 78, 1, 1, 100),
+(1877, 2, 45, 693, NULL, 78, 3, 1, 100),
+(1878, 2, 46, 693, NULL, 78, 2, 1, 100),
+(1879, 2, 47, 693, NULL, 78, 1, 1, 100),
+(1880, 2, 48, 693, NULL, 78, 3, 1, 100),
+(1881, 2, 49, 693, NULL, 78, 2, 1, 100),
+(1882, 2, 50, 693, NULL, 78, 4, 1, 100),
+(1883, 2, 2, 693, NULL, 78, 2, 1, 100),
+(1884, 2, 3, 693, NULL, 78, 2, 1, 100),
+(1885, 2, 4, 693, NULL, 78, 1, 1, 100),
+(1886, 2, 5, 693, NULL, 78, 2, 1, 100),
+(1887, 2, 6, 693, NULL, 78, 1, 1, 100),
+(1888, 2, 7, 693, NULL, 78, 2, 1, 100),
+(1889, 2, 8, 693, NULL, 78, 1, 1, 100),
+(1890, 2, 9, 693, NULL, 78, 3, 1, 100),
+(1891, 2, 10, 693, NULL, 78, 3, 1, 100),
+(1892, 2, 11, 693, NULL, 78, 1, 1, 100),
+(1893, 2, 12, 693, NULL, 78, 1, 1, 100),
+(1894, 2, 13, 693, NULL, 78, 2, 1, 100),
+(1895, 2, 14, 693, NULL, 78, 2, 1, 100),
+(1896, 2, 15, 693, NULL, 78, 3, 1, 100),
+(1897, 2, 16, 693, NULL, 78, 4, 1, 100),
+(1898, 2, 17, 693, NULL, 78, 2, 1, 100),
+(1899, 2, 18, 693, NULL, 78, 1, 1, 100),
+(1900, 2, 19, 693, NULL, 78, 2, 1, 100),
+(1901, 2, 20, 693, NULL, 78, 2, 1, 100),
+(1902, 2, 21, 693, NULL, 78, 3, 1, 100),
+(1903, 2, 22, 693, NULL, 78, 4, 1, 100),
+(1904, 2, 23, 693, NULL, 78, 1, 1, 100),
+(1905, 2, 24, 693, NULL, 78, 1, 1, 100),
+(1906, 2, 25, 693, NULL, 78, 2, 1, 100),
+(1907, 2, 26, 693, NULL, 78, 3, 1, 100),
+(1908, 2, 27, 693, NULL, 78, 1, 1, 100),
+(1909, 2, 28, 693, NULL, 78, 2, 1, 100),
+(1910, 2, 29, 693, NULL, 78, 3, 1, 100),
+(1911, 2, 30, 693, NULL, 78, 2, 1, 100),
+(1912, 2, 31, 693, NULL, 78, 1, 1, 100),
+(1913, 2, 32, 693, NULL, 78, 3, 1, 100),
+(1914, 2, 33, 693, NULL, 78, 2, 1, 100),
+(1915, 2, 34, 693, NULL, 78, 3, 1, 100),
+(1916, 2, 35, 693, NULL, 78, 1, 1, 100),
+(1917, 2, 36, 693, NULL, 78, 3, 1, 100),
+(1918, 2, 37, 693, NULL, 78, 2, 1, 100),
+(1919, 2, 38, 693, NULL, 78, 1, 1, 100),
+(1920, 2, 39, 693, NULL, 78, 4, 1, 100),
+(1921, 2, 40, 693, NULL, 78, 3, 1, 100),
+(1922, 2, 41, 693, NULL, 78, 2, 1, 100),
+(1923, 2, 42, 693, NULL, 78, 1, 1, 100),
+(1924, 2, 43, 693, NULL, 78, 3, 1, 100),
+(1925, 2, 44, 693, NULL, 78, 2, 1, 100),
+(1926, 2, 45, 693, NULL, 78, 2, 1, 100),
+(1927, 2, 46, 693, NULL, 78, 4, 1, 100),
+(1928, 2, 47, 693, NULL, 78, 1, 1, 100),
+(1929, 2, 48, 693, NULL, 78, 3, 1, 100),
+(1930, 2, 49, 693, NULL, 78, 2, 1, 100),
+(1931, 2, 50, 693, NULL, 78, 4, 1, 100),
+(1932, 2, 2, 707, 133, 78, 1, 1, 100),
+(1933, 2, 3, 707, 133, 78, 1, 1, 100),
+(1934, 2, 4, 707, 133, 78, 2, 1, 100),
+(1935, 2, 5, 707, 133, 78, 2, 1, 100),
+(1936, 2, 6, 707, 133, 78, 2, 1, 100),
+(1937, 2, 7, 707, 133, 78, 2, 1, 100),
+(1938, 2, 8, 707, 133, 78, 3, 1, 100),
+(1939, 2, 9, 707, 133, 78, 2, 1, 100),
+(1940, 2, 10, 707, 133, 78, 2, 1, 100),
+(1941, 2, 11, 707, 133, 78, 4, 1, 100),
+(1942, 2, 12, 707, 133, 78, 1, 1, 100),
+(1943, 2, 13, 707, 133, 78, 3, 1, 100),
+(1944, 2, 14, 707, 133, 78, 2, 1, 100),
+(1945, 2, 15, 707, 133, 78, 4, 1, 100),
+(1946, 2, 16, 707, 133, 78, 1, 1, 100),
+(1947, 2, 17, 707, 133, 78, 3, 1, 100),
+(1948, 2, 18, 707, 133, 78, 2, 1, 100),
+(1949, 2, 19, 707, 133, 78, 4, 1, 100),
+(1950, 2, 20, 707, 133, 78, 2, 1, 100),
+(1951, 2, 21, 707, 133, 78, 2, 1, 100),
+(1952, 2, 22, 707, 133, 78, 3, 1, 100),
+(1953, 2, 23, 707, 133, 78, 2, 1, 100),
+(1954, 2, 24, 707, 133, 78, 1, 1, 100),
+(1955, 2, 25, 707, 133, 78, 4, 1, 100),
+(1956, 2, 26, 707, 133, 78, 2, 1, 100),
+(1957, 2, 27, 707, 133, 78, 1, 1, 100),
+(1958, 2, 28, 707, 133, 78, 3, 1, 100),
+(1959, 2, 29, 707, 133, 78, 1, 1, 100),
+(1960, 2, 30, 707, 133, 78, 2, 1, 100),
+(1961, 2, 31, 707, 133, 78, 4, 1, 100),
+(1962, 2, 32, 707, 133, 78, 3, 1, 100),
+(1963, 2, 33, 707, 133, 78, 2, 1, 100),
+(1964, 2, 34, 707, 133, 78, 4, 1, 100),
+(1965, 2, 35, 707, 133, 78, 3, 1, 100),
+(1966, 2, 36, 707, 133, 78, 2, 1, 100),
+(1967, 2, 37, 707, 133, 78, 1, 1, 100),
+(1968, 2, 38, 707, 133, 78, 3, 1, 100),
+(1969, 2, 39, 707, 133, 78, 2, 1, 100),
+(1970, 2, 40, 707, 133, 78, 4, 1, 100),
+(1971, 2, 41, 707, 133, 78, 2, 1, 100),
+(1972, 2, 42, 707, 133, 78, 1, 1, 100),
+(1973, 2, 43, 707, 133, 78, 3, 1, 100),
+(1974, 2, 44, 707, 133, 78, 4, 1, 100),
+(1975, 2, 45, 707, 133, 78, 2, 1, 100),
+(1976, 2, 46, 707, 133, 78, 1, 1, 100),
+(1977, 2, 47, 707, 133, 78, 2, 1, 100),
+(1978, 2, 48, 707, 133, 78, 4, 1, 100),
+(1979, 2, 49, 707, 133, 78, 3, 1, 100),
+(1980, 2, 50, 707, 133, 78, 3, 1, 100);
 
 -- --------------------------------------------------------
 
@@ -680,6 +1050,75 @@ CREATE TABLE `t_respuestas_heteroevaluacion_docente` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `t_respuestas_hetero_ev_des_prog`
+--
+
+CREATE TABLE `t_respuestas_hetero_ev_des_prog` (
+  `id` int(11) NOT NULL,
+  `id_encuesta` int(11) DEFAULT NULL,
+  `id_pregunta` int(11) DEFAULT NULL,
+  `id_alumno` int(11) DEFAULT NULL,
+  `opcion_respuesta` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `plataforma` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `t_respuestas_hetero_ev_des_prog`
+--
+
+INSERT INTO `t_respuestas_hetero_ev_des_prog` (`id`, `id_encuesta`, `id_pregunta`, `id_alumno`, `opcion_respuesta`, `plataforma`) VALUES
+(437, 7, 1, 77, 'c', 'tuxtla.sm'),
+(438, 7, 2, 77, 'a', 'tuxtla.sm'),
+(439, 7, 3, 77, 'a', 'tuxtla.sm'),
+(440, 7, 4, 77, 'a', 'tuxtla.sm'),
+(441, 7, 5, 77, 'b', 'tuxtla.sm'),
+(442, 7, 6, 77, 'd', 'tuxtla.sm'),
+(443, 7, 7, 77, 'd', 'tuxtla.sm'),
+(444, 7, 8, 77, 'c', 'tuxtla.sm'),
+(445, 7, 8, 77, 'f', 'tuxtla.sm'),
+(446, 7, 8, 77, 'a', 'tuxtla.sm'),
+(447, 7, 9, 77, 'a', 'tuxtla.sm'),
+(448, 7, 10, 77, 'c', 'tuxtla.sm'),
+(449, 7, 11, 77, 'a', 'tuxtla.sm'),
+(450, 7, 12, 77, 'a', 'tuxtla.sm'),
+(451, 7, 13, 77, 'b', 'tuxtla.sm'),
+(452, 7, 14, 77, 'mi opinion', 'tuxtla.sm'),
+(453, 7, 1, 79, 'a', 'tuxtla.sm'),
+(454, 7, 2, 79, 'a', 'tuxtla.sm'),
+(455, 7, 3, 79, 'a', 'tuxtla.sm'),
+(456, 7, 4, 79, 'a', 'tuxtla.sm'),
+(457, 7, 5, 79, 'a', 'tuxtla.sm'),
+(458, 7, 6, 79, 'a', 'tuxtla.sm'),
+(459, 7, 7, 79, 'a', 'tuxtla.sm'),
+(460, 7, 8, 79, 'a', 'tuxtla.sm'),
+(461, 7, 8, 79, 'b', 'tuxtla.sm'),
+(462, 7, 8, 79, 'c', 'tuxtla.sm'),
+(463, 7, 9, 79, 'a', 'tuxtla.sm'),
+(464, 7, 10, 79, 'a', 'tuxtla.sm'),
+(465, 7, 11, 79, 'a', 'tuxtla.sm'),
+(466, 7, 12, 79, 'a', 'tuxtla.sm'),
+(467, 7, 13, 79, 'a', 'tuxtla.sm'),
+(468, 7, 14, 79, 'no se que decir', 'tuxtla.sm'),
+(469, 7, 1, 81, 'b', 'tuxtla.ct'),
+(470, 7, 2, 81, 'c', 'tuxtla.ct'),
+(471, 7, 3, 81, 'd', 'tuxtla.ct'),
+(472, 7, 4, 81, 'd', 'tuxtla.ct'),
+(473, 7, 5, 81, 'd', 'tuxtla.ct'),
+(474, 7, 6, 81, 'd', 'tuxtla.ct'),
+(475, 7, 7, 81, 'd', 'tuxtla.ct'),
+(476, 7, 8, 81, 'i', 'tuxtla.ct'),
+(477, 7, 8, 81, 'e', 'tuxtla.ct'),
+(478, 7, 8, 81, 'h', 'tuxtla.ct'),
+(479, 7, 9, 81, 'b', 'tuxtla.ct'),
+(480, 7, 10, 81, 'd', 'tuxtla.ct'),
+(481, 7, 11, 81, 'b', 'tuxtla.ct'),
+(482, 7, 12, 81, 'b', 'tuxtla.ct'),
+(483, 7, 13, 81, 'b', 'tuxtla.ct'),
+(484, 7, 14, 81, 'Me vale jajjaja', 'tuxtla.ct');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `t_subcategoria_preguntas`
 --
 
@@ -709,7 +1148,10 @@ INSERT INTO `t_subcategoria_preguntas` (`id`, `nombre_subcategoria`, `id_categor
 (20, 'MATERIAL DE APOYO DIGITAL', 8),
 (21, 'ASPECTOS SOBRE EL CURSO IMPARTIDO', 9),
 (22, 'DOCENCIA', 2),
-(25, 'EVALUACION MODELO EDUCATIVO', 10);
+(25, 'EVALUACION MODELO EDUCATIVO', 10),
+(26, 'COMO CONSIDERA', 11),
+(27, 'TU OPINION NOS INTERESA', 12),
+(28, 'COMENTARIOS', 13);
 
 --
 -- Índices para tablas volcadas
@@ -768,6 +1210,13 @@ ALTER TABLE `t_opciones_respuestas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `t_opciones_respuestas_hetero_ev_des_prog`
+--
+ALTER TABLE `t_opciones_respuestas_hetero_ev_des_prog`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `t_opciones_respuestas_hetero_ev_des_prog_FK` (`id_pregunta`);
+
+--
 -- Indices de la tabla `t_opciones_respuestas_opcion_multiple`
 --
 ALTER TABLE `t_opciones_respuestas_opcion_multiple`
@@ -794,6 +1243,14 @@ ALTER TABLE `t_preguntas`
   ADD KEY `FK_t_preguntas_t_subcategoria_preguntas` (`id_subcategoria`),
   ADD KEY `FK_t_preguntas_t_encuesta` (`id_encuesta`),
   ADD KEY `FK_t_preguntas_t_respuestas` (`id_opciones_respuestas`) USING BTREE;
+
+--
+-- Indices de la tabla `t_preguntas_hetero_ev_des_prog`
+--
+ALTER TABLE `t_preguntas_hetero_ev_des_prog`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `t_preguntas_hetero_ev_des_prog_t_encuesta_FK` (`id_encuesta`),
+  ADD KEY `t_preguntas_hetero_ev_des_prog_t_subcategoria_preguntas_FK` (`id_subcategoria`);
 
 --
 -- Indices de la tabla `t_respuestas`
@@ -839,6 +1296,15 @@ ALTER TABLE `t_respuestas_heteroevaluacion_docente`
   ADD KEY `t_respuestas_heteroevaluacion_docente_FK_3` (`id_respuesta`);
 
 --
+-- Indices de la tabla `t_respuestas_hetero_ev_des_prog`
+--
+ALTER TABLE `t_respuestas_hetero_ev_des_prog`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `t_respuestas_hetero_ev_des_prog_FK` (`id_alumno`),
+  ADD KEY `t_respuestas_hetero_ev_des_prog_FK_1` (`id_encuesta`),
+  ADD KEY `t_respuestas_hetero_ev_des_prog_FK_2` (`id_pregunta`);
+
+--
 -- Indices de la tabla `t_subcategoria_preguntas`
 --
 ALTER TABLE `t_subcategoria_preguntas`
@@ -853,13 +1319,13 @@ ALTER TABLE `t_subcategoria_preguntas`
 -- AUTO_INCREMENT de la tabla `t_alumnos`
 --
 ALTER TABLE `t_alumnos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT de la tabla `t_categorias_preguntas`
 --
 ALTER TABLE `t_categorias_preguntas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `t_categoria_persona`
@@ -877,25 +1343,31 @@ ALTER TABLE `t_curso`
 -- AUTO_INCREMENT de la tabla `t_docente`
 --
 ALTER TABLE `t_docente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT de la tabla `t_encuesta`
 --
 ALTER TABLE `t_encuesta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `t_materias`
 --
 ALTER TABLE `t_materias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=672;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=710;
 
 --
 -- AUTO_INCREMENT de la tabla `t_opciones_respuestas`
 --
 ALTER TABLE `t_opciones_respuestas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT de la tabla `t_opciones_respuestas_hetero_ev_des_prog`
+--
+ALTER TABLE `t_opciones_respuestas_hetero_ev_des_prog`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT de la tabla `t_opciones_respuestas_opcion_multiple`
@@ -922,10 +1394,16 @@ ALTER TABLE `t_preguntas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=224;
 
 --
+-- AUTO_INCREMENT de la tabla `t_preguntas_hetero_ev_des_prog`
+--
+ALTER TABLE `t_preguntas_hetero_ev_des_prog`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
 -- AUTO_INCREMENT de la tabla `t_respuestas`
 --
 ALTER TABLE `t_respuestas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1785;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1981;
 
 --
 -- AUTO_INCREMENT de la tabla `t_respuestas_autoevaluacion_docente`
@@ -943,13 +1421,19 @@ ALTER TABLE `t_respuestas_evaluacion_modelo_educativo`
 -- AUTO_INCREMENT de la tabla `t_respuestas_heteroevaluacion_docente`
 --
 ALTER TABLE `t_respuestas_heteroevaluacion_docente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `t_respuestas_hetero_ev_des_prog`
+--
+ALTER TABLE `t_respuestas_hetero_ev_des_prog`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=485;
 
 --
 -- AUTO_INCREMENT de la tabla `t_subcategoria_preguntas`
 --
 ALTER TABLE `t_subcategoria_preguntas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- Restricciones para tablas volcadas
@@ -975,6 +1459,12 @@ ALTER TABLE `t_materias`
   ADD CONSTRAINT `t_materias_t_docente_FK` FOREIGN KEY (`id_docente`) REFERENCES `t_docente` (`id`);
 
 --
+-- Filtros para la tabla `t_opciones_respuestas_hetero_ev_des_prog`
+--
+ALTER TABLE `t_opciones_respuestas_hetero_ev_des_prog`
+  ADD CONSTRAINT `t_opciones_respuestas_hetero_ev_des_prog_FK` FOREIGN KEY (`id_pregunta`) REFERENCES `t_preguntas_hetero_ev_des_prog` (`id`);
+
+--
 -- Filtros para la tabla `t_opciones_respuestas_opcion_multiple`
 --
 ALTER TABLE `t_opciones_respuestas_opcion_multiple`
@@ -987,6 +1477,13 @@ ALTER TABLE `t_preguntas`
   ADD CONSTRAINT `FK_t_preguntas_t_encuesta` FOREIGN KEY (`id_encuesta`) REFERENCES `t_encuesta` (`id`),
   ADD CONSTRAINT `FK_t_preguntas_t_opciones_respuestas` FOREIGN KEY (`id_opciones_respuestas`) REFERENCES `t_opciones_respuestas` (`id`),
   ADD CONSTRAINT `FK_t_preguntas_t_subcategoria_preguntas` FOREIGN KEY (`id_subcategoria`) REFERENCES `t_subcategoria_preguntas` (`id`);
+
+--
+-- Filtros para la tabla `t_preguntas_hetero_ev_des_prog`
+--
+ALTER TABLE `t_preguntas_hetero_ev_des_prog`
+  ADD CONSTRAINT `t_preguntas_hetero_ev_des_prog_t_encuesta_FK` FOREIGN KEY (`id_encuesta`) REFERENCES `t_encuesta` (`id`),
+  ADD CONSTRAINT `t_preguntas_hetero_ev_des_prog_t_subcategoria_preguntas_FK` FOREIGN KEY (`id_subcategoria`) REFERENCES `t_subcategoria_preguntas` (`id`);
 
 --
 -- Filtros para la tabla `t_respuestas`
@@ -1025,6 +1522,14 @@ ALTER TABLE `t_respuestas_heteroevaluacion_docente`
   ADD CONSTRAINT `t_respuestas_heteroevaluacion_docente_FK_2` FOREIGN KEY (`id_docente`) REFERENCES `t_docente` (`id`),
   ADD CONSTRAINT `t_respuestas_heteroevaluacion_docente_FK_3` FOREIGN KEY (`id_respuesta`) REFERENCES `t_opciones_respuestas` (`id`),
   ADD CONSTRAINT `t_respuestas_heteroevaluacion_docente_FK_4` FOREIGN KEY (`id_curso`) REFERENCES `t_curso` (`id`);
+
+--
+-- Filtros para la tabla `t_respuestas_hetero_ev_des_prog`
+--
+ALTER TABLE `t_respuestas_hetero_ev_des_prog`
+  ADD CONSTRAINT `t_respuestas_hetero_ev_des_prog_FK` FOREIGN KEY (`id_alumno`) REFERENCES `t_alumnos` (`id`),
+  ADD CONSTRAINT `t_respuestas_hetero_ev_des_prog_FK_1` FOREIGN KEY (`id_encuesta`) REFERENCES `t_encuesta` (`id`),
+  ADD CONSTRAINT `t_respuestas_hetero_ev_des_prog_FK_2` FOREIGN KEY (`id_pregunta`) REFERENCES `t_preguntas_hetero_ev_des_prog` (`id`);
 
 --
 -- Filtros para la tabla `t_subcategoria_preguntas`

@@ -53,6 +53,9 @@
                 $this->views->getView($this,"reporteAutoEvaluacionDocente",$data);
             }if($_GET['id'] == 6){
                 $this->views->getView($this,"reporteModeloEducativo",$data);
+            }if($_GET['id'] == 7){
+                $data['page_functions_js'] = "functions_reporte_hetero_ev_des_prog.js";
+                $this->views->getView($this,"reporteHeteroEvaluacionEvDesProg",$data);
             }
     
         }
@@ -262,6 +265,88 @@
         // public function viewpdf(){
         //     $this->views->getView($this,"viewpdf",$data);
         // }
+
+        //Obtener Lista de Alumnos que han Contestado Encuesta en Heteroevaluacion - Evaluacion del Desempeño del Pograma
+        public function getAlumnosHeteroEvDesProg(){
+            $arrData = $this->model->selectAlumnosHeteroEvDesProg();
+
+            for($i = 0; $i<count($arrData); $i++){
+                $arrData[$i]['numeracion'] = $i+1;
+                $arrData[$i]['options'] = '
+                <div class="text-center">
+                <button type="button" class="btn btn-primary btn-sm" rl="'.$arrData[$i]['nombre_completo'].'" n="'.$arrData[$i]['id_alumno'].'" onclick="reporteIndModeloEduvativo(this)" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-eye"></i>
+                    Ver
+                </button>
+				</div>';
+            }
+            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+            die();
+        }
+        public function getTotalParticipantesPlantelHetEvDesProg(){
+            $arrData = $this->model->selectTotalParticipantesPlantelHetEvDesPro();
+            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+            die();
+        }
+        public function getRespuestasAlumnoHetEvDesProg(){
+            $id = $_GET['id'];
+            $arrData = $this->model->selectRespuestasAlumnoHetEvDesProg($id);
+            /* $array;
+            $array1;
+            foreach ($arrData as $key => $value) {
+               if($array[$value['id']] == ""){
+                   $array[$value['id']] = 0;
+               }
+               $array[$value['id']] += 1;
+            } 
+            foreach ($array as $key => $value) {
+                if($value <= 1){
+                    //$array1[$key] = $value;
+                    foreach ($arrData as $key1 => $value1) {
+                        $array1[$key] = $value1;
+                    }
+                }
+            } */
+            /* foreach ($arrData as $key => $value) {
+                if($preguntasRepetidas[$value['id']] == ""){
+                    $preguntasRepetidas[$value['id']] = 0;
+                }
+                $preguntasRepetidas[$value['id']] += 1;
+            } */
+            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+            die();
+        }
+        public function getOpcionResHetEvDesProg(){
+            $id = $_GET['id'];
+            $arrData = $this->model->selectOpRespuestasAlumnoHetEvDesProg($id);
+            $array;
+            foreach ($arrData as $key => $value) {
+                $array[0] .= "*".$value['nombre_respuesta']."<br>";
+                $array[1] = $value['nombre_pregunta'];
+            }
+            echo json_encode($array,JSON_UNESCAPED_UNICODE);
+            die();
+        }
+        public function getOpcionResHetEvDesProg1(){
+            $id = $_GET['id'];
+            $idP = $_GET['idP'];
+            $arrData = $this->model->selectOpRespuestasAlumnoHetEvDesProg1($id,$idP);
+            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+            die();
+        }
+        public function getNumeroHetEvDesProgPorPlantel(){
+            $idEn = $_GET['id'];
+            $Pla = $_GET['pl'];
+            $arrData = $this->model->selectNumeroHetEvDesPorPlantel($idEn,$Pla);
+            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+            die();
+        }
+        public function getRespuestasHetEvDesProgPorPlantel(){
+            $idP = $_GET['id'];
+            $pla = $_GET['pl'];
+            $arrData = $this->model->selectrespuestasHetEvDesProPorPlantel($idP,$pla);
+            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+            die();
+        }
         
     }
 

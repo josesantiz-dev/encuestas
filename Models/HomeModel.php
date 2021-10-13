@@ -36,9 +36,16 @@ class HomeModel extends Mysql
         $username = $data['username'];
         $nombre = $data['datos']['nombre'];
         $apellidos = $data['datos']['apellidos'];
-        $sql_datos_alumno = "INSERT INTO t_alumnos (nombre_usuario,nombre,apellidos) SELECT * FROM (SELECT '$username','$nombre','$apellidos')
-        AS al WHERE NOT EXISTS (SELECT nombre_usuario FROM t_alumnos WHERE nombre_usuario = '$username') LIMIT 1";
-        $request_datos_alumno = $this->insert($sql_datos_alumno,array($username,$nombre,$apellidos));
+        $exist = "SELECT *FROM t_alumnos WHERE nombre_usuario = '$username' LIMIT 1";
+        $request_esist = $this->select($exist);
+        $request;
+        if($request_esist){
+            $request = $request_esist;
+        }else{
+            $sql_datos_alumno = "INSERT INTO t_alumnos (nombre_usuario,nombre,apellidos) VALUES (?,?,?)";
+            $request_datos_alumno = $this->insert($sql_datos_alumno,array($username,$nombre,$apellidos));
+
+        }
         return $request_datos_alumno;
         
     }
@@ -264,9 +271,35 @@ class HomeModel extends Mysql
             $sql = "INSERT INTO t_respuestas_evaluacion_modelo_educativo (id_encuesta,id_pregunta,id_docente,id_opcion_respuesta,estatus,tiempo_dedicado)
                 VALUES (?,?,?,?,?,?)";
             $this->insert($sql,array(6,$numPregunta,$idDocente,$idOpcionRespuesta,1,100));
+        }
+        return $data;
+    }
+
+    public function guardarResultadoHetero_ev_des_prog_BD($data){
+        $usuario = $data['dat'][0]['u'];
+        $idEncuesta = $data['dat'][0]['id'];
+        $plataforma = $data['dat'][0]['p'];
+        $sql_alumno = "SELECT id FROM t_alumnos WHERE nombre_usuario = '$usuario'";
+        $id_alumno = $this->select($sql_alumno);
+        foreach ($data['res'] as $key => $value) {
+            $tipo = $value['tipo'];
+            if($tipo == "array"){
+                foreach ($value['datos'] as $key => $valores) {
+                    $sql_c = "INSERT INTO t_respuestas_hetero_ev_des_prog (id_encuesta,id_pregunta,id_alumno,opcion_respuesta,plataforma)
+                    VALUES (?,?,?,?,?)";
+                    $this->insert($sql_c,array($idEncuesta,$valores['id_pregunta'],$id_alumno['id'],$valores['respuesta'],$plataforma));
+                }
+            }else{
+                $id_pregunta = $value['id_pregunta'];
+                $respuesta = $value['respuesta'];
+                $sql = "INSERT INTO t_respuestas_hetero_ev_des_prog (id_encuesta,id_pregunta,id_alumno,opcion_respuesta,plataforma)
+                    VALUES (?,?,?,?,?)";
+                $this->insert($sql,array($idEncuesta,$id_pregunta,$id_alumno['id'],$respuesta,$plataforma));
+
+            }
             
         }
-        return $idDocente;
+        return $data;
     }
 
     /*Consultar preguntas Docente */
@@ -332,6 +365,45 @@ class HomeModel extends Mysql
         $sql = "SELECT *FROM t_opciones_respuestas_opcion_multiple";
         $request = $this->select_all($sql);
         return $request;
+    }
+    //Select a Lista de Encuestas Activas de Alumnos
+    function consultarListaEncuestasAlumno(){
+        $sql = "SELECT enc.id, enc.nombre_encuesta, enc.descripcion, enc.estatus FROM t_encuesta AS enc
+        INNER JOIN t_categoria_persona AS cat ON enc.id_categoria_persona = cat.id
+        WHERE cat.nombre_categoria_persona = 'Alumno' ORDER BY id DESC";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+    
+    function getPreguntasHeteroEvDesProg($data){
+        //$sql = "SELECT preg.id,preg.nombre_pregunta,preg.id_encuesta,preg.id_subcategoria,preg.tipo_opcion_respuesta,
+        //op.identificador,op.nombre_respuesta,op.puntos,op.id_pregunta FROM t_preguntas_hetero_ev_des_prog AS preg
+        //INNER JOIN t_opciones_respuestas_hetero_ev_des_prog AS op ON op.id_pregunta = preg.id
+        //WHERE preg.id_encuesta = 7";
+        $idEncuesta = $data['id_encuesta'];
+        $sql = "SELECT preg.id,preg.nombre_pregunta,preg.id_encuesta,preg.id_subcategoria,preg.tipo_opcion_respuesta FROM t_preguntas_hetero_ev_des_prog AS preg
+        WHERE preg.id_encuesta = $idEncuesta";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+    function selectOpcionesHeteroEcDesProg($datos){
+        $idEncuesta = $datos['id_encuesta'];
+        $sql = "SELECT preg.id,op.identificador,op.nombre_respuesta,op.puntos,op.id_pregunta,op.nombre_inciso FROM t_preguntas_hetero_ev_des_prog AS preg
+        INNER JOIN t_opciones_respuestas_hetero_ev_des_prog AS op ON op.id_pregunta = preg.id
+        WHERE preg.id_encuesta = $idEncuesta";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+    function selectStatusEncuesta($id, $u){
+        $sql = "SELECT * FROM t_alumnos 
+        WHERE nombre_usuario = '$u'";
+        $request = $this->select($sql);
+        $id_alumno = $request['id'];
+        $sql_a = "SELECT * FROM t_respuestas_hetero_ev_des_prog WHERE id_encuesta = $id AND id_alumno = $id_alumno";
+        $request_a = $this->select_all($sql_a);
+        if($request_a){
+            return "contestado";
+        }
     }
 }
 ?>
