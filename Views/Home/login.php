@@ -63,6 +63,7 @@
                                             <option value="tuxtla.sm">Tuxtla - Semestral</option>
                                             <option value="tuxtla.ct">Tuxtla - Cuatrimestral</option>
                                             <option value="prepaabierta">Tuxtla - Prepa Abierta</option>
+                                            <option value="secundaria">Tuxtla - Secundaria</option>
                                             <option value="tapachula.sm">Tapachula - Semestral</option>
                                             <option value="tapachula.ct">Tapachula - Cuatrimestral</option>
                                             <option value="tapilula.sm">Tapilula - Semestral</option>
