@@ -3,6 +3,8 @@
 <head>
 	<meta charset="utf-8">
   <meta name="robots" content="noindex,nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
 	<title><?php echo $data['page_tag']; ?></title>
 	<link rel="shortcut icon" href="<?= media();?>/images/icons/icon-48x48.png" />
 

@@ -188,16 +188,30 @@ class AdminModel extends Mysql{
     
 
     //Obtener Lista de Alumnos que contestaron la Encuesta en Heteroevaluacion - Evaluacion del Desempeño del Programa
-    public function selectAlumnosHeteroEvDesProg(){
+    /*public function selectAlumnosHeteroEvDesProg(){
         $sql = "SELECT res.id,CONCAT(al.nombre,' ',al.apellidos) AS nombre_completo,al.nombre,al.apellidos,res.plataforma,res.id_alumno AS id_alumno FROM t_respuestas_hetero_ev_des_prog AS res
         INNER JOIN t_alumnos AS al ON res.id_alumno = al.id
         GROUP BY res.id_alumno HAVING COUNT(*)>1";
         $request = $this->select_all($sql);
         return $request;
+    }*/
+    public function selectAlumnosHeteroEvDesProg(){
+        $sql = "SELECT res.id_alumno,CONCAT(al.nombre,' ',al.apellidos) AS nombre_completo,
+        al.nombre,al.apellidos,res.plataforma FROM t_respuestas_hetero_ev_des_prog AS res
+        INNER JOIN t_alumnos AS al ON res.id_alumno  = al.id 
+        GROUP BY res.id_alumno,res.plataforma  HAVING COUNT(*)>1";
+        $request = $this->select_all($sql);
+        return $request;
     }
-    public function selectTotalParticipantesPlantelHetEvDesPro(){
+    /*public function selectTotalParticipantesPlantelHetEvDesPro(){
         $sql = "SELECT * FROM t_respuestas_hetero_ev_des_prog
         GROUP BY id_alumno HAVING COUNT(*)>1";
+        $request = $this->select_all($sql);
+        return $request;
+    }*/
+    public function selectTotalParticipantesPlantelHetEvDesPro(){
+        $sql = "SELECT id_alumno,plataforma,id_encuesta FROM t_respuestas_hetero_ev_des_prog
+        GROUP BY id_alumno,plataforma,id_encuesta HAVING COUNT(*)>1";
         $request = $this->select_all($sql);
         return $request;
     }
@@ -234,7 +248,7 @@ class AdminModel extends Mysql{
         $plataforma = $pl;
         $sql = " SELECT res.id_pregunta FROM t_respuestas_hetero_ev_des_prog AS res 
         WHERE res.id_encuesta = $idencuesta
-        GROUP BY res.id_pregunta HAVING COUNT(*)>1";
+        GROUP BY res.id_pregunta HAVING COUNT(*)>1 ORDER BY res.id_pregunta ASC";
         $request = $this->select_all($sql);
         return $request;
     }

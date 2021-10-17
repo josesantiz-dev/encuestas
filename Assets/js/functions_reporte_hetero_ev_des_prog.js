@@ -134,7 +134,7 @@ function mostrarTabla(id){
     var contador = 0;
     for ( const [key,value] of Object.entries( plattaformaAlumno ) ) {
         contador += 1;
-        document.getElementById("valoresTabla").innerHTML +="<tr><td>"+contador+".</td><td>"+key+"</td><td>"+value+"</td><td><button type='button' class='btn btn-primary btn-sm' p='"+key+"' e='"+id+"' onclick='reporteIndModeloEduvativoPorPlataforma(this)'><i class='fas fa-eye'></i>Ver</button></td></tr>";
+        document.getElementById("valoresTabla").innerHTML +="<tr><td>"+contador+".</td><td>"+key+"</td><td>"+value+"</td><td><button type='button' class='btn btn-primary btn-sm' p='"+key+"' e='"+id+"' t='"+value+"' onclick='reporteIndModeloEduvativoPorPlataforma(this)'><i class='fas fa-eye'></i>Ver</button></td></tr>";
 
     }
 }
@@ -192,28 +192,71 @@ function reporteIndModeloEduvativoPorPlataforma(answer){
     document.querySelector('#cardPorPlataforma').style.display = "block";
     var idEncuesta = answer.getAttribute('e');
     var plataforma = answer.getAttribute('p');
+    var totalParticipante = answer.getAttribute('t');
     let url = base_url+"/Admin/getNumeroHetEvDesProgPorPlantel?id="+idEncuesta+"&pl="+plataforma;
     document.getElementById('reportePorPlataforma').innerHTML = "";
     fetch(url)
     .then(res => res.json())
     .then((out) =>{
+        var contador = 0;
         out.forEach(element => {
+            contador += 1;
             var idPregunta = element.id_pregunta;
-            let url1 = base_url+"/Admin/getRespuestasHetEvDesProgPorPlantel?id="+idPregunta+"&pl="+plataforma;
-            fetch(url1)
-            .then(res1 => res1.json())
-            .then((out1) => {
-                //console.log(out1);
-                if(out1.length >= 1){
-                    document.getElementById('reportePorPlataforma').innerHTML += "<h1 id='pregunta'>"+out1[0].nombre_pregunta+"</h1>";
-                    out1.forEach(element => {
-                        console.log(element);
-                        document.getElementById('reportePorPlataforma').innerHTML += "<h3 id='pregunta'>"+element.nombre_respuesta+" = "+element.puntos+"</h3>";
-
-                    });
+            var nombrePregunta = element.nombre_pregunta;
+            var respuestas = element.respuestas;
+            var puntosTotales = element.puntos_totales;
+            
+            var htmlPregunta = "<h5 class='card-title'>"+"<b>"+contador+".- </b>"+nombrePregunta+"</h5><br>";
+            var htmlTabla = "<div class='row'><div class='col-md-6 col-sm-12'><table class='table table-striped'><thead><tr><th scope='col'>#</th><th scope='col'>Respuesta</th><th scope='col'>Numero de respuestas</th></tr></thead><tbody id='respuestasTabla"+idPregunta+"'></tbody></table></div>";
+            var htmlGrafica = "<div class='col-md-6 col-sm-12'><canvas id='oilChart"+idPregunta+"' width='auto' height='auto'></canvas></div></div>";
+            if(element.nombre_pregunta != null){
+                document.getElementById('reportePorPlataforma').innerHTML += "<div class='card'><div class='card-body'>"+htmlPregunta+htmlTabla+htmlGrafica+"</div></div>";            
+            }
+            var contadorRespuestas = 0;
+            var sizeRespuestas = (Object.entries(respuestas).length);
+            for ( const [key,value] of Object.entries( respuestas ) ) {
+                contadorRespuestas += 1;
+                document.getElementById('respuestasTabla'+idPregunta+'').innerHTML += "<tr><th scope = 'row'>"+contadorRespuestas+"</th><td>"+key+"</td><td>"+value+"</td></tr>";
+                if(contadorRespuestas == sizeRespuestas){
+                    document.getElementById('respuestasTabla'+idPregunta+'').innerHTML += "<tr><th scope = 'row'><h5>Puntuación (promedio): <b>"+ puntosTotales/totalParticipante+" Puntos</b></h5></th><td></td><td></td></tr>";
                 }
-            }).catch(err =>{
-                throw err;
+            }
+        });
+        out.forEach(element1 => {
+            var nombreRespuestas = [];
+            var numeroRespuestas = [];
+            for ( const [key,value] of Object.entries(element1.respuestas ) ) {
+                nombreRespuestas.push(key);
+                numeroRespuestas.push(value);
+            }
+            var ctx = document.getElementById("oilChart"+element1.id_pregunta);
+            var myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: nombreRespuestas,
+                    datasets: [{
+                      data: numeroRespuestas,
+                      backgroundColor: [
+                        'rgba(255, 99, 132)',
+                        'rgba(54, 162, 235)',
+                        'rgba(255, 206, 86)',
+                        'rgba(75, 192, 192)',
+                        'rgba(153, 102, 255)',
+                        'rgba(255, 99, 132)',
+                        'rgba(54, 162, 235)',
+                        'rgba(255, 206, 86)',
+                        'rgba(75, 192, 192)',
+                        'rgba(153, 102, 255)',
+                        'rgba(255, 99, 132)',
+                        'rgba(54, 162, 235)',
+                        'rgba(255, 206, 86)',
+                        'rgba(75, 192, 192)',
+                        'rgba(153, 102, 255)',
+                        'rgba(255, 159, 64)'
+                      ],
+                      hoverOffset: 4
+                    }]
+                  }  
             });
         });
     }).catch(err =>{

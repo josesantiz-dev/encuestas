@@ -337,16 +337,33 @@
             $idEn = $_GET['id'];
             $Pla = $_GET['pl'];
             $arrData = $this->model->selectNumeroHetEvDesPorPlantel($idEn,$Pla);
-            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+            $array;
+            foreach ($arrData as $key => $value) {
+                $idPregunta = $value['id_pregunta'];
+                $valor = $this->model->selectrespuestasHetEvDesProPorPlantel($idPregunta,$Pla);
+                $respuestas;
+                $puntuacion = 0;
+                foreach ($valor as $key1 => $value1) {
+                    if($respuestas[$value1['nombre_respuesta']] == null){
+                        $respuestas[$value1['nombre_respuesta']] = 0; 
+                    }
+                    $respuestas[$value1['nombre_respuesta']] += 1;
+                    $puntuacion += $value1['puntos'];
+                }
+                $array[$key] =  array('id_pregunta' => $idPregunta,'nombre_pregunta' => $valor[0]['nombre_pregunta'],'respuestas' => $respuestas,'puntos_totales' => $puntuacion);
+                $respuestas = array();
+
+            }
+            echo json_encode($array,JSON_UNESCAPED_UNICODE);
             die();
         }
-        public function getRespuestasHetEvDesProgPorPlantel(){
+      /*  public function getRespuestasHetEvDesProgPorPlantel(){
             $idP = $_GET['id'];
             $pla = $_GET['pl'];
             $arrData = $this->model->selectrespuestasHetEvDesProPorPlantel($idP,$pla);
             echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
             die();
-        }
+        }*/
         
     }
 
