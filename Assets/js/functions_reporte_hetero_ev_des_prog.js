@@ -207,7 +207,7 @@ function reporteIndModeloEduvativoPorPlataforma(answer){
             var puntosTotales = element.puntos_totales;
             
             var htmlPregunta = "<h5 class='card-title'>"+"<b>"+contador+".- </b>"+nombrePregunta+"</h5><br>";
-            var htmlTabla = "<div class='row'><div class='col-md-6 col-sm-12'><table class='table table-striped'><thead><tr><th scope='col'>#</th><th scope='col'>Respuesta</th><th scope='col'>Numero de respuestas</th></tr></thead><tbody id='respuestasTabla"+idPregunta+"'></tbody></table></div>";
+            var htmlTabla = "<div class='row'><div class='col-md-6 col-sm-12'><table class='table table-striped'><thead><tr><th scope='col' style='width:10%'>#</th><th scope='col'>Respuesta</th><th scope='col'>Numero de respuestas</th></tr></thead><tbody id='respuestasTabla"+idPregunta+"'></tbody></table></div>";
             var htmlGrafica = "<div class='col-md-6 col-sm-12'><div id='oilChart"+idPregunta+"' width='auto' height='auto'></div></div></div>";
             if(element.nombre_pregunta != null){
                 document.getElementById('reportePorPlataforma').innerHTML += "<div class='card'><div class='card-body'>"+htmlPregunta+htmlTabla+htmlGrafica+"</div></div>";            
@@ -218,7 +218,7 @@ function reporteIndModeloEduvativoPorPlataforma(answer){
                 contadorRespuestas += 1;
                 document.getElementById('respuestasTabla'+idPregunta+'').innerHTML += "<tr><th scope = 'row'>"+contadorRespuestas+"</th><td>"+key+"</td><td>"+value+"</td></tr>";
                 if(contadorRespuestas == sizeRespuestas){
-                    document.getElementById('respuestasTabla'+idPregunta+'').innerHTML += "<tr><th scope = 'row'><h5>Puntuación (promedio): <b>"+ puntosTotales/totalParticipante+" Puntos</b></h5></th><td></td><td></td></tr>";
+                    document.getElementById('respuestasTabla'+idPregunta+'').innerHTML += "<tr><th scope = 'row'></th><td style='width:100%'><h5>Puntuación (promedio): <b>"+ puntosTotales/totalParticipante+" Puntos</b></h5></td></tr>";
                 }
             }
         });
