@@ -22,7 +22,12 @@
 <!-- AdminLTE App -->
 <script src="<?php echo media(); ?>/js/adminlte.js"></script>
 <!-- ChartJS -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js"></script>
+
+<!--Google Charts -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 <!-- Iconos -->
 <script src="<?php echo media(); ?>/js/app.js"></script>
 <!-- Funciones -->

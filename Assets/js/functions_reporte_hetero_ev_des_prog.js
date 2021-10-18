@@ -208,7 +208,7 @@ function reporteIndModeloEduvativoPorPlataforma(answer){
             
             var htmlPregunta = "<h5 class='card-title'>"+"<b>"+contador+".- </b>"+nombrePregunta+"</h5><br>";
             var htmlTabla = "<div class='row'><div class='col-md-6 col-sm-12'><table class='table table-striped'><thead><tr><th scope='col'>#</th><th scope='col'>Respuesta</th><th scope='col'>Numero de respuestas</th></tr></thead><tbody id='respuestasTabla"+idPregunta+"'></tbody></table></div>";
-            var htmlGrafica = "<div class='col-md-6 col-sm-12'><canvas id='oilChart"+idPregunta+"' width='auto' height='auto'></canvas></div></div>";
+            var htmlGrafica = "<div class='col-md-6 col-sm-12'><div id='oilChart"+idPregunta+"' width='auto' height='auto'></div></div></div>";
             if(element.nombre_pregunta != null){
                 document.getElementById('reportePorPlataforma').innerHTML += "<div class='card'><div class='card-body'>"+htmlPregunta+htmlTabla+htmlGrafica+"</div></div>";            
             }
@@ -223,42 +223,60 @@ function reporteIndModeloEduvativoPorPlataforma(answer){
             }
         });
         out.forEach(element1 => {
-            var nombreRespuestas = [];
-            var numeroRespuestas = [];
+            var mostrarRespuestas = [];
             for ( const [key,value] of Object.entries(element1.respuestas ) ) {
-                nombreRespuestas.push(key);
-                numeroRespuestas.push(value);
+                var array = [];
+                array.push(key);
+                array.push(value);
+                mostrarRespuestas.push(array);
             }
-            var ctx = document.getElementById("oilChart"+element1.id_pregunta);
-            var myChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: nombreRespuestas,
-                    datasets: [{
-                      data: numeroRespuestas,
-                      backgroundColor: [
-                        'rgba(255, 99, 132)',
-                        'rgba(54, 162, 235)',
-                        'rgba(255, 206, 86)',
-                        'rgba(75, 192, 192)',
-                        'rgba(153, 102, 255)',
-                        'rgba(255, 99, 132)',
-                        'rgba(54, 162, 235)',
-                        'rgba(255, 206, 86)',
-                        'rgba(75, 192, 192)',
-                        'rgba(153, 102, 255)',
-                        'rgba(255, 99, 132)',
-                        'rgba(54, 162, 235)',
-                        'rgba(255, 206, 86)',
-                        'rgba(75, 192, 192)',
-                        'rgba(153, 102, 255)',
-                        'rgba(255, 159, 64)'
-                      ],
-                      hoverOffset: 4
-                    }]
-                  }  
-            });
-        });
+            if(element1.id_pregunta != 8){
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+                function drawChart() {
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Topping');
+                    data.addColumn('number', 'Slices');
+                    data.addRows(mostrarRespuestas);
+                    var options = {'title':'',
+                        'width':'auto',
+                        'height':'auto'};
+                    var chart = new google.visualization.PieChart(document.getElementById("oilChart"+element1.id_pregunta));
+                    chart.draw(data, options);
+                }
+            }else{
+                var mostrarRespuestasBarra = [["Element","Alumnos",{role: "style"}]];
+                for ( const [key,value] of Object.entries(element1.respuestas ) ) {
+                    var array = [];
+                    var randomColor = Math.floor(Math.random()*16777215).toString(16);
+                    array.push(key);
+                    array.push(value);
+                    array.push(randomColor);
+                    mostrarRespuestasBarra.push(array);
+                }
+                google.charts.load("current", {packages:['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable(mostrarRespuestasBarra);
+                    var view = new google.visualization.DataView(data);
+                    view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+                    var options = {
+                        width: 600,
+                        height: 400,
+                        bar: {groupWidth: "95%"},
+                            legend: { position: "none" },
+                        };
+                    var chart = new google.visualization.ColumnChart(document.getElementById("oilChart"+element1.id_pregunta));
+                    chart.draw(view, options);
+                }
+            }    
+        })
     }).catch(err =>{
         throw err;
     });
