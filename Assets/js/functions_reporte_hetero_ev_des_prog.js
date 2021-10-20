@@ -137,14 +137,27 @@ function verGrafica(){
 function mostrarTabla(id){
     var contador = 0;
     //plattaformaAlumno = (Object.entries( plattaformaAlumno)).sort();
-    let entries = Object.entries(plattaformaAlumno);
-    let sorted = entries.reverse((a, b) => a[1] - b[1]);
+    //let entries = Object.entries(plattaformaAlumno);
+    //let sorted = entries.reverse((a, b) => a[1] - b[1]);
     /*for ( const [key,value] of Object.entries( sorted ) ) {
         contador += 1;
         document.getElementById("valoresTabla").innerHTML +="<tr><td>"+contador+".</td><td>"+key+"</td><td>"+value+"</td><td><button type='button' class='btn btn-primary btn-sm' p='"+key+"' e='"+id+"' t='"+value+"' onclick='reporteIndModeloEduvativoPorPlataforma(this)'><i class='fas fa-eye'></i>Ver</button></td></tr>";
 
     }*/
-    sorted.forEach(element => {
+    /*entries.forEach(element => {
+        contador += 1;
+        document.getElementById("valoresTabla").innerHTML +="<tr><td>"+contador+".</td><td>"+element[0]+"</td><td>"+element[1]+"</td><td><button type='button' class='btn btn-primary btn-sm' p='"+element[0]+"' e='"+id+"' t='"+element[1]+"' onclick='reporteIndModeloEduvativoPorPlataforma(this)'><i class='fas fa-eye'></i>Ver</button></td></tr>";
+    });*/
+
+    var sortable = [];
+    for (var vehicle in plattaformaAlumno) {
+        sortable.push([vehicle, plattaformaAlumno[vehicle]]);
+    }
+    sortable.entries(function(a, b) {
+        return a[1] - b[1];
+    });
+    sortable.forEach(element => {
+        console.log(element);
         contador += 1;
         document.getElementById("valoresTabla").innerHTML +="<tr><td>"+contador+".</td><td>"+element[0]+"</td><td>"+element[1]+"</td><td><button type='button' class='btn btn-primary btn-sm' p='"+element[0]+"' e='"+id+"' t='"+element[1]+"' onclick='reporteIndModeloEduvativoPorPlataforma(this)'><i class='fas fa-eye'></i>Ver</button></td></tr>";
     });
@@ -301,6 +314,7 @@ function mostrarReporteGeneral(plattaformaAlumno,idEncuesta){
     }
     let url = base_url+"/Admin/getReporteHetEvDesProgGral?idEncuesta="+idEncuesta;
     document.getElementById('reporteGeneral').innerHTML = "";
+    document.getElementById('reporteGeneral').innerHTML = "<div class='col-12 col-sm-6 col-md-3'><div class='info-box mb-3'><span class='info-box-icon bg-warning elevation-1'><i class='fas fa-users'></i></span><div class='info-box-content'><span class='info-box-text'>Total Participantes</span><span class='info-box-number'>"+totalParticipantes+"</span></div></div>";
     fetch(url)
     .then(res => res.json())
     .then((out) => {
