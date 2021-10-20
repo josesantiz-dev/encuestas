@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function(){
 		"aProcessing":true,
 		"aServerSide":true,
         "language": {
-        	//url:"<?php echo media(); ?>/plugins/Spanish.json"
         	"url": " "+base_url+"/Assets/plugins/Spanish.json"
         },
         "ajax":{
@@ -37,11 +36,11 @@ document.addEventListener('DOMContentLoaded', function(){
 	    "order": [[ 0, "asc" ]],
 	    "iDisplayLength": 25
     });
+    reporteTablaPlataformas(u);
 
 
 });
 $('#tableRoles').DataTable();
-
 
 //Funcion para obtener total de Participantes de una Encuesta del HeteroEvalaucionDocente*/
 function reporteEncuesta(answer){
@@ -358,11 +357,24 @@ function  reporteIndModeloEduvativo(answer){
               }
         })
 }
-// function reporteGeneralModeloEducativoDocente(){
-//     let url = base_url+"/Admin/getReporteGeneralModeloEducativoDocente";
-//     fetch(url)
-//         .then(res => res.json())
-//         .then((resultado) =>{
-//             //console.table(resultado);
-//         })
-// }
+function reporteTablaPlataformas(id){
+    var idEncuesta = id;
+    let url = base_url+"/Admin/getHeteroEvaluacionDocente?id="+idEncuesta;
+    var datosTabla = [];
+    fetch(url)
+        .then(res => res.json())
+        .then((resultado) => {
+            resultado.forEach(element => {
+                 if(datosTabla[element.plataforma] == undefined){
+                    datosTabla[element.plataforma] = 0;
+                }
+                datosTabla[element.plataforma] += 1; 
+                //datosTabla.push(element.plataforma);
+            });
+            var contador = 0;
+            for ( const [key,value] of Object.entries(datosTabla) ) {
+                contador += 1;
+                document.getElementById('tablePlataformas').innerHTML += "<tr><th>"+contador+"</th</tr>";
+            }
+        })   
+}

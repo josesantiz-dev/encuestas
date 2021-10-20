@@ -33,7 +33,7 @@ getModal('respuestasModal', $data);
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body row">
                                 <div class="col-12 col-xl-12">
                                     <div class="card">
                                         <div class="card-body">
@@ -56,6 +56,37 @@ getModal('respuestasModal', $data);
                                             </p>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-6 col-xl-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h3 class="card-title">Plataformas</h3>
+                                            <p class="card-text">
+                                            <table id="tablePlataformas" class="table table-bordered table-striped table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Plataforma</th>
+                                                        <th>Numero de Materias</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-xl-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h3 class="card-title">Grafica - Plataformas</h3>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-12">
                                     <div class="card">
                                         <div class="m-auto">
                                             <div class="row">
