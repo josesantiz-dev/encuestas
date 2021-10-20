@@ -262,5 +262,22 @@ class AdminModel extends Mysql{
         $request = $this->select_all($sql);
         return $request;
     }
+    public function selectNumeroHetEvDesGeneral($id){
+        $idencuesta = $id;
+        $sql = " SELECT res.id_pregunta FROM t_respuestas_hetero_ev_des_prog AS res 
+        WHERE res.id_encuesta = $idencuesta
+        GROUP BY res.id_pregunta HAVING COUNT(*)>1 ORDER BY res.id_pregunta ASC";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+    public function selectrespuestasHetEvDesProGeneral($idPregunta){
+        $idPregunta = $idPregunta;
+        $sql = "SELECT pre.id , pre.nombre_pregunta,pre.tipo_opcion_respuesta,op.nombre_respuesta,op.puntos FROM t_respuestas_hetero_ev_des_prog AS res 
+        INNER JOIN t_preguntas_hetero_ev_des_prog AS pre ON res.id_pregunta = pre.id
+        INNER JOIN t_opciones_respuestas_hetero_ev_des_prog AS op ON res.id_pregunta = op.id_pregunta
+        WHERE res.id_pregunta = $idPregunta AND res.opcion_respuesta = op.nombre_inciso";
+        $request = $this->select_all($sql);
+        return $request;
+    }
 }
 ?>
