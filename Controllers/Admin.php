@@ -382,13 +382,33 @@
             echo json_encode($array,JSON_UNESCAPED_UNICODE);
             die();
         }
-      /*  public function getRespuestasHetEvDesProgPorPlantel(){
-            $idP = $_GET['id'];
-            $pla = $_GET['pl'];
-            $arrData = $this->model->selectrespuestasHetEvDesProPorPlantel($idP,$pla);
-            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
-            die();
-        }*/
+
+
+      public function getReporteHetEvDesDocPorPlataforma(){
+          $plataforma = $_GET['id'];
+          $idEncuesta = $_GET['idenc'];
+          $array;
+          $totalParticipantes = $this->model->selectTotalPartHetEvDesDocPorPlataforma($plataforma,$idEncuesta);
+          $idPreguntas = $this->model->selectIdPreguntasHetEvDesDocPorPlataforma($plataforma,$idEncuesta);
+          foreach ($idPreguntas as $key => $value) {
+                $idPregunta = $value['id'];
+                $arrData = $this->model->selectReporteHetEvDesDocPorPlataforma($plataforma,$idEncuesta,$idPregunta);
+                $respuestas;
+                $puntuacion = 0;
+                foreach ($arrData as $key1 => $value1) {
+                    if($respuestas[$value1['nombre_respuesta']] == null){
+                        $respuestas[$value1['nombre_respuesta']] = 0; 
+                    }
+                    $respuestas[$value1['nombre_respuesta']] += 1;
+                    $puntuacion += $value1['puntuacion'];
+                }
+                arsort($respuestas);
+                $array[$key] =  array('id_pregunta' => $idPregunta,'nombre_pregunta' => $arrData[0]['nombre_pregunta'],'respuestas' => $respuestas,'puntos_totales' => $puntuacion,'total_participantes' => count($totalParticipantes));
+                $respuestas = array();
+          }
+          echo json_encode($array,JSON_UNESCAPED_UNICODE);
+          die();
+      }
         
     }
 

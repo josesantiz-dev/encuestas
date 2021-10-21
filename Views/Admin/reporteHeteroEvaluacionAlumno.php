@@ -57,21 +57,21 @@ getModal('respuestasModal', $data);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6 col-xl-6">
+                                <div class="col-6 col-xl-5">
                                     <div class="card">
                                         <div class="card-body">
                                             <h3 class="card-title">Plataformas</h3>
                                             <p class="card-text">
-                                            <table id="tablePlataformas" class="table table-bordered table-striped table-sm">
+                                            <table class="table table-bordered table-striped table-sm">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Plataforma</th>
-                                                        <th>Numero de Materias</th>
+                                                        <th>Numero de Materias evaluadas</th>
                                                         <th>Acciones</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody id="tablePlataformas">
                                                 </tbody>
                                             </table>
                                             </p>
@@ -176,6 +176,38 @@ getModal('respuestasModal', $data);
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="card card-primary card-outline" id="cardPorPlataforma" style="display:none">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="far fa-chart-bar"></i>
+                                                Reporte por Plataforma
+                                            </h3>
+                                            <div class="card-tools">
+                                                <ul class="nav nav-pills ml-auto">
+                                                    <li class="nav-item">
+                                                    </li>
+                                                    <li>
+                                                        <br>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                            <i class="fas fa-minus"></i>
+                                                        </button>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                            <i class="fas fa-times"></i>
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="card-body" id="reportePorPlataforma" style="display: block;">                                                       
                                         </div>
                                     </div>
                                 </div>

@@ -279,5 +279,44 @@ class AdminModel extends Mysql{
         $request = $this->select_all($sql);
         return $request;
     }
+
+
+
+
+
+    ///////////////////////////
+    public function selectTotalPartHetEvDesDocPorPlataforma($plataforma,$idEncuesta){
+        $plataforma = $plataforma;
+        $idEncuesta = $idEncuesta;
+        $sql = "SELECT res.id_alumno, mat.plataforma FROM t_respuestas AS res 
+        INNER JOIN t_materias AS mat ON res.id_materia = mat .id
+        WHERE res.id_encuesta = $idEncuesta AND mat.plataforma = '$plataforma' AND mat.id_docente != ''
+        GROUP BY res.id_alumno HAVING COUNT(*)>1";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+    public function selectIdPreguntasHetEvDesDocPorPlataforma($plataforma,$idEncuesta){
+        $plataforma = $plataforma;
+        $idEncuesta = $idEncuesta;
+        $sql = "SELECT pre.id FROM t_respuestas AS res 
+        INNER JOIN t_materias AS mat ON res.id_materia = mat .id
+        INNER JOIN t_preguntas AS pre ON res.id_pregunta = pre.id
+        INNER JOIN t_opciones_respuestas AS op ON res.id_opcion_respuesta = op .id 
+        WHERE res.id_encuesta = $idEncuesta AND mat.plataforma = '$plataforma' AND mat.id_docente != ''
+        GROUP BY pre.id";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+    public function selectReporteHetEvDesDocPorPlataforma($plataforma, $idEncuesta,$idPregunta){
+        $plataforma = $plataforma;
+        $idEncuesta = $idEncuesta;
+        $sql = "SELECT pre.id,mat.plataforma,pre.nombre_pregunta,op.nombre_respuesta,op.puntuacion FROM t_respuestas AS res 
+        INNER JOIN t_materias AS mat ON res.id_materia = mat .id
+        INNER JOIN t_preguntas AS pre ON res.id_pregunta = pre.id
+        INNER JOIN t_opciones_respuestas AS op ON res.id_opcion_respuesta = op .id 
+        WHERE res.id_encuesta = $idEncuesta AND mat.plataforma = '$plataforma' AND pre.id = $idPregunta AND mat.id_docente != ''";
+        $request = $this->select_all($sql);
+        return $request;
+    }
 }
 ?>

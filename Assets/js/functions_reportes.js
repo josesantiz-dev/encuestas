@@ -374,7 +374,90 @@ function reporteTablaPlataformas(id){
             var contador = 0;
             for ( const [key,value] of Object.entries(datosTabla) ) {
                 contador += 1;
-                document.getElementById('tablePlataformas').innerHTML += "<tr><th>"+contador+"</th</tr>";
+                document.getElementById('tablePlataformas').innerHTML += "<tr><td>"+contador+"</td><td>"+key+"</td><td>"+value+"</td><td><button type='button' class='btn btn-primary btn-sm' p='"+key+"' idE='"+idEncuesta+"' onclick='reportePorPlataformaHetEvDesDoc(this)'><i class='fas fa-eye'></i>Ver</button></td></tr>";
             }
         })   
+}
+function reportePorPlataformaHetEvDesDoc(answer){
+    document.querySelector('#cardPorPlataforma').style.display = "block";
+   var plataforma = answer.getAttribute('p');
+   var idEncuesta = answer.getAttribute('idE');
+   let url = base_url+"/Admin/getReporteHetEvDesDocPorPlataforma?id="+plataforma+"&idenc="+idEncuesta;
+   fetch(url)
+   .then(res => res.json())
+   .then((resultado) => {
+       var contador = 0;
+       document.getElementById('reportePorPlataforma').innerHTML = "";
+       resultado.forEach(element => {
+           //console.log(element);
+           contador += 1;
+           var idPregunta = element.id_pregunta;
+           var nombrePregunta = element.nombre_pregunta;
+           var respuestas_p = element.respuestas;
+           var respuestas = [];
+           for ( const [key,value] of Object.entries(respuestas_p) ) {
+               if(key == 'S'){
+                   respuestas['Siempre'] = value;
+               }if(key == 'CS'){
+                respuestas['Casi siempre'] = value;
+
+               }if(key == 'AV'){
+                respuestas['A veces'] = value;
+
+               }if(key == 'N'){
+                respuestas['Nunca'] = value;
+
+                }
+            }
+           var puntosTotales = element.puntos_totales;
+           var totalParticipantes = element.total_participantes;
+            var htmlPregunta = "<h5 class='card-title'>"+"<b>"+contador+".- </b>"+nombrePregunta+"</h5><br>";
+            var htmlTabla = "<div class='row'><div class='col-md-6 col-sm-12'><table class='table table-striped'><thead><tr><th scope='col' style='width:10%'>#</th><th scope='col'>Respuesta</th><th scope='col'>Numero de respuestas</th></tr></thead><tbody id='respuestasTabla"+idPregunta+"'></tbody></table></div>";
+            var htmlGrafica = "<div class='col-md-6 col-sm-12'><div id='oilChart"+idPregunta+"' width='auto' height='auto'></div></div></div>";
+            document.getElementById('reportePorPlataforma').innerHTML += "<div class='card'><div class='card-body'>"+htmlPregunta+htmlTabla+htmlGrafica+"</div></div>";
+            var contadorRespuestas = 0;
+            var sizeRespuestas = (Object.entries(respuestas).length);
+            for ( const [key,value] of Object.entries( respuestas ) ) {
+                contadorRespuestas += 1;
+                document.getElementById('respuestasTabla'+idPregunta+'').innerHTML += "<tr><th scope = 'row'>"+contadorRespuestas+"</th><td>"+key+"</td><td>"+value+"</td></tr>";
+                if(contadorRespuestas == sizeRespuestas){
+                    document.getElementById('respuestasTabla'+idPregunta+'').innerHTML += "<tr><th scope = 'row'></th><td style='width:100%'><h5>Puntuación (promedio): <b>"+ (puntosTotales/totalParticipantes).toFixed(2)+" Puntos</b></h5></td></tr>";
+                }
+            }
+       });
+       resultado.forEach(element1 => {
+        var mostrarRespuestas = [];
+        for ( const [key,value] of Object.entries(element1.respuestas ) ) {
+            var array = [];
+             if(key == 'S'){
+                array.push('Siempre');
+                array.push(value);
+            }if(key == 'CS'){
+                array.push('Casi Siempre');
+                array.push(value);
+            }if(key == 'AV'){
+                array.push('A veces');
+                array.push(value);
+            }if(key == 'N'){
+                array.push('Nunca');
+                array.push(value);
+            } 
+            mostrarRespuestas.push(array);
+        }
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Topping');
+                data.addColumn('number', 'Slices');
+                data.addRows(mostrarRespuestas);
+                var options = {'title':'',
+                    'width':'auto',
+                    'height':'auto'};
+                var chart = new google.visualization.PieChart(document.getElementById("oilChart"+element1.id_pregunta));
+                chart.draw(data, options);
+            }
+         
+    })
+   })
 }
