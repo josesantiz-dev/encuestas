@@ -17,6 +17,8 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo media(); ?>/css/adminlte.min.css">
   <link rel="stylesheet" href="<?php echo media(); ?>/css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <!-- DataTables -->
   <link rel="stylesheet" href="<?php echo media(); ?>/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="<?php echo media(); ?>/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">

@@ -228,6 +228,33 @@
             die();
         }
 
+
+
+
+
+
+
+        /*Obtener Respuestas Global*/
+        public function getRespuestasGlobalPlataforma(){
+            $idEncuesta = $_GET['id'];
+            $plataforma = $_GET['pl'];
+            $arrData = $this->model->selectRespuestasGlobalPlataforma($idEncuesta,$plataforma);
+            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+            die();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
         public function getParticipantesHeteroevaluacion($idMateria)
         {
             $id = $idMateria;

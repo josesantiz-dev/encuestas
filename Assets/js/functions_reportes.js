@@ -2,6 +2,7 @@
 let url = new URLSearchParams(location.search);
 var u = url.get('id');
 var idMateria = "";
+var sizeResultados = 0;
 ////Mostrar en Datatable lista de Docetes Encuestados en Heteroevaluacion Alumno
 document.addEventListener('DOMContentLoaded', function(){
 	tableRoles = $('#tableRoles').dataTable( {
@@ -36,9 +37,7 @@ document.addEventListener('DOMContentLoaded', function(){
 	    "order": [[ 0, "asc" ]],
 	    "iDisplayLength": 25
     });
-    reporteTablaPlataformas(u);
-
-
+    respuestasGlobalPlataforma(u);
 });
 $('#tableRoles').DataTable();
 
@@ -53,13 +52,19 @@ function reporteEncuesta(answer){
         fetch(url)
             .then(res => res.json())
             .then((out) => {
-                document.getElementById("ct-libros").innerHTML = out['COUNT(*)'];
-                respuestas(id,out['COUNT(*)']);
-                mostrarListaParticipantes(id);
+                if(out){
+                    document.getElementById("ct-libros").innerHTML = out['COUNT(*)'];
+                    /*LLamar funcion y enviar id y total*/
+                    respuestas(id,out['COUNT(*)']);
+                    /*LLamar funcion mostrar Lista de Participantes y  mandar ID */
+                    mostrarListaParticipantes(id);
+                    $('html, body').animate({scrollTop:9999}, 'slow'); //seleccionamos etiquetas,clase o identificador destino, creamos animación hacia top de la página.
+		            return false;
+                }
             })
             .catch(err => { throw err });
 }
-
+/*Mostrar Lista de Participantes */
 function mostrarListaParticipantes(id)
 {
     datos = document.querySelector('#datos');
@@ -71,7 +76,6 @@ function mostrarListaParticipantes(id)
         idMateria = id;
         for (let i = 0; i < data.length; i++) {
             const nombre = 'ANÓNIMO';
-            //const nombre = data[i]['nombre']+" "+data[i]['apellidos'];
             datos.innerHTML += '<tr><td><a href="#" onClick="obtenerRespuestas(this)" rl="'+ data[i]['id_alumno'] +'">' + nombre + '<br></a></td></tr>';
         }
     })
@@ -124,7 +128,6 @@ function respuestas(valor,num){
         .then(res => res.json())
         .then((out) => {
             $.each(out,function(index,element){
-                
                 if(resultados[element.nombre_categoria]==undefined){
                     resultados[element.nombre_categoria] =0;
                 }
@@ -184,11 +187,6 @@ function mostrarTabla(resultados,categorias,puntuacionMaxima,num){
         contador += 1;
         total +=resultados[element]/num; 
         document.getElementById("valoresTabla").innerHTML +="<tr><td>"+contador+".</td><td>"+element+"</td><td><div class='progress progress-xs'><div class='progress-bar progress-bar-danger' style='width: "+(((resultados[element]*100)/puntuacionMaxima[contador-1])/num).toFixed(1)+"%'></div></div></td><td>"+(resultados[element]/num).toFixed(1)+"</td><td>"+(puntuacionMaxima[contador-1]).toFixed(1)+"</td></tr>";
-
-        
-        
-
-
     });
     document.getElementById("totalPunto").innerHTML ="<div class='text-center'><h3><b>Total:</b> "+(total).toFixed(1)+" de <small>"+147+" puntos</small></h3></div>";
 }
@@ -357,45 +355,112 @@ function  reporteIndModeloEduvativo(answer){
               }
         })
 }
-function reporteTablaPlataformas(id){
-    var idEncuesta = id;
-    let url = base_url+"/Admin/getHeteroEvaluacionDocente?id="+idEncuesta;
-    var datosTabla = [];
-    fetch(url)
-        .then(res => res.json())
-        .then((resultado) => {
-            resultado.forEach(element => {
-                 if(datosTabla[element.plataforma] == undefined){
-                    datosTabla[element.plataforma] = 0;
-                }
-                datosTabla[element.plataforma] += 1; 
-                //datosTabla.push(element.plataforma);
-            });
-            var contador = 0;
-            for ( const [key,value] of Object.entries(datosTabla) ) {
-                contador += 1;
-                document.getElementById('tablePlataformas').innerHTML += "<tr><td>"+contador+"</td><td>"+key+"</td><td>"+value+"</td><td><button type='button' class='btn btn-primary btn-sm' p='"+key+"' idE='"+idEncuesta+"' onclick='reportePorPlataformaHetEvDesDoc(this)'><i class='fas fa-eye'></i>Ver</button></td></tr>";
-            }
-        })   
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////
+/* Obtener Rrespuestas GLOBAL*/
+function plataformaSeleccionada(value){
+    var plataforma = value;
+    var idEncuesta = u;
+    respuestasGlobalPlataforma(idEncuesta,plataforma);
 }
-function reportePorPlataformaHetEvDesDoc(answer){
-    document.querySelector('#cardPorPlataforma').style.display = "block";
-   var plataforma = answer.getAttribute('p');
-   var idEncuesta = answer.getAttribute('idE');
-   let url = base_url+"/Admin/getReporteHetEvDesDocPorPlataforma?id="+plataforma+"&idenc="+idEncuesta;
-   fetch(url)
-   .then(res => res.json())
-   .then((resultado) => {
-       var contador = 0;
-       document.getElementById('reportePorPlataforma').innerHTML = "";
-       resultado.forEach(element => {
-           //console.log(element);
-           contador += 1;
-           var idPregunta = element.id_pregunta;
-           var nombrePregunta = element.nombre_pregunta;
-           var respuestas_p = element.respuestas;
-           var respuestas = [];
-           for ( const [key,value] of Object.entries(respuestas_p) ) {
+function respuestasGlobalPlataforma(idEncuesta,plataforma){
+    var plataforma = document.getElementById('listPlataformas').value;
+    let url = base_url+"/Admin/getRespuestasGlobalPlataforma?id="+idEncuesta+"&pl="+plataforma;
+    let resultados = [];
+    fetch(url)
+    .then(res => res.json())
+    .then((out) => {
+        sizeResultados = out.length;
+        var totalEvaluaciones = out.length/49;
+        out.forEach(element => {
+           if(resultados[element.nombre_categoria]==undefined){
+                resultados[element.nombre_categoria] =0;
+            }
+            resultados[element.nombre_categoria] += parseInt(element.puntuacion,10);
+            var valores = [];
+            Object.values(resultados).forEach(element => {
+                valores.push(element/totalEvaluaciones);
+            });
+        });
+        var categorias = [];
+        categorias = Object.keys(resultados);
+        var puntuacionMaxima = [12,84,15,15,21];
+        mostrarTablaGlobalPlataforma(resultados,categorias,puntuacionMaxima,totalEvaluaciones); //LLamar Funcion
+        mostrarGraficaGlobalPlataforma(resultados,categorias,puntuacionMaxima,totalEvaluaciones); //Lamar Funcion
+    })
+    .catch(err => { throw err });
+}
+/*Mostrar resultado Agrupado por Categoria en Tabla GLOBAL*/
+function mostrarTablaGlobalPlataforma(resultados,categorias,puntuacionMaxima,totalEvaluaciones){
+    var contador = 0;
+    document.getElementById("valoresTablaGlobal").innerHTML = null;
+    var total = 0;
+    categorias.forEach(element => {
+        contador += 1;
+        total +=resultados[element]/totalEvaluaciones; 
+        document.getElementById("valoresTablaGlobal").innerHTML +="<tr><td>"+contador+".</td><td>"+element+"</td><td><div class='progress progress-xs'><div class='progress-bar progress-bar-danger' style='width: "+(((resultados[element]*100)/puntuacionMaxima[contador-1])/totalEvaluaciones).toFixed(1)+"%'></div></div></td><td>"+(resultados[element]/totalEvaluaciones).toFixed(1)+"</td><td>"+(puntuacionMaxima[contador-1]).toFixed(1)+"</td></tr>";
+    });
+    document.getElementById("totalPuntoGlobal").innerHTML ="<div class='text-center'><h3><b>Total:</b> "+(total).toFixed(1)+" de <small>"+147+" puntos</small></h3></div>";
+}
+/*Mostrar resultado Agrupado por Categoria en Grafica GLOBAL*/
+function mostrarGraficaGlobalPlataforma(resultados,categorias,puntuacionMaxima,totalEvaluaciones){
+    var contador = 0;
+    var valores = [];
+    for ( const [key,value] of Object.entries(resultados) ) {
+        var values = [];
+        values.push(key);
+        values.push(parseInt((value/totalEvaluaciones).toFixed(0)));
+        valores.push(values);
+        values = [];
+    }
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows(valores);
+        var options = {'title':'',
+            'width':'100%',
+            'height':'400'};
+        var chart = new google.visualization.PieChart(document.getElementById("oilChartGlobalCategoria"));
+        chart.draw(data, options);
+    }
+}
+//Obtener rspuestas de la plataforma Seleccionada
+function fnRespuestasporPlataforma(answer){
+    if(sizeResultados == 0){
+        Swal.fire({
+            title: 'Alerta!',
+            text: "No hay datos de esa plataforma",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK'
+        })
+    }else{
+        $('#respuestasModal').modal('show');
+    }
+    var plataforma = document.getElementById('listPlataformas').value;
+    var idEncuesta = u;
+    let url = base_url+"/Admin/getReporteHetEvDesDocPorPlataforma?id="+plataforma+"&idenc="+idEncuesta;
+    document.getElementById('titulo-plataforma').innerHTML="<b>Plataforma:</b> "+plataforma;
+    fetch(url)
+    .then(res => res.json())
+    .then((resultado) => {
+        console.log(resultado);
+        var contador = 0;
+        document.getElementById('respuestasPorPlataformaGlobal').innerHTML = "";
+        resultado.forEach(element => {
+            contador += 1;
+            var idPregunta = element.id_pregunta;
+            var nombrePregunta = element.nombre_pregunta;
+            var respuestas_p = element.respuestas;
+            var respuestas = [];
+            for ( const [key,value] of Object.entries(respuestas_p) ) {
                if(key == 'S'){
                    respuestas['Siempre'] = value;
                }if(key == 'CS'){
@@ -409,12 +474,12 @@ function reportePorPlataformaHetEvDesDoc(answer){
 
                 }
             }
-           var puntosTotales = element.puntos_totales;
-           var totalParticipantes = element.total_participantes;
+            var puntosTotales = element.puntos_totales;
+            var totalParticipantes = element.total_participantes;
             var htmlPregunta = "<h5 class='card-title'>"+"<b>"+contador+".- </b>"+nombrePregunta+"</h5><br>";
             var htmlTabla = "<div class='row'><div class='col-md-6 col-sm-12'><table class='table table-striped'><thead><tr><th scope='col' style='width:10%'>#</th><th scope='col'>Respuesta</th><th scope='col'>Numero de respuestas</th></tr></thead><tbody id='respuestasTabla"+idPregunta+"'></tbody></table></div>";
             var htmlGrafica = "<div class='col-md-6 col-sm-12'><div id='oilChart"+idPregunta+"' width='auto' height='auto'></div></div></div>";
-            document.getElementById('reportePorPlataforma').innerHTML += "<div class='card'><div class='card-body'>"+htmlPregunta+htmlTabla+htmlGrafica+"</div></div>";
+            document.getElementById('respuestasPorPlataformaGlobal').innerHTML += "<div class='card'><div class='card-body'>"+htmlPregunta+htmlTabla+htmlGrafica+"</div></div>";
             var contadorRespuestas = 0;
             var sizeRespuestas = (Object.entries(respuestas).length);
             for ( const [key,value] of Object.entries( respuestas ) ) {
@@ -424,12 +489,12 @@ function reportePorPlataformaHetEvDesDoc(answer){
                     document.getElementById('respuestasTabla'+idPregunta+'').innerHTML += "<tr><th scope = 'row'></th><td style='width:100%'><h5>Puntuación (promedio): <b>"+ (puntosTotales/totalParticipantes).toFixed(2)+" Puntos</b></h5></td></tr>";
                 }
             }
-       });
-       resultado.forEach(element1 => {
+        });
+        resultado.forEach(element1 => {
         var mostrarRespuestas = [];
         for ( const [key,value] of Object.entries(element1.respuestas ) ) {
             var array = [];
-             if(key == 'S'){
+            if(key == 'S'){
                 array.push('Siempre');
                 array.push(value);
             }if(key == 'CS'){
@@ -444,20 +509,31 @@ function reportePorPlataformaHetEvDesDoc(answer){
             } 
             mostrarRespuestas.push(array);
         }
-            google.charts.load('current', {'packages':['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
-            function drawChart() {
-                var data = new google.visualization.DataTable();
-                data.addColumn('string', 'Topping');
-                data.addColumn('number', 'Slices');
-                data.addRows(mostrarRespuestas);
-                var options = {'title':'',
-                    'width':'auto',
-                    'height':'auto'};
-                var chart = new google.visualization.PieChart(document.getElementById("oilChart"+element1.id_pregunta));
-                chart.draw(data, options);
-            }
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Slices');
+            data.addRows(mostrarRespuestas);
+            var options = {'title':'',
+                'width':'auto',
+                'height':'auto'};
+            var chart = new google.visualization.PieChart(document.getElementById("oilChart"+element1.id_pregunta));
+            chart.draw(data, options);
+        }
          
-    })
+    });
    })
 }
+
+$(document).ready(function(){
+    $("#btnCerrarModal").click(function(){
+      $("#respuestasModal").modal('hide');
+    });
+});
+$(document).ready(function(){
+    $(".close").click(function(){
+      $("#respuestasModal").modal('hide');
+    });
+});

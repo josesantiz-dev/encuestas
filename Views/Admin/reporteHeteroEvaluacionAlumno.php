@@ -1,6 +1,6 @@
 <?php
 headerAdmin($data);
-getModal('respuestasModal', $data);
+    getModal('respuestasModal', $data);
 ?>
 <div id="contentAjax">
 </div>
@@ -57,32 +57,77 @@ getModal('respuestasModal', $data);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6 col-xl-5">
+                                <div class="col-lg-12">
                                     <div class="card">
-                                        <div class="card-body">
-                                            <h3 class="card-title">Plataformas</h3>
-                                            <p class="card-text">
-                                            <table class="table table-bordered table-striped table-sm">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Plataforma</th>
-                                                        <th>Numero de Materias evaluadas</th>
-                                                        <th>Acciones</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="tablePlataformas">
-                                                </tbody>
-                                            </table>
-                                            </p>
+                                        <div class = "card-header">Resultados por Categoria
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-xl-6">
-                                    <div class="card">
                                         <div class="card-body">
-                                            <h3 class="card-title">Grafica - Plataformas</h3>
-                                            
+                                            <div class="col-lg-12 row">
+                                                <div class="col-lg-4">
+                                                    <label>Selecciona una plataforma para ver el reporte</label>
+                                                    <select class="custom-select" id="listPlataformas" onchange="plataformaSeleccionada(value)">
+                                                        <option selected>Global</option>
+                                                        <option value="tuxtla.ct">Tuxtla Cuatrimestral</option>
+                                                        <option value="tuxtla.sm">Tuxtla Semestral</option>
+                                                        <option value="prepaabierta">Prepa Abierta</option>
+                                                        <option value="secundaria">Secundaria Abierta</option>
+                                                        <option value="tapachula.sm">Tapachula Semestral</option>
+                                                        <option value="tapachula.ct">Tapachula Cuatrimestral</option>
+                                                        <option value="tapilua.sm">Tapilula Semestral</option>
+                                                        <option value="tapilula.ct">Tapilula Cuatrimestral</option>
+                                                        <option value="reforma.sm">Reforma Semestral</option>
+                                                        <option value="reforma.ct">Reforma Cuatrimestral</option>
+                                                        <option value="yajalon.sm">Yajalon Semestral</option>
+                                                        <option value="yajalon.ct">Yajalon Cuatrimestral</option>
+                                                        <option value="oaxaca.sm">Oaxaca Semestral</option>
+                                                        <option value="oaxaca.ct">Oaxaca Cuatrimestral</option>
+                                                        <option value="campeche.sm">Campeche Semestral</option>
+                                                        <option value="campeche.ct">Campeche Cuatriemstral</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-8 text-center">
+                                                    <button type="button" class="btn btn-outline-primary" onclick='fnRespuestasporPlataforma(this)'><i class="fas fa-chart-pie"></i> Ver respuestas</button>
+                                                    <button type="button" class="btn btn-outline-primary" disabled><i class="fas fa-users"></i> Ver lista de Alumnos</button>
+                                                    <button type="button" class="btn btn-outline-primary" disabled><i class="fas fa-user-tie"></i> Ver lista de Docentes</button>
+                                                </div>
+                                            </div><br>
+                                            <div class="col-lg-12 row">
+                                                <div class="col-lg-6">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h3 class="card-title">Resultado Global por categoria</h3>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <table class="table table-bordered">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style="width: 10px">#</th>
+                                                                        <th>Categoria</th>
+                                                                        <th>Puntuación Máxima</th>
+                                                                        <th style="width: 40px">Puntos obtenidos</th>
+                                                                        <th>Puntuacion Máxima</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="valoresTablaGlobal">
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="card-footer clearfix" id="totalPuntoGlobal">
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                                <div class="col-lg-6">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h3 class="card-title">Resultado Global por categoria(Grafica)</h3>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div id='oilChartGlobalCategoria' width='auto' height='auto'>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -97,28 +142,8 @@ getModal('respuestasModal', $data);
                                                 <h4>Materia: </h4>
                                                 <p id="nombreDocente" class="ml-4"></p>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-3 col-12">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col mt-0">
-                                                            <h5 class="card-title">Total de Participantes</h5>
-                                                        </div>
-                                                        <div class="col-auto">
-                                                            <div class="avatar">
-                                                                <div class="avatar-title rounded-circle bg-primary-light">
-                                                                    <i class="ion-ios-book" style="zoom:2.0;"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <h1 class="mt-1 mb-3 font-weight-bold" id="ct-libros">#</h1>
-                                                    <div class="mb-0">
-                                                        <!--<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>-->
-                                                        <span class="text-muted">Alumnos le han evaluado</span>
-                                                    </div>
-                                                </div>
+                                            <div class="row">
+                                                <h4>Total de participantes: <h4 id="ct-libros"></h4></h4>
                                             </div>
                                         </div>
                                         <div class="row p-2">
@@ -179,40 +204,29 @@ getModal('respuestasModal', $data);
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-lg-12">
-                                    <div class="card card-primary card-outline" id="cardPorPlataforma" style="display:none">
-                                        <div class="card-header">
-                                            <h3 class="card-title">
-                                                <i class="far fa-chart-bar"></i>
-                                                Reporte por Plataforma
-                                            </h3>
-                                            <div class="card-tools">
-                                                <ul class="nav nav-pills ml-auto">
-                                                    <li class="nav-item">
-                                                    </li>
-                                                    <li>
-                                                        <br>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                            <i class="fas fa-minus"></i>
-                                                        </button>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                            <i class="fas fa-times"></i>
-                                                        </button>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="card-body" id="reportePorPlataforma" style="display: block;">                                                       
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODALES -->
+        <div class="modal fade" id="respuestasModal" tabindex="-1" aria-labelledby="respuestasModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Respuestas</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5 id="titulo-plataforma"></h5>
+                        <div id="respuestasPorPlataformaGlobal"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCerrarModal">Cerrar</button>
                     </div>
                 </div>
             </div>

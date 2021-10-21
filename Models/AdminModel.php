@@ -73,6 +73,30 @@ class AdminModel extends Mysql{
         return $request;
     }
 
+    /*Obtener todas las respuestas Global*/
+    public function selectRespuestasGlobalPlataforma($idEncuesta,$plataforma){
+        if($plataforma == 'Global'){
+            $sql = "SELECT res.id_pregunta,res.id_opcion_respuesta,op.nombre_respuesta,op.puntuacion,pr.id_subcategoria,sub.nombre_subcategoria,sub.id_categoria,cate.nombre_categoria FROM t_respuestas AS res
+            INNER JOIN t_opciones_respuestas AS op ON res.id_opcion_respuesta = op.id
+            INNER JOIN t_preguntas AS pr ON res.id_pregunta = pr.id
+            INNER JOIN t_materias AS mat ON res.id_materia = mat .id
+            INNER JOIN t_subcategoria_preguntas AS sub ON pr.id_subcategoria = sub.id
+            INNER JOIN t_categorias_preguntas AS cate ON sub.id_categoria = cate.id
+            WHERE mat.id_docente != '' AND res.id_encuesta = $idEncuesta";
+            $request = $this->select_all($sql);
+        }else{
+            $sql = "SELECT res.id_pregunta,res.id_opcion_respuesta,op.nombre_respuesta,op.puntuacion,pr.id_subcategoria,sub.nombre_subcategoria,sub.id_categoria,cate.nombre_categoria FROM t_respuestas AS res
+            INNER JOIN t_opciones_respuestas AS op ON res.id_opcion_respuesta = op.id
+            INNER JOIN t_preguntas AS pr ON res.id_pregunta = pr.id
+            INNER JOIN t_materias AS mat ON res.id_materia = mat .id
+            INNER JOIN t_subcategoria_preguntas AS sub ON pr.id_subcategoria = sub.id
+            INNER JOIN t_categorias_preguntas AS cate ON sub.id_categoria = cate.id
+            WHERE mat.id_docente != '' AND res.id_encuesta = $idEncuesta AND mat.plataforma = '$plataforma'";
+            $request = $this->select_all($sql);
+        }
+        return $request;
+    }
+
     //Obtener todas las respuestas del  AutoEvaluacion Docente por cada Participante
     public function selectRespuestasAutoEvaluacionDocente($data){
         $sql = "SELECT opc.nombre_respuesta,preg.nombre_pregunta,preg.id_subcategoria,sub.nombre_subcategoria FROM t_respuestas_autoevaluacion_docente AS res 
@@ -288,34 +312,61 @@ class AdminModel extends Mysql{
     public function selectTotalPartHetEvDesDocPorPlataforma($plataforma,$idEncuesta){
         $plataforma = $plataforma;
         $idEncuesta = $idEncuesta;
-        $sql = "SELECT res.id_alumno, mat.plataforma FROM t_respuestas AS res 
-        INNER JOIN t_materias AS mat ON res.id_materia = mat .id
-        WHERE res.id_encuesta = $idEncuesta AND mat.plataforma = '$plataforma' AND mat.id_docente != ''
-        GROUP BY res.id_alumno HAVING COUNT(*)>1";
-        $request = $this->select_all($sql);
+        if($plataforma == "Global"){
+            $sql = "SELECT res.id_alumno, mat.plataforma FROM t_respuestas AS res 
+            INNER JOIN t_materias AS mat ON res.id_materia = mat .id
+            WHERE res.id_encuesta = $idEncuesta AND mat.id_docente != ''
+            GROUP BY res.id_alumno HAVING COUNT(*)>1";
+            $request = $this->select_all($sql);
+        }else{
+            $sql = "SELECT res.id_alumno, mat.plataforma FROM t_respuestas AS res 
+            INNER JOIN t_materias AS mat ON res.id_materia = mat .id
+            WHERE res.id_encuesta = $idEncuesta AND mat.plataforma = '$plataforma' AND mat.id_docente != ''
+            GROUP BY res.id_alumno HAVING COUNT(*)>1";
+            $request = $this->select_all($sql);
+        }
         return $request;
     }
     public function selectIdPreguntasHetEvDesDocPorPlataforma($plataforma,$idEncuesta){
         $plataforma = $plataforma;
         $idEncuesta = $idEncuesta;
-        $sql = "SELECT pre.id FROM t_respuestas AS res 
-        INNER JOIN t_materias AS mat ON res.id_materia = mat .id
-        INNER JOIN t_preguntas AS pre ON res.id_pregunta = pre.id
-        INNER JOIN t_opciones_respuestas AS op ON res.id_opcion_respuesta = op .id 
-        WHERE res.id_encuesta = $idEncuesta AND mat.plataforma = '$plataforma' AND mat.id_docente != ''
-        GROUP BY pre.id";
-        $request = $this->select_all($sql);
+        if($plataforma == "Global"){
+            $sql = "SELECT pre.id FROM t_respuestas AS res 
+            INNER JOIN t_materias AS mat ON res.id_materia = mat .id
+            INNER JOIN t_preguntas AS pre ON res.id_pregunta = pre.id
+            INNER JOIN t_opciones_respuestas AS op ON res.id_opcion_respuesta = op .id 
+            WHERE res.id_encuesta = $idEncuesta AND mat.id_docente != ''
+            GROUP BY pre.id";
+            $request = $this->select_all($sql);
+        }else{
+            $sql = "SELECT pre.id FROM t_respuestas AS res 
+            INNER JOIN t_materias AS mat ON res.id_materia = mat .id
+            INNER JOIN t_preguntas AS pre ON res.id_pregunta = pre.id
+            INNER JOIN t_opciones_respuestas AS op ON res.id_opcion_respuesta = op .id 
+            WHERE res.id_encuesta = $idEncuesta AND mat.plataforma = '$plataforma' AND mat.id_docente != ''
+            GROUP BY pre.id";
+            $request = $this->select_all($sql);
+        }
         return $request;
     }
     public function selectReporteHetEvDesDocPorPlataforma($plataforma, $idEncuesta,$idPregunta){
         $plataforma = $plataforma;
         $idEncuesta = $idEncuesta;
-        $sql = "SELECT pre.id,mat.plataforma,pre.nombre_pregunta,op.nombre_respuesta,op.puntuacion FROM t_respuestas AS res 
-        INNER JOIN t_materias AS mat ON res.id_materia = mat .id
-        INNER JOIN t_preguntas AS pre ON res.id_pregunta = pre.id
-        INNER JOIN t_opciones_respuestas AS op ON res.id_opcion_respuesta = op .id 
-        WHERE res.id_encuesta = $idEncuesta AND mat.plataforma = '$plataforma' AND pre.id = $idPregunta AND mat.id_docente != ''";
-        $request = $this->select_all($sql);
+        if($plataforma == "Global"){
+            $sql = "SELECT pre.id,mat.plataforma,pre.nombre_pregunta,op.nombre_respuesta,op.puntuacion FROM t_respuestas AS res 
+            INNER JOIN t_materias AS mat ON res.id_materia = mat .id
+            INNER JOIN t_preguntas AS pre ON res.id_pregunta = pre.id
+            INNER JOIN t_opciones_respuestas AS op ON res.id_opcion_respuesta = op .id 
+            WHERE res.id_encuesta = $idEncuesta AND pre.id = $idPregunta AND mat.id_docente != ''";
+            $request = $this->select_all($sql);
+        }else{
+            $sql = "SELECT pre.id,mat.plataforma,pre.nombre_pregunta,op.nombre_respuesta,op.puntuacion FROM t_respuestas AS res 
+            INNER JOIN t_materias AS mat ON res.id_materia = mat .id
+            INNER JOIN t_preguntas AS pre ON res.id_pregunta = pre.id
+            INNER JOIN t_opciones_respuestas AS op ON res.id_opcion_respuesta = op .id 
+            WHERE res.id_encuesta = $idEncuesta AND mat.plataforma = '$plataforma' AND pre.id = $idPregunta AND mat.id_docente != ''";
+            $request = $this->select_all($sql);
+        }
         return $request;
     }
 }
