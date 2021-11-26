@@ -85,6 +85,12 @@
             $datos['plataforma'] = $plataforma;
             $datos['username'] = $username;
             $datos['id_encuesta'] = $idEncuesta;
+            if($idEncuesta == 8){
+                $datos['preguntas'] = $this->model->selectPreguntasGuia($datos);
+                $datos['respuesta'] = $this->model->selectOpcionesGuias($datos);
+                $datos['page_functions_js'] = "functions_evaluacion_guias.js";
+                $this->views->getView($this,"Home/evaluacion_guia_estudio",$datos);
+            }
             if($idEncuesta == 2){
                 $materias = $this->model->consultarMateriasAlumno($datos);
                 $datos['materias'] = $materias;
@@ -207,6 +213,26 @@
             $valor['dat'] = $valor_dat;
             $request = $this->model->guardarResultadoHetero_ev_des_prog_BD($valor);
             if($request){
+                echo json_encode($request,JSON_UNESCAPED_UNICODE);
+                die();
+            }
+        }
+
+        public function recRespuestasEvGuias(){
+            $valor_resp = $_GET['res'];
+            $valor_datos = $_GET['dat'];
+            $valor_respuesta = json_decode($valor_resp,JSON_UNESCAPED_UNICODE);
+            $valor_dat = json_decode($valor_datos, JSON_UNESCAPED_UNICODE);
+            $valor_datos = [];
+            foreach ($valor_dat[0] as $key => $value) {
+                $valor_datos[$key] = base64_decode($value);
+                
+            }
+            $datos['resp'] = $valor_respuesta;
+            $datos['datos'] = $valor_datos;
+            $request = $this->model->guardarResultadoEvGuias($datos);
+            if($request)
+            {
                 echo json_encode($request,JSON_UNESCAPED_UNICODE);
                 die();
             }

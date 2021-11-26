@@ -9,11 +9,11 @@
 		{
 			$controller->{$method}($params);
 		}else{
-			//echo "No existe el método";
-			require_once("controllers/Error.php");
+			echo "No existe el método";
+			//require_once("controllers/Error.php");
 		}
 	}else{
-		//echo "No existe controlador";
-		require_once("controllers/Error.php");
+		echo "No existe controlador";
+		//require_once("controllers/Error.php");
 	}
 ?>

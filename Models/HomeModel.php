@@ -302,6 +302,28 @@ class HomeModel extends Mysql
         return $data;
     }
 
+    public function guardarResultadoEvGuias($data){
+        $datos = $data['datos'];
+        $respuestas = $data['resp'];
+        $idEncuesta = $datos['id'];
+        $usuario = $datos['usr'];
+        $plataforma = $datos['plt'];
+        $sql_alumno = "SELECT id FROM t_alumnos WHERE nombre_usuario = '$usuario' LIMIT 1";
+        $request_alumno = $this->select($sql_alumno);
+        $idAlumnoBD = $request_alumno['id'];
+        
+        foreach ($respuestas as $value) {
+            $idPregunta = $value['id_pregunta'];
+            $idRespuesta = $value['respuesta'];
+            $comentario = $value['comentario'];
+            $sql = "INSERT INTO t_respuestas_ev_guia(id_encuesta,id_pregunta, id_respuesta, comentarios, id_alumno, plataforma) VALUES(?,?,?,?,?,?)";
+            $request = $this->insert($sql,array($idEncuesta, $idPregunta, $idRespuesta , $comentario, $idAlumnoBD,$plataforma));
+        }
+        return $request;
+    }
+
+    
+
     /*Consultar preguntas Docente */
     public function consultarPreguntasAutoevaluacion(){
         $sql = "SELECT t_preguntas.id AS id_pr, t_preguntas.nombre_pregunta AS nom_pr, t_subcategoria_preguntas.id as id_sub,
@@ -404,6 +426,28 @@ class HomeModel extends Mysql
         if($request_a){
             return "contestado";
         }
+        $sql_b = "SELECT * FROM t_respuestas_ev_guia WHERE id_encuesta = $id AND id_alumno=$id_alumno";
+        $request_b = $this->select_all($sql_b);
+        if($request_b){
+            return "contestado";
+        }
     }
+
+    function selectPreguntasGuia($data){
+        $idEncuesta = $data['id_encuesta'];
+        $sql = "SELECT id, nombre_pregunta FROM t_preguntas where id_encuesta = $idEncuesta";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+
+    function selectOpcionesGuias($data)
+    {
+        $idEncuesta = $data['id_encuesta'];
+        $sql = "SELECT * FROM t_opciones_respuestas_guias WHERE id_encuesta = $idEncuesta";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+
+    
 }
 ?>

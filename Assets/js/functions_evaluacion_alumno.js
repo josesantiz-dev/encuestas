@@ -3,7 +3,7 @@ var data_datos = [];
 let url = new URLSearchParams(location.search);
 var id = url.get('id');
 var plataforma = url.get('p');
-var usuario = url.get('u');
+var usuario = url.get('d');
 data_datos.push({id:id,plataforma:plataforma,usuario:usuario});
 $(document).ready(function(){
     
