@@ -55,6 +55,139 @@ getModal('respuestasModal', $data);
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-lg-6">
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="far fa-chart-bar"></i>
+                                                Total de Participantes por plataforma
+                                            </h3>
+                                        <div class="card-tools">
+                                            <ul class="nav nav-pills ml-auto">                                                            
+                                                <li class="nav-item">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 10px">#</th>
+                                                    <th>Plataforma</th>
+                                                    <th style="width: 10px">Numero de Participantes</th>
+                                                    <th style="width: 10px">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="valoresTabla">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                                            <div class="col-lg-6">
+                                                <div class="card card-primary card-outline">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title">
+                                                            <i class="far fa-chart-bar"></i>
+                                                                Grafica de todos los Planteles
+                                                        </h3>
+                                                        <div class="card-tools">
+                                                            <ul class="nav nav-pills ml-auto">
+                                                                <li class="nav-item">
+                                                                    <button type="button" onclick="verGrafica()" class="btn btn-primary">Ver Grafica</button>
+                                                                </li>
+                                                                <li>
+                                                                    <br>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                                        <i class="fas fa-minus"></i>
+                                                                    </button>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                                        <i class="fas fa-times"></i>
+                                                                    </button>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body" id="graficacion" style="display: block;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div><canvas id="myChart" width="591" height="295" style="display: block; height: 328px; width: 657px;" class="chartjs-render-monitor"></canvas><h1></h1></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="card card-primary card-outline" id="cardReporteGeneral" style="display:block">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title">
+                                                            <i class="far fa-chart-bar"></i>
+                                                                Reporte General
+                                                        </h3>
+                                                        <div class="card-tools">
+                                                            <ul class="nav nav-pills ml-auto">
+                                                                <li class="nav-item">
+                                                                </li>
+                                                                <li>
+                                                                    <br>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                                        <i class="fas fa-minus"></i>
+                                                                    </button>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                                        <i class="fas fa-times"></i>
+                                                                    </button>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body" id="reporteGeneral" style="display: block;">
+                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="card card-primary card-outline" id="cardPorPlataforma" style="display:none">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title" id="nombrePlataformaIndividual">
+                                                            
+                                                        </h3>
+                                                        <div class="card-tools">
+                                                            <ul class="nav nav-pills ml-auto">
+                                                                <li class="nav-item">
+                                                                </li>
+                                                                <li>
+                                                                    <br>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                                        <i class="fas fa-minus"></i>
+                                                                    </button>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                                        <i class="fas fa-times"></i>
+                                                                    </button>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body" id="reportePorPlataforma" style="display: block;">
+                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
                                 <!-- <div class="col-lg-12">
                                     <div class="card">
                                         <div class = "card-header">Resultados por Categoria

@@ -286,6 +286,15 @@ class AdminModel extends Mysql{
         $request = $this->select_all($sql);
         return $request;
     }
+    public function selectNumeroEvGuiasPorPlantel($id,$pl){
+        $idencuesta = $id;
+        $plataforma = $pl;
+        $sql = " SELECT res.id_pregunta FROM t_respuestas_ev_guia AS res 
+        WHERE res.id_encuesta = $idencuesta
+        GROUP BY res.id_pregunta HAVING COUNT(*)>1 ORDER BY res.id_pregunta ASC";
+        $request = $this->select_all($sql);
+        return $request;
+    }
     public function selectrespuestasHetEvDesProPorPlantel($id,$pl){
         $idPregunta = $id;
         $plataforma =$pl;
@@ -293,6 +302,16 @@ class AdminModel extends Mysql{
         INNER JOIN t_preguntas_hetero_ev_des_prog AS pre ON res.id_pregunta = pre.id
         INNER JOIN t_opciones_respuestas_hetero_ev_des_prog AS op ON res.id_pregunta = op.id_pregunta
         WHERE res.id_pregunta = $idPregunta AND res.plataforma = '$plataforma' AND res.opcion_respuesta = op.nombre_inciso";
+        $request = $this->select_all($sql);
+        return $request;
+    }
+    public function selectrespuestasEvGuiasProPorPlantel($id,$pl){
+        $idPregunta = $id;
+        $plataforma =$pl;
+        $sql = "SELECT pre.id,pre.nombre_pregunta,res.id_respuesta,op.nombre_respuesta FROM t_respuestas_ev_guia AS res
+        INNER JOIN t_preguntas AS pre ON res.id_pregunta = pre.id
+        INNER JOIN t_opciones_respuestas_guias AS op ON res.id_respuesta = op.id
+        WHERE res.id_pregunta = $idPregunta AND res.plataforma = '$plataforma' AND res.id_encuesta = 8";
         $request = $this->select_all($sql);
         return $request;
     }
@@ -304,6 +323,14 @@ class AdminModel extends Mysql{
         $request = $this->select_all($sql);
         return $request;
     }
+    public function selectNumeroEvGuiasGeneral($id){
+        $idencuesta = $id;
+        $sql = " SELECT res.id_pregunta FROM t_respuestas_ev_guia AS res 
+        WHERE res.id_encuesta = $idencuesta
+        GROUP BY res.id_pregunta HAVING COUNT(*)>1 ORDER BY res.id_pregunta ASC";
+        $request = $this->select_all($sql); 
+        return $request;
+    }
     public function selectrespuestasHetEvDesProGeneral($idPregunta){
         $idPregunta = $idPregunta;
         $sql = "SELECT pre.id , pre.nombre_pregunta,pre.tipo_opcion_respuesta,op.nombre_respuesta,op.puntos FROM t_respuestas_hetero_ev_des_prog AS res 
@@ -313,9 +340,15 @@ class AdminModel extends Mysql{
         $request = $this->select_all($sql);
         return $request;
     }
-
-
-
+    public function selectrespuestasHetEvGuiasGeneral($idPregunta){
+        $idPregunta = $idPregunta;
+        $sql = "SELECT pre.id,pre.nombre_pregunta,res.id_respuesta,op.nombre_respuesta FROM t_respuestas_ev_guia AS res
+        INNER JOIN t_preguntas AS pre ON res.id_pregunta = pre.id
+        INNER JOIN t_opciones_respuestas_guias AS op ON res.id_respuesta = op.id
+        WHERE res.id_pregunta = $idPregunta AND res.id_encuesta = 8";
+        $request = $this->select_all($sql);
+        return $request;
+    }
 
 
     ///////////////////////////
@@ -377,6 +410,11 @@ class AdminModel extends Mysql{
             WHERE res.id_encuesta = $idEncuesta AND mat.plataforma = '$plataforma' AND pre.id = $idPregunta AND mat.id_docente != ''";
             $request = $this->select_all($sql);
         }
+        return $request;
+    }
+    public function selectParticipantesPlataformaGuias(){
+        $sql = "SELECT id_alumno,plataforma,id_encuesta FROM t_respuestas_ev_guia GROUP BY id_alumno,plataforma,id_encuesta HAVING COUNT(*)>=1";
+        $request = $this->select_all($sql);
         return $request;
     }
 }

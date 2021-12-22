@@ -119,6 +119,11 @@
             echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
             die();
         }
+        public function getParticipantesPlataformaGuias(){
+            $arrData = $this->model->selectParticipantesPlataformaGuias();
+            echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+            die();
+        }
 
         /*Obtener lista de Participantes en HeteroEvaluacion Docente*/
         public function getHeteroEvaluacionDocente(){
@@ -381,6 +386,29 @@
             echo json_encode($array,JSON_UNESCAPED_UNICODE);
             die();
         }
+        public function getNumeroHetEvGuiasPorPlantel(){
+            $idEn = $_GET['id'];
+            $Pla = $_GET['pl'];
+            $arrData = $this->model->selectNumeroEvGuiasPorPlantel($idEn,$Pla);
+            $array;
+            foreach ($arrData as $key => $value) {
+                $idPregunta = $value['id_pregunta'];
+                $valor = $this->model->selectrespuestasEvGuiasProPorPlantel($idPregunta,$Pla);
+                $respuestas;
+                foreach ($valor as $key1 => $value1) {
+                    if($respuestas[$value1['nombre_respuesta']] == null){
+                        $respuestas[$value1['nombre_respuesta']] = 0; 
+                    }
+                    $respuestas[$value1['nombre_respuesta']] += 1;
+                }
+                arsort($respuestas);
+                $array[$key] =  array('id_pregunta' => $idPregunta,'nombre_pregunta' => $valor[0]['nombre_pregunta'],'respuestas' => $respuestas);
+                $respuestas = array();
+
+            }
+            echo json_encode($array,JSON_UNESCAPED_UNICODE);
+            die();
+        }
         public function getReporteHetEvDesProgGral(){
             $idEncuesta = $_GET['idEncuesta'];
             $arrData = $this->model->selectNumeroHetEvDesGeneral($idEncuesta);
@@ -399,6 +427,28 @@
                 }
                 arsort($respuestas);
                 $array[$key] =  array('id_pregunta' => $idPregunta,'nombre_pregunta' => $valor[0]['nombre_pregunta'],'respuestas' => $respuestas,'puntos_totales' => $puntuacion);
+                $respuestas = array();
+
+            }
+            echo json_encode($array,JSON_UNESCAPED_UNICODE);
+            die();
+        }
+        public function getReporteEvGuiasGral(){
+            $idEncuesta = $_GET['idEncuesta'];
+            $arrData = $this->model->selectNumeroEvGuiasGeneral($idEncuesta);
+            $array;
+            foreach ($arrData as $key => $value) {
+                $idPregunta = $value['id_pregunta'];
+                $valor = $this->model->selectrespuestasHetEvGuiasGeneral($idPregunta);
+                $respuestas;
+                foreach ($valor as $key1 => $value1) {
+                    if($respuestas[$value1['nombre_respuesta']] == null){
+                        $respuestas[$value1['nombre_respuesta']] = 0; 
+                    }
+                    $respuestas[$value1['nombre_respuesta']] += 1;
+                }
+                arsort($respuestas);
+                $array[$key] =  array('id_pregunta' => $idPregunta,'nombre_pregunta' => $valor[0]['nombre_pregunta'],'respuestas' => $respuestas);
                 $respuestas = array();
 
             }
