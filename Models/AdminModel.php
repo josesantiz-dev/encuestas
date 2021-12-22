@@ -26,6 +26,16 @@ class AdminModel extends Mysql{
         return $request;
     }
 
+    public function selectEvGuiaParticipantes(){
+        $sql = "SELECT alm.nombre, alm.apellidos, resp_guia.plataforma
+        FROM t_alumnos as alm
+        INNER JOIN t_respuestas_ev_guia as resp_guia 
+        ON alm.id = resp_guia.id_alumno 
+        WHERE id_encuesta = 8
+        GROUP BY apellidos";
+        $request = $this->select_all($sql);
+        return $request;
+    }
     /*Obtener Lista de Participantes en HeteroEvaluacionDocente*/
     public function selectheteroEvalaucionDocente($data){
         /*$sql = "SELECT res.id,res.id_materia,CONCAT(doc.nombre_docente,' ',doc.apellidos_docente)AS nombreDocente,mat.nombre_materia,

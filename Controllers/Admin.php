@@ -56,6 +56,9 @@
             }if($_GET['id'] == 7){
                 $data['page_functions_js'] = "functions_reporte_hetero_ev_des_prog.js";
                 $this->views->getView($this,"reporteHeteroEvaluacionEvDesProg",$data);
+            }if($_GET['id'] == 8){
+                $data['page_functions_js'] = "functions_reporte_ev_guias.js";
+                $this->views->getView($this, "reporteEvaluacionGuias",$data);
             }
     
         }
@@ -104,6 +107,17 @@
                 }
                 echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
                 die();
+        }
+
+        /*Obtener lista de participantes de Evaluacion de guías*/
+        public function getEvGuiasParticipantes(){
+            $arrData = $this->model->selectEvGuiaParticipantes();
+            for($i = 0; $i < count($arrData); $i++)
+            {
+                $arrData[$i]['numeracion'] = $i+1;
+            }
+            echo json_encode($arrData, JSON_UNESCAPED_UNICODE);
+            die();
         }
 
         /*Obtener lista de Participantes en HeteroEvaluacion Docente*/
@@ -228,12 +242,6 @@
             die();
         }
 
-
-
-
-
-
-
         /*Obtener Respuestas Global*/
         public function getRespuestasGlobalPlataforma(){
             $idEncuesta = $_GET['id'];
@@ -242,19 +250,7 @@
             echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
             die();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
         public function getParticipantesHeteroevaluacion($idMateria)
         {
             $id = $idMateria;
